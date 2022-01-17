@@ -3,36 +3,42 @@ package entity;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "card")
 public class Card {
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String title;
 	private Date deadline;
+	@Column(name = "estimated_time")
 	private int estimatedTime;
+	@ManyToMany
+	@JoinTable(name = "card_tag", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id"))
 	private List<Tag> tags;
 	private String location;
 	private String url;
 	private String description;
+	@ManyToOne
 	private Section section;
-	private User creator;
-	private User assignee;
 
 	public Card() {
 	}
 
-	public Card(String title, Date deadline, User creator) {
+	public Card(String title, Date deadline) {
 		this.title = title;
 		this.deadline = deadline;
-		this.creator = creator;
 	}
 
 	public String getTitle() {
@@ -83,15 +89,6 @@ public class Card {
 		this.description = description;
 	}
 
-	public User getAssignee() {
-		return assignee;
-	}
-
-	public void setAssignee(User assignee) {
-		this.assignee = assignee;
-	}
-	
-
 	public long getId() {
 		return id;
 	}
@@ -102,10 +99,6 @@ public class Card {
 
 	public Section getSection() {
 		return section;
-	}
-
-	public User getCreator() {
-		return creator;
 	}
 
 }

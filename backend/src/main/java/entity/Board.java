@@ -1,32 +1,30 @@
 package entity;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "board")
 public class Board {
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String title;
+	@OneToMany(mappedBy = "board")
 	private List<Section> sections;
-	private User creator;
-	private Set<User> members;
 
 	public Board() {
 
 	}
 
-	public Board(String title, User creator) {
+	public Board(String title) {
 		this.title = title;
-		this.creator = creator;
 	}
 
 	public String getTitle() {
@@ -37,21 +35,12 @@ public class Board {
 		this.title = title;
 	}
 
-
 	public long getId() {
 		return id;
 	}
 
 	public List<Section> getSections() {
 		return sections;
-	}
-
-	public User getCreator() {
-		return creator;
-	}
-
-	public Set<User> getMembers() {
-		return members;
 	}
 
 }

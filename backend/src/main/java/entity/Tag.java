@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,18 +10,15 @@ import javax.persistence.Table;
 @Table(name = "tag")
 public class Tag {
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String title;
-	private Set<Card> cards;
-	private User creator;
 
 	public Tag() {
 	}
 
-	public Tag(String title, User creator) {
+	public Tag(String title) {
 		this.title = title;
-		this.creator = creator;
 	}
 
 	public String getTitle() {
@@ -36,14 +31,6 @@ public class Tag {
 
 	public long getId() {
 		return id;
-	}
-
-	public Set<Card> getCards() {
-		return cards;
-	}
-
-	public User getCreator() {
-		return creator;
 	}
 
 }

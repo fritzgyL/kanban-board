@@ -6,25 +6,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "section")
 public class Section {
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String title;
+	@ManyToOne
 	private Board board;
+	@OneToMany(mappedBy = "section")
 	private List<Card> cards;
-	private User creator;
 
 	public Section() {
 	}
 
-	public Section(String title, User creator) {
+	public Section(String title) {
 		this.title = title;
-		this.creator = creator;
 	}
 
 	public String getTitle() {
@@ -34,7 +36,6 @@ public class Section {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
 
 	public long getId() {
 		return id;
@@ -46,10 +47,6 @@ public class Section {
 
 	public List<Card> getCards() {
 		return cards;
-	}
-
-	public User getCreator() {
-		return creator;
 	}
 
 }
