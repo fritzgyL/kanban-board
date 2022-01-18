@@ -1,3 +1,4 @@
+package jaxrs;
 
 import io.undertow.Undertow;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;

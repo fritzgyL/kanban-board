@@ -10,7 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity(name = "board")
 @Table(name = "board")
 public class Board {
 	@Id
@@ -18,6 +20,7 @@ public class Board {
 	private long id;
 	private String title;
 	@OneToMany(mappedBy = "board")
+	@JsonManagedReference
 	private List<Section> sections = new ArrayList<Section>();
 
 	public Board() {

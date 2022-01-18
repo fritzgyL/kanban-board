@@ -13,6 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -32,6 +35,7 @@ public class Card {
 	private String url;
 	private String description;
 	@ManyToOne
+	@JsonBackReference
 	private Section section;
 
 	public Card() {

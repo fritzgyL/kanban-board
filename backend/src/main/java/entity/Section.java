@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "section")
 public class Section {
@@ -19,8 +22,10 @@ public class Section {
 	private long id;
 	private String title;
 	@ManyToOne
+	@JsonBackReference
 	private Board board;
 	@OneToMany(mappedBy = "section")
+	@JsonManagedReference
 	private List<Card> cards = new ArrayList<Card>();
 
 	public Section() {

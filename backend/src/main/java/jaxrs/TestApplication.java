@@ -1,3 +1,4 @@
+package jaxrs;
 
 /**
  * JBoss, Home of Professional Open Source
@@ -22,6 +23,7 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import rest.BoardResource;
 
 public class TestApplication extends Application {
 
@@ -30,8 +32,8 @@ public class TestApplication extends Application {
 
 		final Set<Class<?>> clazzes = new HashSet<Class<?>>();
 
-		//clazzes.add(PetResource.class);
-		clazzes.add(OpenApiResource.class);
+		clazzes.add(BoardResource.class);
+		//clazzes.add(OpenApiResource.class);
 
 		return clazzes;
 	}
