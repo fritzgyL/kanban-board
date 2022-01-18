@@ -1,6 +1,7 @@
 package service;
 
 import entity.Card;
+import entity.Tag;
 import repository.CardRepository;
 
 public class CardService implements Service<Card> {
@@ -9,7 +10,7 @@ public class CardService implements Service<Card> {
 
 	@Override
 	public Iterable<Card> getAll() {
-		return cardRepository.findAll();
+		return null;
 	}
 
 	@Override
@@ -28,9 +29,12 @@ public class CardService implements Service<Card> {
 	}
 
 	@Override
-	public Card update(Card t) {
-		// TODO Auto-generated method stub
-		return null;
+	public Card update(Card card) {
+		return cardRepository.update(card);
+	}
+
+	public Tag addTag(Long id, Tag tag) {
+		return cardRepository.addTag(id, tag);
 	}
 
 }

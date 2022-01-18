@@ -33,7 +33,8 @@ public class TestApplication extends Application {
 		final Set<Class<?>> clazzes = new HashSet<Class<?>>();
 
 		clazzes.add(BoardResource.class);
-		//clazzes.add(OpenApiResource.class);
+
+		// clazzes.add(OpenApiResource.class);
 
 		return clazzes;
 	}

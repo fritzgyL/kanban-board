@@ -114,6 +114,14 @@ public class Card {
 		return section;
 	}
 
+	public void addTag(Tag tag) {
+		tags.add(tag);
+	}
+	
+	public void removeTag(Tag tag) {
+		tags.remove(tag);
+	}
+
 	@Override
 	public String toString() {
 		return "Card [id=" + id + ", title=" + title + ", deadline=" + deadline + ", estimatedTime=" + estimatedTime

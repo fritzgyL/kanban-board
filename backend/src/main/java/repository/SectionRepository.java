@@ -12,5 +12,6 @@ public class SectionRepository extends GenericDaoJpaImpl<Section, Long> {
 		entityManager.getTransaction().commit();
 		return card;
 	}
+	
 
 }

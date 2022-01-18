@@ -35,7 +35,7 @@ public class BoardService implements Service<Board> {
 		return boardRepository.update(board);
 	}
 
-	public Board addSection(long id, Section section) {
+	public Section addSection(long id, Section section) {
 		return boardRepository.addSection(id, section);
 	}
 

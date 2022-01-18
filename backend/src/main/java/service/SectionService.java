@@ -1,6 +1,5 @@
 package service;
 
-import entity.Board;
 import entity.Card;
 import entity.Section;
 import repository.SectionRepository;
@@ -16,8 +15,7 @@ public class SectionService implements Service<Section> {
 
 	@Override
 	public Section getById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sectionRepository.read(id);
 	}
 
 	@Override
@@ -28,14 +26,12 @@ public class SectionService implements Service<Section> {
 
 	@Override
 	public void delete(long id) {
-		// TODO Auto-generated method stub
-
+		sectionRepository.delete(getById(id));
 	}
 
 	@Override
-	public Section update(Section t) {
-		// TODO Auto-generated method stub
-		return null;
+	public Section update(Section section) {
+		return sectionRepository.update(section);
 	}
 
 	public Card addCard(long id, Card card) {

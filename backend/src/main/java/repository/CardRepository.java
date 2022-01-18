@@ -1,13 +1,16 @@
 package repository;
 
-import java.util.List;
-
 import entity.Card;
+import entity.Tag;
 
 public class CardRepository extends GenericDaoJpaImpl<Card, Long> {
 
-	public List<Card> findAll() {
-		return EntityManagerHelper.getEntityManager().createQuery("select c from card c", Card.class).getResultList();
+	public Tag addTag(long id, Tag tag) {
+		entityManager.getTransaction().begin();
+		Card card = read(id);
+		card.addTag(tag);
+		entityManager.getTransaction().commit();
+		return tag;
 	}
 
 }

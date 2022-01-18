@@ -9,7 +9,7 @@ public class TagService implements Service<Tag> {
 
 	@Override
 	public Iterable<Tag> getAll() {
-		return tagRepository.findAll();
+		return null;
 	}
 
 	@Override
@@ -28,8 +28,8 @@ public class TagService implements Service<Tag> {
 	}
 
 	@Override
-	public Tag update(Tag t) {
-		// TODO Auto-generated method stub
-		return null;
+	public Tag update(Tag tag) {
+		return tagRepository.update(tag);
+
 	}
 }
