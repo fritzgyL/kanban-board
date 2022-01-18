@@ -1,5 +1,7 @@
 package service;
 
+import entity.Board;
+import entity.Card;
 import entity.Section;
 import repository.SectionRepository;
 
@@ -36,4 +38,7 @@ public class SectionService implements Service<Section> {
 		return null;
 	}
 
+	public Card addCard(long id, Card card) {
+		return sectionRepository.addCard(id, card);
+	}
 }

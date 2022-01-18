@@ -35,12 +35,15 @@ public abstract class GenericDaoJpaImpl<T, PK extends Serializable> implements G
 
 	@Override
 	public T update(T t) {
-		return this.entityManager.merge(t);
+		entityManager.getTransaction().begin();
+		T managed = this.entityManager.merge(t);
+		entityManager.getTransaction().commit();
+		return managed;
 	}
 
 	@Override
 	public void delete(T t) {
-		t = this.entityManager.merge(t);
+		this.entityManager.merge(t);
 		entityManager.getTransaction().begin();
 		this.entityManager.remove(t);
 		entityManager.getTransaction().commit();

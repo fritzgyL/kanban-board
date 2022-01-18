@@ -70,7 +70,7 @@ public class Section {
 		card.setSection(this);
 	}
 
-	public void removeSection(Card card) {
+	public void removeCard(Card card) {
 		cards.remove(card);
 		card.setSection(null);
 	}

@@ -32,7 +32,7 @@ public class BoardService implements Service<Board> {
 
 	@Override
 	public Board update(Board board) {
-		return null;
+		return boardRepository.update(board);
 	}
 
 	public Board addSection(long id, Section section) {
