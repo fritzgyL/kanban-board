@@ -5,9 +5,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import model.Board;
-import model.Card;
-import model.Section;
+import entity.Board;
+import entity.Card;
+import entity.Section;
 import repository.BoardRepository;
 
 public class JpaTest {
