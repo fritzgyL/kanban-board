@@ -1,29 +1,42 @@
 package service;
 
 import entity.Board;
+import entity.Section;
 import repository.BoardRepository;
 
-public class BoardService {
+public class BoardService implements Service<Board> {
 
 	private BoardRepository boardRepository = new BoardRepository();
 
-	public Iterable<Board> getBoards() {
+	@Override
+	public Iterable<Board> getAll() {
 		return boardRepository.findAll();
+
 	}
 
-	public Board getBoardById(long id) {
+	@Override
+	public Board getById(long id) {
 		return boardRepository.read(id);
+
 	}
 
-	public Board saveBoard(Board board) {
-		Board savedBoard = boardRepository.save(board);
-		// boardRepository.refresh(savedBoard);
-		return savedBoard;
+	@Override
+	public Board save(Board board) {
+		return boardRepository.save(board);
 	}
 
-	public void deleteBoard(long id) {
-		Board board = getBoardById(id);
-		boardRepository.delete(board);
+	@Override
+	public void delete(long id) {
+		boardRepository.delete(getById(id));
+	}
+
+	@Override
+	public Board update(Board board) {
+		return null;
+	}
+
+	public Board addSection(long id, Section section) {
+		return boardRepository.addSection(id, section);
 	}
 
 }

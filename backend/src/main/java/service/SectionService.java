@@ -1,8 +1,39 @@
 package service;
 
-import org.springframework.stereotype.Service;
+import entity.Section;
+import repository.SectionRepository;
 
-@Service
-public class SectionService {
+public class SectionService implements Service<Section> {
+	private SectionRepository sectionRepository = new SectionRepository();
+
+	@Override
+	public Iterable<Section> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Section getById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Section save(Section section) {
+		return sectionRepository.save(section);
+
+	}
+
+	@Override
+	public void delete(long id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Section update(Section t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
