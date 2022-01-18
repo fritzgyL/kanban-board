@@ -1,4 +1,4 @@
-package entity;
+package model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,5 +32,12 @@ public class Tag {
 	public long getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "Tag [id=" + id + ", title=" + title + "]";
+	}
+	
+	
 
 }

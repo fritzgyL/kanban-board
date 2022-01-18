@@ -1,6 +1,7 @@
-package entity;
+package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -25,8 +26,8 @@ public class Card {
 	@Column(name = "estimated_time")
 	private int estimatedTime;
 	@ManyToMany
-	@JoinTable(name = "card_tag", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id"))
-	private List<Tag> tags;
+	@JoinTable(name = "card_tag", joinColumns = @JoinColumn(name = "card_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	private List<Tag> tags = new ArrayList<Tag>();
 	private String location;
 	private String url;
 	private String description;
@@ -36,9 +37,13 @@ public class Card {
 	public Card() {
 	}
 
-	public Card(String title, Date deadline) {
+	public Card(String title, Section section) {
 		this.title = title;
-		this.deadline = deadline;
+		this.section = section;
+	}
+
+	public Card(String title) {
+		this.title = title;
 	}
 
 	public String getTitle() {
@@ -97,8 +102,19 @@ public class Card {
 		return tags;
 	}
 
+	public void setSection(Section section) {
+		this.section = section;
+	}
+
 	public Section getSection() {
 		return section;
+	}
+
+	@Override
+	public String toString() {
+		return "Card [id=" + id + ", title=" + title + ", deadline=" + deadline + ", estimatedTime=" + estimatedTime
+				+ ", tags=" + tags + ", location=" + location + ", url=" + url + ", description=" + description
+				+ ", section=" + section + "]";
 	}
 
 }

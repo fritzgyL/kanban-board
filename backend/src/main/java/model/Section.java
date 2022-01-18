@@ -1,5 +1,6 @@
-package entity;
+package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,9 +21,14 @@ public class Section {
 	@ManyToOne
 	private Board board;
 	@OneToMany(mappedBy = "section")
-	private List<Card> cards;
+	private List<Card> cards = new ArrayList<Card>();
 
 	public Section() {
+	}
+
+	public Section(String title, Board board) {
+		this.title = title;
+		this.board = board;
 	}
 
 	public Section(String title) {
@@ -45,8 +51,27 @@ public class Section {
 		return board;
 	}
 
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
 	public List<Card> getCards() {
 		return cards;
+	}
+
+	public void addCard(Card card) {
+		cards.add(card);
+		card.setSection(this);
+	}
+
+	public void removeSection(Card card) {
+		cards.remove(card);
+		card.setSection(null);
+	}
+
+	@Override
+	public String toString() {
+		return "Section [id=" + id + ", title=" + title + ", board=" + board + ", cards=" + cards + "]";
 	}
 
 }
