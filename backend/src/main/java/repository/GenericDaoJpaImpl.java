@@ -5,7 +5,9 @@ import java.lang.reflect.ParameterizedType;
 
 import javax.persistence.EntityManager;
 
-public abstract class GenericDaoJpaImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
+import org.springframework.transaction.annotation.Transactional;
+
+public abstract class GenericDaoJpaImpl<T, PK extends Serializable> implements GenericDao<T, PK>, RefreshingDao<T, PK> {
 
 	protected Class<T> entityClass;
 
@@ -20,7 +22,9 @@ public abstract class GenericDaoJpaImpl<T, PK extends Serializable> implements G
 
 	@Override
 	public T save(T t) {
+		entityManager.getTransaction().begin();
 		this.entityManager.persist(t);
+		entityManager.getTransaction().commit();
 		return t;
 	}
 
@@ -37,6 +41,15 @@ public abstract class GenericDaoJpaImpl<T, PK extends Serializable> implements G
 	@Override
 	public void delete(T t) {
 		t = this.entityManager.merge(t);
+		entityManager.getTransaction().begin();
 		this.entityManager.remove(t);
+		entityManager.getTransaction().commit();
 	}
+
+	@Override
+	@Transactional
+	public void refresh(T t) {
+		entityManager.refresh(t);
+	}
+
 }

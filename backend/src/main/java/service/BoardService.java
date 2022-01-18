@@ -15,4 +15,15 @@ public class BoardService {
 		return boardRepository.read(id);
 	}
 
+	public Board saveBoard(Board board) {
+		Board savedBoard = boardRepository.save(board);
+		// boardRepository.refresh(savedBoard);
+		return savedBoard;
+	}
+
+	public void deleteBoard(long id) {
+		Board board = getBoardById(id);
+		boardRepository.delete(board);
+	}
+
 }

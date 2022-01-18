@@ -3,6 +3,7 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Section {
 	@ManyToOne
 	@JsonBackReference
 	private Board board;
-	@OneToMany(mappedBy = "section")
+	@OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<Card> cards = new ArrayList<Card>();
 

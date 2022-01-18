@@ -3,6 +3,7 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class Board {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String title;
-	@OneToMany(mappedBy = "board")
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<Section> sections = new ArrayList<Section>();
 
