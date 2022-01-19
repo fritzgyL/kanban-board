@@ -2,6 +2,7 @@ package service;
 
 import entity.Board;
 import entity.Section;
+import exception.DataNotFoundException;
 import repository.BoardRepository;
 
 public class BoardService implements Service<Board> {
@@ -16,7 +17,11 @@ public class BoardService implements Service<Board> {
 
 	@Override
 	public Board getById(long id) {
-		return boardRepository.read(id);
+		Board board = boardRepository.read(id);
+		if (board == null) {
+			throw new DataNotFoundException("Board with id " + id + " not found");
+		}
+		return board;
 
 	}
 
