@@ -20,6 +20,11 @@ import fr.istic.fritzgyl.sir.api.domain.Card;
 import fr.istic.fritzgyl.sir.api.domain.Tag;
 import fr.istic.fritzgyl.sir.api.service.CardService;
 import fr.istic.fritzgyl.sir.api.service.TagService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Path("/api/cards")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,7 +36,10 @@ public class CardResource {
 
 	@PUT
 	@Path("/{cardId}")
-	public Card updateCard(@PathParam("cardId") long cardId, Card card) {
+	@Operation(summary = "Replaces a card resource", tags = { "Cards" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Card resource updated", content = @Content(schema = @Schema(implementation = Card.class))) })
+	public Card updateCard(@Parameter(required = true) @PathParam("cardId") long cardId,
+			@Parameter(description = "The updated card resource", schema = @Schema(implementation = Card.class), required = true) Card card) {
 		Card currentCard = cardService.getCard(cardId);
 		if (currentCard != null) {
 			String title = card.getTitle();
@@ -66,14 +74,18 @@ public class CardResource {
 
 	@DELETE
 	@Path("/{cardId}")
-	public Response deleteCard(@PathParam("cardId") long cardId) {
+	@Operation(summary = "Removes the card resource", tags = { "Cards" }, responses = {
+			@ApiResponse(responseCode = "204", description = "Card resource deleted") })
+	public Response deleteCard(@Parameter(required = true) @PathParam("cardId") long cardId) {
 		cardService.removeCard(cardId);
 		return Response.status(204).build();
 	}
 
 	@GET
 	@Path("/{cardId}")
-	public Card getCard(@PathParam("cardId") long cardId, @Context UriInfo uriInfo) {
+	@Operation(summary = "Retrieves a card resource", tags = { "Cards" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Card resource response", content = @Content(schema = @Schema(implementation = Card.class))) })
+	public Card getCard(@Parameter(required = true) @PathParam("cardId") long cardId, @Context UriInfo uriInfo) {
 		Card card = cardService.getCard(cardId);
 		initLinks(card, uriInfo);
 		return card;
@@ -81,7 +93,10 @@ public class CardResource {
 
 	@GET
 	@Path("/{cardId}/tags")
-	public Iterable<Tag> getTags(@PathParam("cardId") long cardId, @Context UriInfo uriInfo) {
+	@Operation(summary = "Retrieves the collection of tag resources", tags = { "Tags" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Tag collection response", content = @Content(schema = @Schema(implementation = Tag.class))) })
+	public Iterable<Tag> getTags(@Parameter(required = true) @PathParam("cardId") long cardId,
+			@Context UriInfo uriInfo) {
 		Iterable<Tag> tags = tagService.getAllTags(cardId);
 		tags.forEach(b -> TagResource.initLinks(b, uriInfo));
 		return tags;
@@ -89,7 +104,11 @@ public class CardResource {
 
 	@POST
 	@Path("/{cardId}/tags")
-	public Response addTag(@PathParam("boardId") long cardId, Tag tag, @Context UriInfo uriInfo) {
+	@Operation(summary = "Creates a tag resource", tags = { "Tags" }, responses = {
+			@ApiResponse(responseCode = "201", description = "Tag resource created", content = @Content(schema = @Schema(implementation = Tag.class))) })
+	public Response addTag(@Parameter(required = true) @PathParam("boardId") long cardId,
+			@Parameter(description = "The new tag resource", schema = @Schema(implementation = Tag.class), required = true) Tag tag,
+			@Context UriInfo uriInfo) {
 		Tag createdtag = tagService.addTag(cardId, tag);
 		TagResource.initLinks(createdtag, uriInfo);
 		return Response.ok(createdtag).status(201).build();

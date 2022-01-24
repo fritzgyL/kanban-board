@@ -1,6 +1,7 @@
 package fr.istic.fritzgyl.sir.api.service;
 
 import fr.istic.fritzgyl.sir.api.domain.User;
+import fr.istic.fritzgyl.sir.api.exception.DataNotFoundException;
 import fr.istic.fritzgyl.sir.api.repository.UserRepository;
 
 public class UserService {
@@ -12,7 +13,11 @@ public class UserService {
 	}
 
 	public User getUser(long userId) {
-		return userRepository.read(userId);
+		User user = userRepository.read(userId);
+		if (user == null) {
+			throw new DataNotFoundException("User with id " + userId + " not found");
+		}
+		return user;
 	}
 
 	public User addUser(User user) {
@@ -20,7 +25,12 @@ public class UserService {
 	}
 
 	public void removeUser(long userId) {
-		userRepository.delete(getUser(userId));
+		User user = getUser(userId);
+		if (user == null) {
+			throw new DataNotFoundException("User with id " + userId + " not found");
+		} else {
+			userRepository.delete(user);
+		}
 	}
 
 	public User updateUser(User currentUser) {

@@ -15,6 +15,11 @@ import javax.ws.rs.core.UriInfo;
 import fr.istic.fritzgyl.sir.api.domain.Tag;
 import fr.istic.fritzgyl.sir.api.service.CardService;
 import fr.istic.fritzgyl.sir.api.service.TagService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Path("/api/tags")
 @Produces(MediaType.APPLICATION_JSON)
@@ -26,15 +31,17 @@ public class TagResource {
 
 	@PUT
 	@Path("/{id}")
-	public Tag updateTag(@PathParam("id") long tagId, Tag tag) {
+	@Operation(summary = "Replaces a tag resource", tags = { "Tags" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Tag resource updated", content = @Content(schema = @Schema(implementation = Tag.class))) })
+	public Tag updateTag(@Parameter(required = true) @PathParam("id") long tagId,
+			@Parameter(description = "The updated tag resource", schema = @Schema(implementation = Tag.class), required = true) Tag tag) {
 		Tag currentTag = tagService.getTag(tagId);
 		if (currentTag != null) {
 			String title = tag.getTitle();
 			if (title != null) {
 				currentTag.setTitle(title);
 			}
-			tagService.updateTag(currentTag);
-			return currentTag;
+			return tagService.updateTag(currentTag);
 		} else {
 			return null;
 		}
@@ -42,14 +49,18 @@ public class TagResource {
 
 	@DELETE
 	@Path("/{tagId}")
-	public Response deleteTag(@PathParam("tagId") long tagId) {
+	@Operation(summary = "Removes the tag resource", tags = { "Tags" }, responses = {
+			@ApiResponse(responseCode = "204", description = "Tag resource deleted") })
+	public Response deleteTag(@Parameter(required = true) @PathParam("tagId") long tagId) {
 		tagService.removeTag(tagId);
 		return Response.status(204).build();
 	}
 
 	@GET
 	@Path("/{tagId}")
-	public Tag getCard(@PathParam("tagId") long tagId, @Context UriInfo uriInfo) {
+	@Operation(summary = "Retrieves a tag resource", tags = { "Tags" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Tag resource response", content = @Content(schema = @Schema(implementation = Tag.class))) })
+	public Tag getCard(@Parameter(required = true) @PathParam("tagId") long tagId, @Context UriInfo uriInfo) {
 		Tag tag = tagService.getTag(tagId);
 		initLinks(tag, uriInfo);
 		return tag;

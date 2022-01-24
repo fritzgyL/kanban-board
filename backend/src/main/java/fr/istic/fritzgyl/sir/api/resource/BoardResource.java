@@ -17,8 +17,14 @@ import javax.ws.rs.core.UriInfo;
 
 import fr.istic.fritzgyl.sir.api.domain.Board;
 import fr.istic.fritzgyl.sir.api.domain.Section;
+import fr.istic.fritzgyl.sir.api.domain.User;
 import fr.istic.fritzgyl.sir.api.service.BoardService;
 import fr.istic.fritzgyl.sir.api.service.SectionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Path("/api/boards")
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,23 +34,12 @@ public class BoardResource {
 	BoardService boardService = new BoardService();
 	SectionService sectionService = new SectionService();
 
-	@GET
-	public Iterable<Board> getBoards(@PathParam("userId") long userId, @Context UriInfo uriInfo) {
-		Iterable<Board> boards = boardService.getAllBoards(userId);
-		boards.forEach(b -> initLinks(b, uriInfo));
-		return boards;
-	}
-
-	@POST
-	public Response addBoard(@PathParam("userId") long userId, Board board, @Context UriInfo uriInfo) {
-		Board createdBoard = boardService.addBoard(userId, board);
-		initLinks(createdBoard, uriInfo);
-		return Response.ok(createdBoard).status(201).build();
-	}
-
 	@PUT
 	@Path("/{boardId}")
-	public Board updateBoard(@PathParam("boardId") long boardId, Board board) {
+	@Operation(summary = "Replaces a board resource", tags = { "Boards" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Board resource updated", content = @Content(schema = @Schema(implementation = Board.class))) })
+	public Board updateBoard(@Parameter(required = true) @PathParam("boardId") long boardId,
+			@Parameter(description = "The updated user resource", schema = @Schema(implementation = User.class), required = true) Board board) {
 		Board currentBoard = boardService.getBoard(boardId);
 		if (currentBoard != null) {
 			String title = board.getTitle();
@@ -59,14 +54,18 @@ public class BoardResource {
 
 	@DELETE
 	@Path("/{boardId}")
-	public Response deleteBoard(@PathParam("boardId") long boardId) {
+	@Operation(summary = "Removes the board resource", tags = { "Boards" }, responses = {
+			@ApiResponse(responseCode = "204", description = "Board resource deleted") })
+	public Response deleteBoard(@Parameter(required = true) @PathParam("boardId") long boardId) {
 		boardService.removeBoard(boardId);
 		return Response.status(204).build();
 	}
 
 	@GET
 	@Path("/{boardId}")
-	public Board getBoard(@PathParam("boardId") long boardId, @Context UriInfo uriInfo) {
+	@Operation(summary = "Retrieves a board resource", tags = { "Boards" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Board resource response", content = @Content(schema = @Schema(implementation = Board.class))) })
+	public Board getBoard(@Parameter(required = true) @PathParam("boardId") long boardId, @Context UriInfo uriInfo) {
 		Board board = boardService.getBoard(boardId);
 		initLinks(board, uriInfo);
 		return board;
@@ -74,7 +73,10 @@ public class BoardResource {
 
 	@GET
 	@Path("/{boardId}/sections")
-	public Iterable<Section> getSections(@PathParam("boardId") long boardId, @Context UriInfo uriInfo) {
+	@Operation(summary = "Retrieves the collection of section resources", tags = { "Sections" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Section collection response", content = @Content(schema = @Schema(implementation = Section.class))) })
+	public Iterable<Section> getSections(@Parameter(required = true) @PathParam("boardId") long boardId,
+			@Context UriInfo uriInfo) {
 		Iterable<Section> sections = sectionService.getAllSections(boardId);
 		sections.forEach(b -> SectionResource.initLinks(b, uriInfo));
 		return sections;
@@ -82,7 +84,11 @@ public class BoardResource {
 
 	@POST
 	@Path("/{boardId}/sections")
-	public Response addSection(@PathParam("boardId") long boardId, Section section, @Context UriInfo uriInfo) {
+	@Operation(summary = "Creates a section resource", tags = { "Sections" }, responses = {
+			@ApiResponse(responseCode = "201", description = "Section resource created", content = @Content(schema = @Schema(implementation = Section.class))) })
+	public Response addSection(@Parameter(required = true) @PathParam("boardId") long boardId,
+			@Parameter(description = "The new section resource", schema = @Schema(implementation = Section.class), required = true) Section section,
+			@Context UriInfo uriInfo) {
 		Section createdsection = sectionService.addSection(boardId, section);
 		SectionResource.initLinks(createdsection, uriInfo);
 		return Response.ok(createdsection).status(201).build();

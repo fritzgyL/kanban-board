@@ -97,7 +97,10 @@ public class UserResource {
 
 	@GET
 	@Path("/{userId}/boards")
-	public Iterable<Board> getBoards(@PathParam("userId") long userId, @Context UriInfo uriInfo) {
+	@Operation(summary = "Retrieves the collection of board resources", tags = { "Boards" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Board collection response", content = @Content(schema = @Schema(implementation = Board.class))) })
+	public Iterable<Board> getBoards(@Parameter(required = true) @PathParam("userId") long userId,
+			@Context UriInfo uriInfo) {
 		Iterable<Board> boards = boardService.getAllBoards(userId);
 		boards.forEach(b -> BoardResource.initLinks(b, uriInfo));
 		return boards;
@@ -105,7 +108,11 @@ public class UserResource {
 
 	@POST
 	@Path("/{userId}/boards")
-	public Response addBoard(@PathParam("userId") long userId, Board board, @Context UriInfo uriInfo) {
+	@Operation(summary = "Creates a board resource", tags = { "Boards" }, responses = {
+			@ApiResponse(responseCode = "201", description = "Board resource created", content = @Content(schema = @Schema(implementation = Board.class))) })
+	public Response addBoard(@Parameter(required = true) @PathParam("userId") long userId,
+			@Parameter(description = "The new board resource", schema = @Schema(implementation = Board.class), required = true) Board board,
+			@Context UriInfo uriInfo) {
 		Board createdBoard = boardService.addBoard(userId, board);
 		BoardResource.initLinks(createdBoard, uriInfo);
 		return Response.ok(createdBoard).status(201).build();

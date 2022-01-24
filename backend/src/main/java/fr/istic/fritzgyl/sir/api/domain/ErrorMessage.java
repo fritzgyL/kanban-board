@@ -1,29 +1,26 @@
 package fr.istic.fritzgyl.sir.api.domain;
 
-import javax.ws.rs.core.Response.Status;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 public class ErrorMessage {
-	private Status status;
+	private int status;
 	private String message;
 	private String description;
 
 	public ErrorMessage() {
 	}
 
-	public ErrorMessage(Status status, String message, String description) {
+	public ErrorMessage(int i, String message, String description) {
 		super();
-		this.status = status;
+		this.status = i;
 		this.message = message;
 		this.description = description;
 	}
 
-	public Status getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

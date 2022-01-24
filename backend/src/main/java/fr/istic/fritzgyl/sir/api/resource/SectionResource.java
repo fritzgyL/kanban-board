@@ -19,6 +19,11 @@ import fr.istic.fritzgyl.sir.api.domain.Card;
 import fr.istic.fritzgyl.sir.api.domain.Section;
 import fr.istic.fritzgyl.sir.api.service.CardService;
 import fr.istic.fritzgyl.sir.api.service.SectionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @Path("/api/sections")
 @Produces(MediaType.APPLICATION_JSON)
@@ -30,15 +35,17 @@ public class SectionResource {
 
 	@PUT
 	@Path("/{sectionId}")
-	public Section updateSection(@PathParam("sectionId") long sectionId, Section section) {
+	@Operation(summary = "Replaces a section resource", tags = { "Sections" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Section resource updated", content = @Content(schema = @Schema(implementation = Section.class))) })
+	public Section updateSection(@Parameter(required = true) @PathParam("sectionId") long sectionId,
+			@Parameter(description = "The updated section resource", schema = @Schema(implementation = Section.class), required = true) Section section) {
 		Section currentSection = sectionService.getSection(sectionId);
 		if (currentSection != null) {
 			String title = section.getTitle();
 			if (title != null) {
 				currentSection.setTitle(title);
 			}
-			sectionService.updateSection(currentSection);
-			return currentSection;
+			return sectionService.updateSection(currentSection);
 		} else {
 			return null;
 		}
@@ -46,14 +53,19 @@ public class SectionResource {
 
 	@DELETE
 	@Path("/{sectionId}")
-	public Response deleteSection(@PathParam("sectionId") long sectionId) {
+	@Operation(summary = "Removes the section resource", tags = { "Sections" }, responses = {
+			@ApiResponse(responseCode = "204", description = "Section resource deleted") })
+	public Response deleteSection(@Parameter(required = true) @PathParam("sectionId") long sectionId) {
 		sectionService.removeSection(sectionId);
 		return Response.status(204).build();
 	}
 
 	@GET
 	@Path("/{sectionId}")
-	public Section getSection(@PathParam("sectionId") long sectionId, @Context UriInfo uriInfo) {
+	@Operation(summary = "Retrieves a section resource", tags = { "Sections" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Section resource response", content = @Content(schema = @Schema(implementation = Section.class))) })
+	public Section getSection(@Parameter(required = true) @PathParam("sectionId") long sectionId,
+			@Context UriInfo uriInfo) {
 		Section section = sectionService.getSection(sectionId);
 		initLinks(section, uriInfo);
 		return section;
@@ -61,7 +73,10 @@ public class SectionResource {
 
 	@GET
 	@Path("/{sectionId}/cards")
-	public Iterable<Card> getCards(@PathParam("sectionId") long sectionId, @Context UriInfo uriInfo) {
+	@Operation(summary = "Retrieves the collection of card resources", tags = { "Cards" }, responses = {
+			@ApiResponse(responseCode = "200", description = "Card collection response", content = @Content(schema = @Schema(implementation = Card.class))) })
+	public Iterable<Card> getCards(@Parameter(required = true) @PathParam("sectionId") long sectionId,
+			@Context UriInfo uriInfo) {
 		Iterable<Card> cards = cardService.getAllCards(sectionId);
 		cards.forEach(b -> CardResource.initLinks(b, uriInfo));
 		return cards;
@@ -69,7 +84,11 @@ public class SectionResource {
 
 	@POST
 	@Path("/{sectionId}/cards")
-	public Response addCard(@PathParam("sectionId") long sectionId, Card card, @Context UriInfo uriInfo) {
+	@Operation(summary = "Creates a card resource", tags = { "Cards" }, responses = {
+			@ApiResponse(responseCode = "201", description = "Card resource created", content = @Content(schema = @Schema(implementation = Card.class))) })
+	public Response addCard(@Parameter(required = true) @PathParam("sectionId") long sectionId,
+			@Parameter(description = "The new card resource", schema = @Schema(implementation = Card.class), required = true) Card card,
+			@Context UriInfo uriInfo) {
 		Card createdcard = cardService.addCard(sectionId, card);
 		CardResource.initLinks(createdcard, uriInfo);
 		return Response.ok(createdcard).status(201).build();

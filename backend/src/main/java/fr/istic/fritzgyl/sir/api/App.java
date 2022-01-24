@@ -22,6 +22,7 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
+import fr.istic.fritzgyl.sir.api.exception.DataNotFoundExceptionMapper;
 import fr.istic.fritzgyl.sir.api.resource.BoardResource;
 import fr.istic.fritzgyl.sir.api.resource.CardResource;
 import fr.istic.fritzgyl.sir.api.resource.SectionResource;
@@ -31,22 +32,28 @@ import fr.istic.fritzgyl.sir.api.resource.UserResource;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 
 public class App extends Application {
+	private final Set<Object> singletons = new HashSet<Object>();
+	final Set<Class<?>> clazzes = new HashSet<Class<?>>();
 
-	@Override
-	public Set<Class<?>> getClasses() {
-
-		final Set<Class<?>> clazzes = new HashSet<Class<?>>();
-
+	public App() {
 		clazzes.add(UserResource.class);
 		clazzes.add(BoardResource.class);
 		clazzes.add(CardResource.class);
 		clazzes.add(SectionResource.class);
 		clazzes.add(TagResource.class);
-
 		clazzes.add(SwaggerResource.class);
 		clazzes.add(OpenApiResource.class);
+		singletons.add(new DataNotFoundExceptionMapper());
+	}
 
+	@Override
+	public Set<Class<?>> getClasses() {
 		return clazzes;
+	}
+
+	@Override
+	public Set<Object> getSingletons() {
+		return this.singletons;
 	}
 
 }
