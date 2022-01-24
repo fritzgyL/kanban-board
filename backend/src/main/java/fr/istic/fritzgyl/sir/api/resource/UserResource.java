@@ -19,6 +19,12 @@ import fr.istic.fritzgyl.sir.api.domain.Board;
 import fr.istic.fritzgyl.sir.api.domain.User;
 import fr.istic.fritzgyl.sir.api.service.BoardService;
 import fr.istic.fritzgyl.sir.api.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Path("/api/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -29,6 +35,8 @@ public class UserResource {
 	BoardService boardService = new BoardService();
 
 	@GET
+	@Operation(summary = "Retrieves the collection of user resources", tags = { "Users" }, responses = {
+			@ApiResponse(responseCode = "200", description = "User collection response", content = @Content(schema = @Schema(implementation = User.class))) })
 	public Iterable<User> getUsers(@Context UriInfo uriInfo) {
 		Iterable<User> users = userService.getAllUsers();
 		users.forEach(u -> initLinks(u, uriInfo));
@@ -36,7 +44,11 @@ public class UserResource {
 	}
 
 	@POST
-	public Response addUser(User user, @Context UriInfo uriInfo) {
+	@Operation(summary = "Creates a user resource", tags = { "Users" }, responses = {
+			@ApiResponse(responseCode = "201", description = "User resource created", content = @Content(schema = @Schema(implementation = User.class))) })
+	public Response addUser(
+			@Parameter(description = "The new user resource", schema = @Schema(implementation = User.class), required = true) User user,
+			@Context UriInfo uriInfo) {
 		User createdUser = userService.addUser(user);
 		initLinks(createdUser, uriInfo);
 		return Response.ok(createdUser).status(201).build();
@@ -44,7 +56,10 @@ public class UserResource {
 
 	@PUT
 	@Path("/{userId}")
-	public User updateUser(@PathParam("userId") long userId, User user) {
+	@Operation(summary = "Replaces a user resource", tags = { "Users" }, responses = {
+			@ApiResponse(responseCode = "200", description = "User resource updated", content = @Content(schema = @Schema(implementation = User.class))) })
+	public User updateUser(@Parameter(required = true) @PathParam("userId") long userId,
+			@Parameter(description = "The updated user resource", schema = @Schema(implementation = User.class), required = true) User user) {
 		User currentUser = userService.getUser(userId);
 		if (currentUser != null) {
 			String firstName = user.getFirstName();
@@ -63,23 +78,22 @@ public class UserResource {
 
 	@DELETE
 	@Path("/{userId}")
-	public Response deleteUser(@PathParam("userId") long userId) {
+	@Operation(summary = "Removes the user resource", tags = { "Users" }, responses = {
+			@ApiResponse(responseCode = "204", description = "User resource deleted") })
+	public Response deleteUser(@Parameter(required = true) @PathParam("userId") long userId) {
 		userService.removeUser(userId);
 		return Response.status(204).build();
 	}
 
 	@GET
 	@Path("/{userId}")
-	public User getUser(@PathParam("userId") long userId, @Context UriInfo uriInfo) {
+	@Operation(summary = "Retrieves a user resource", tags = { "Users" }, responses = {
+			@ApiResponse(responseCode = "200", description = "User resource response", content = @Content(schema = @Schema(implementation = User.class))) })
+	public User getUser(@Parameter(required = true) @PathParam("userId") long userId, @Context UriInfo uriInfo) {
 		User user = userService.getUser(userId);
 		initLinks(user, uriInfo);
 		return user;
 	}
-
-//	@Path("/{userId}/boards")
-//	public BoardResource getBoardResource() {
-//		return new BoardResource();
-//	}
 
 	@GET
 	@Path("/{userId}/boards")
