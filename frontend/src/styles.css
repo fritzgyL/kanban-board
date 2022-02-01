@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',
+    sans-serif;
+}
+
+body {
+  background-color: #1A1A1D;
+
+}
+
+header {
+  color: white;
+
+}
+
+.content {
+  min-height: 100vh;
+}
+
+.sticky-footer {
+  position: sticky;
+  top: 100%;
+  background-color: #950740;
+
+  color: white;
+  height: 12vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
