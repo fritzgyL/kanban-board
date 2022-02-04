@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component'
 import { BoardService } from './services/board-service.service';
 import { SectionComponent } from './section/section.component';
+import { CardComponent } from './card/card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { SectionComponent } from './section/section.component';
     FooterComponent,
     BoardComponent,
     DashboardComponent,
-    SectionComponent
+    SectionComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

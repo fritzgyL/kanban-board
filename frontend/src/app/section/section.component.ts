@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Section } from '../class/section/section';
+import { BoardService } from '../services/board-service.service';
 
 @Component({
   selector: 'app-section',
@@ -9,9 +10,17 @@ import { Section } from '../class/section/section';
 export class SectionComponent implements OnInit {
 
   @Input() section: Section = new Section();
-  constructor() { }
+
+  constructor(private boardService: BoardService) { }
 
   ngOnInit(): void {
+    this.getSectionCard();
+  }
+
+  private getSectionCard() {
+    this.boardService.getSectionCards(this.section.id).subscribe(data => {
+      this.section.cards = data;
+    });
   }
 
 }
