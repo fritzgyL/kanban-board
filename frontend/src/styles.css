@@ -6,15 +6,7 @@
     sans-serif;
 }
 
-body {
-  background-color: #1A1A1D;
 
-}
-
-header {
-  color: white;
-
-}
 
 .content {
   min-height: 100vh;
@@ -23,11 +15,13 @@ header {
 .sticky-footer {
   position: sticky;
   top: 100%;
-  background-color: #950740;
 
-  color: white;
   height: 12vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.row {
+  margin-top: 2rem;
 }
