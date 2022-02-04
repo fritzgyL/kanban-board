@@ -15,13 +15,13 @@
 .sticky-footer {
   position: sticky;
   top: 100%;
-
   height: 12vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.row {
-  margin-top: 2rem;
+.row,
+.card {
+  margin-top: 1rem;
 }

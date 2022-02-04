@@ -9,13 +9,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component'
 import { BoardService } from './services/board-service.service';
+import { SectionComponent } from './section/section.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
     BoardComponent,
-    DashboardComponent
+    DashboardComponent,
+    SectionComponent
   ],
   imports: [
     BrowserModule,

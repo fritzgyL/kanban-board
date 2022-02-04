@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Board } from '../class/board';
+import { Board } from '../class/board/board';
+import { Section } from '../class/section/section';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,14 @@ export class BoardService {
 
   getBoards(): Observable<Board[]> {
     return this.httpClient.get<Board[]>(`${this.baseUrl}/users/1/boards`)
+  }
+
+  getBoard(id: number): Observable<Board> {
+    return this.httpClient.get<Board>(`${this.baseUrl}/boards/${id}`)
+  }
+
+  getBoardSections(id: number): Observable<Section[]> {
+    return this.httpClient.get<Section[]>(`${this.baseUrl}/boards/${id}/sections`)
   }
 
 }

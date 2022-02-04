@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Board } from '../class/board';
+import { Board } from '../class/board/board';
 import { BoardService } from '../services/board-service.service';
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +9,7 @@ import { BoardService } from '../services/board-service.service';
 export class DashboardComponent implements OnInit {
 
   boards: Board[] = []
+  selectedBoardId: number = 0;
 
   constructor(private boardService: BoardService) { }
 
@@ -21,6 +22,10 @@ export class DashboardComponent implements OnInit {
     this.boardService.getBoards().subscribe(data => {
       this.boards = data;
     });
+  }
+
+  private setSelectedBoardId(id: number) {
+    this.selectedBoardId = id;
   }
 
 }
