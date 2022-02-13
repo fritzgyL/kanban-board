@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity(name = "card")
 @Table(name = "card")
 public class Card {
@@ -23,6 +25,7 @@ public class Card {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String title;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date deadline;
 	@Column(name = "estimated_time")
 	private int estimatedTime;
