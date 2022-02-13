@@ -10,7 +10,7 @@ import { Section } from '../class/section/section';
 })
 export class BoardService {
 
-  private baseUrl = '/api';
+  private baseUrl = '/api/v1';
   constructor(private httpClient: HttpClient) { }
 
   getBoards(): Observable<Board[]> {
@@ -25,8 +25,6 @@ export class BoardService {
     return this.httpClient.get<Section[]>(`${this.baseUrl}/boards/${id}/sections`)
   }
 
-  getSectionCards(id: number) {
-    return this.httpClient.get<Card[]>(`${this.baseUrl}/sections/${id}/cards`)
-  }
+
 
 }

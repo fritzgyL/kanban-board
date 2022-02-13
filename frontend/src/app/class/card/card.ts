@@ -1,4 +1,4 @@
-import { Tag } from "../tag";
+import { Tag } from "../tag/tag";
 
 export class Card {
     id: number = 0

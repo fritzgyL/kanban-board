@@ -15,7 +15,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBoards();
-    console.log(this.boards);
   }
 
   private getBoards() {

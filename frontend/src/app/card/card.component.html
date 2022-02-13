@@ -1,6 +1,6 @@
 <a href="#" class="list-group-item list-group-item-action" data-toggle="modal"
-  data-target="#exampleModal">{{card.title}}</a>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  [attr.data-target]="'#viewCardModal'+card.id">{{card.title}}</a>
+<div class="modal fade" id="viewCardModal{{card.id}}" tabindex="-1" role="dialog" [attr.aria-labelledby]="'#viewCardModal'+card.id"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
