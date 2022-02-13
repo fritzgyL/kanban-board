@@ -10,7 +10,7 @@ import { Section } from '../class/section/section';
 })
 export class BoardService {
 
-  private baseUrl = '/api';
+  private baseUrl = '/api/v1';
   constructor(private httpClient: HttpClient) { }
 
   getBoards(): Observable<Board[]> {
