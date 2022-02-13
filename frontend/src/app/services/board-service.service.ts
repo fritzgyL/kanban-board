@@ -25,8 +25,6 @@ export class BoardService {
     return this.httpClient.get<Section[]>(`${this.baseUrl}/boards/${id}/sections`)
   }
 
-  getSectionCards(id: number) {
-    return this.httpClient.get<Card[]>(`${this.baseUrl}/sections/${id}/cards`)
-  }
+
 
 }

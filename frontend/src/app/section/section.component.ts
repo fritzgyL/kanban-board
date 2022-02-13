@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Card } from '../class/card/card';
 import { Section } from '../class/section/section';
-import { BoardService } from '../services/board-service.service';
+import { SectionService } from '../services/section.service';
 
 @Component({
   selector: 'app-section',
@@ -11,16 +12,32 @@ export class SectionComponent implements OnInit {
 
   @Input() section: Section = new Section();
 
-  constructor(private boardService: BoardService) { }
+  newCardTitle: string = '';
+
+  constructor(private sectionService: SectionService) { }
 
   ngOnInit(): void {
     this.getSectionCard();
   }
 
   private getSectionCard() {
-    this.boardService.getSectionCards(this.section.id).subscribe(data => {
+    this.sectionService.getSectionCards(this.section.id).subscribe(data => {
       this.section.cards = data;
     });
+  }
+
+  addCard() {
+    if (this.newCardTitle != '') {
+      const newCard = new Card();
+      newCard.title = this.newCardTitle;
+      this.sectionService.addCard(newCard, this.section.id).subscribe(data => {
+        this.section.cards.push(data);
+      })
+    }
+  }
+
+  resetNewCardTitle() {
+    this.newCardTitle = '';
   }
 
 }

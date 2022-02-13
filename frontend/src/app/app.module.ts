@@ -11,6 +11,10 @@ import { DashboardComponent } from './dashboard/dashboard.component'
 import { BoardService } from './services/board-service.service';
 import { SectionComponent } from './section/section.component';
 import { CardComponent } from './card/card.component';
+import { FormsModule } from '@angular/forms';
+import { CardService } from './services/card-service.service';
+import { SectionService } from './services/section.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,15 +23,19 @@ import { CardComponent } from './card/card.component';
     BoardComponent,
     DashboardComponent,
     SectionComponent,
-    CardComponent
+    CardComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
+
   ],
   providers: [
-    BoardService
+    BoardService,
+    CardService,
+    SectionService
   ],
   bootstrap: [AppComponent]
 })
