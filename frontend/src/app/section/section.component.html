@@ -27,8 +27,8 @@
         <input [(ngModel)]="newCardTitle" type="text" class="form-control" id="newCardTitle" placeholder="Card title" >
       </div>
       <div class="modal-footer">
-        <button (click)="resetNewCardTitle()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button (click)="addCard()" type="button" class="btn btn-primary">Add</button>
+        <button (click)="onResetNewCardTitle()" type="button" id="closeModalBtn{{section.id}}" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button (click)="onAddCard()" type="button" class="btn btn-primary">Add</button>
       </div>
     </div>
   </div>
