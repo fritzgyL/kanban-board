@@ -1,0 +1,8 @@
+.card {
+  margin-top: 0.5rem;
+  transition: all ease 1s;
+}
+
+.card:hover {
+  background-color: #dee2e6;
+}

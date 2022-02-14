@@ -1,45 +1,38 @@
-<a href="#" class="list-group-item list-group-item-action" data-toggle="modal"
-  [attr.data-target]="'#viewCardModal'+card.id">{{card.title}}</a>
-<div class="modal fade" id="viewCardModal{{card.id}}" tabindex="-1" role="dialog" [attr.aria-labelledby]="'#viewCardModal'+card.id"
-  aria-hidden="true">
+<a
+  href="#"
+  class="list-group-item-action"
+  data-toggle="modal"
+  [attr.data-target]="'#viewCardModal' + card.id"
+  ><app-card-title [title]="card.title"></app-card-title>
+</a>
+<div
+  class="modal fade"
+  id="viewCardModal{{ card.id }}"
+  tabindex="-1"
+  role="dialog"
+  [attr.aria-labelledby]="'#viewCardModal' + card.id"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{card.title}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLabel">{{ card.title }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-xs-12 col-md-8">
-            <div class="row">
-              <div class="col-12">
-                <button class="btn btn-info" disabled>tag</button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Description</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                    disabled>{{card.description}}</textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-4">
-            <p *ngIf='card.deadline != null'><i class=" fas fa-calendar"></i> {{card.deadline}}</p>
-            <p *ngIf='card.estimatedTime != 0'><i class="fas fa-clock"></i> {{card.estimatedTime}}</p>
-            <p *ngIf='card.location != null'><i class="fas fa-map-marker-alt"></i> {{card.location}}</p>
-            <p *ngIf='card.url != null'><i class="fas fa-link"></i> <a href="{{card.url}}">{{card.url}}</a></p>
-          </div>
-        </div>
+        <app-card-details [card]="card"></app-card-details>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Edit</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>
-          Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <i class="fas fa-times"></i> Close
+        </button>
       </div>
     </div>
   </div>

@@ -14,6 +14,10 @@ import { CardComponent } from './card/card.component';
 import { FormsModule } from '@angular/forms';
 import { CardService } from './services/card-service.service';
 import { SectionService } from './services/section.service';
+import { CardDetailsComponent } from './card-details/card-details.component';
+import { CardDescriptionComponent } from './card-description/card-description.component';
+import { CardTitleComponent } from './card-title/card-title.component';
+import { CardDetailsButtonsComponent } from './card-details-buttons/card-details-buttons.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,10 @@ import { SectionService } from './services/section.service';
     DashboardComponent,
     SectionComponent,
     CardComponent,
+    CardDetailsComponent,
+    CardDescriptionComponent,
+    CardTitleComponent,
+    CardDetailsButtonsComponent,
   ],
   imports: [
     BrowserModule,
