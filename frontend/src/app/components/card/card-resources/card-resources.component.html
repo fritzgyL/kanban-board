@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-12">members</div>
+</div>
+<div *ngIf="card.deadline != null" class="row">
+  <div class="col-12"><app-deadline-button></app-deadline-button></div>
+</div>
+<div *ngIf="card.tags.length > 0" class="row">
+  <div class="col-12">tags</div>
+</div>

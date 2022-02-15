@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Card } from 'src/app/models/card/card';
+import { CardService } from 'src/app/services/card/card-service.service';
 
 @Component({
   selector: 'app-card-description',
@@ -7,11 +9,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CardDescriptionComponent implements OnInit {
 
-  @Input() description = ''
   isWriting: boolean = false
-  constructor() { }
+  card: Card = new Card();
+
+  constructor(private cardService: CardService) { }
 
   ngOnInit(): void {
+    this.cardService.getCard().subscribe((card) => {
+      this.card = card;
+    })
   }
 
   onUpdateDescription() {

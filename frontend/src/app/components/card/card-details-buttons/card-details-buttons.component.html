@@ -10,14 +10,14 @@
     <button class="btn btn-light"><i class="fa-solid fa-tag"></i> Tags</button>
   </div>
 </div>
-<div class="row">
+<div *ngIf="card.deadline == null" class="row">
   <div class="col-12">
     <button class="btn btn-light">
       <i class="fa-solid fa-clock"></i> Due date
     </button>
   </div>
 </div>
-<div class="row">
+<div *ngIf="card.url == null" class="row">
   <div class="col-12">
     <button class="btn btn-light"><i class="fa-solid fa-link"></i> Link</button>
   </div>

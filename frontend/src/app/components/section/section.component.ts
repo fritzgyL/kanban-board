@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { Card } from '../class/card/card';
-import { Section } from '../class/section/section';
-import { SectionService } from '../services/section.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { Card } from 'src/app/models/card/card';
+import { Section } from 'src/app/models/section/section';
+import { SectionService } from 'src/app/services/section/section.service';
 
 @Component({
   selector: 'app-section',

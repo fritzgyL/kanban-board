@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Card } from '../class/card/card';
-
+import { Card } from 'src/app/models/card/card';
+import { CardService } from 'src/app/services/card/card-service.service';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -9,11 +9,13 @@ import { Card } from '../class/card/card';
 export class CardComponent implements OnInit {
 
   @Input() card: Card = new Card();
-  constructor() { }
+  constructor(private cardService: CardService) { }
 
   ngOnInit(): void {
   }
 
-
+  onSelectCard() {
+    this.cardService.setSelectedId(this.card.id);
+  }
 
 }

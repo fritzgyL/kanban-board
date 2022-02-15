@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Card } from '../class/card/card';
+
 
 @Component({
   selector: 'app-card-details',
@@ -8,7 +8,6 @@ import { Card } from '../class/card/card';
 })
 export class CardDetailsComponent implements OnInit {
 
-  @Input() card = new Card();
 
   constructor() { }
 

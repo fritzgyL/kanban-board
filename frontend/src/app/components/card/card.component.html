@@ -1,4 +1,5 @@
 <a
+  (click)="onSelectCard()"
   href="#"
   class="list-group-item-action"
   data-toggle="modal"
@@ -27,7 +28,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-card-details [card]="card"></app-card-details>
+        <app-card-details></app-card-details>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
