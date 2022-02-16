@@ -23,6 +23,7 @@ import { DeadlineButtonComponent } from './components/deadline-button/deadline-b
 import { LinkPreviewService } from './services/link-preview.service';
 import { CardLinkSectionComponent } from './components/card/card-link-section/card-link-section.component';
 import { CardSectionComponent } from './components/card/card-section/card-section.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -40,13 +41,14 @@ import { CardSectionComponent } from './components/card/card-section/card-sectio
     CardResourcesComponent,
     DeadlineButtonComponent,
     CardLinkSectionComponent,
-    CardSectionComponent,
+    CardSectionComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgbModule
 
   ],
   providers: [
