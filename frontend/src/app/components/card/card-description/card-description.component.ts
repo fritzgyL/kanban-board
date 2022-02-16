@@ -9,6 +9,8 @@ import { CardService } from 'src/app/services/card/card-service.service';
 })
 export class CardDescriptionComponent implements OnInit {
 
+  readonly MY_CONSTANT = 'Add a more detailed description...';
+
   isUpdating: boolean = false;
   card: Card = new Card();
   textareaText: string = '';
@@ -25,12 +27,24 @@ export class CardDescriptionComponent implements OnInit {
     this.isUpdating = true;
   }
 
-  private setTextareaText() {
-    if (this.card.description != null) {
+  setTextareaText() {
+    if (this.card.description != '') {
       this.textareaText = this.card.description;
     }
     else {
-      this.textareaText = 'Add a more detailed description...';
+      this.textareaText = this.MY_CONSTANT;
+    }
+  }
+
+  onSaveNewDescription() {
+    if (this.textareaText != '' && this.textareaText != this.MY_CONSTANT) {
+      this.card.description = this.textareaText;
+      this.cardService.updateCard(this.card).subscribe((card) => {
+        console.log(card);
+        this.cardService.loadCard(card.id);
+      });
+      this.isUpdating = false;
+      this.setTextareaText();
     }
   }
 

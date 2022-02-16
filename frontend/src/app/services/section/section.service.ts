@@ -15,7 +15,5 @@ export class SectionService {
     return this.httpClient.get<Card[]>(`${this.baseUrl}/sections/${id}/cards`)
   }
 
-  addCard(card: Card, sectionId: number): Observable<Card> {
-    return this.httpClient.post<Card>(`${this.baseUrl}/sections/${sectionId}/cards`, card)
-  }
+
 }

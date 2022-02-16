@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Card } from 'src/app/models/card/card';
 import { Tag } from 'src/app/models/tag/tag';
 @Injectable({
@@ -19,13 +19,21 @@ export class CardService {
     });
   }
 
-  private loadCard(id: number) {
+  loadCard(id: number) {
     this.httpClient.get<Card>(`${this.baseUrl}/cards/${id}`).subscribe((card) => {
       this.httpClient.get<Tag[]>(`${this.baseUrl}/cards/${card.id}/tags`).subscribe((tags) => {
         card.tags = tags;
         this.selectedCard$.next(card);
       });
     })
+  }
+
+  addCard(card: Card, sectionId: number) {
+    return this.httpClient.post<Card>(`${this.baseUrl}/sections/${sectionId}/cards`, card)
+  }
+
+  updateCard(card: Card) {
+    return this.httpClient.put<Card>(`${this.baseUrl}/cards/${card.id}`, card);
   }
 
   getCard() {

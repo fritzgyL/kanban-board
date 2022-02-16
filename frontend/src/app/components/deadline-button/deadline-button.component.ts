@@ -18,7 +18,9 @@ export class DeadlineButtonComponent implements OnInit {
   ngOnInit(): void {
     this.cardService.getCard().subscribe((card) => {
       this.card = card;
-      this.setSelectedDate();
+      if (this.card.deadline != null) {
+        this.setSelectedDate();
+      }
     })
   }
 

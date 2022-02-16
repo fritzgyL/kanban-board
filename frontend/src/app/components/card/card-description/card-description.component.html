@@ -16,17 +16,14 @@
     </h5>
   </div>
   <div class="section-body">
-    <div
-      class="section-content"
-      *ngIf="!isUpdating && card.description != null"
-    >
+    <div class="section-content" *ngIf="!isUpdating && card.description != ''">
       {{ card.description }}
     </div>
     <div class="section-content">
       <button
         (click)="onUpdateDescription()"
         class="btn btn-light"
-        *ngIf="!isUpdating && card.description == null"
+        *ngIf="!isUpdating && card.description == ''"
       >
         Add a more detailed description...
       </button>
@@ -37,19 +34,24 @@
               class="form-control"
               id="exampleFormControlTextarea1"
               rows="3"
-              >{{ textareaText }}</textarea
-            >
+              [(ngModel)]="textareaText"
+            ></textarea>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
             <div class="row btns-section">
               <div class="col-6">
-                <button class="btn btn-primary">Save</button>
+                <button
+                  (click)="onSaveNewDescription()"
+                  class="btn btn-primary"
+                >
+                  Save
+                </button>
               </div>
               <div class="col-6">
                 <i
-                  (click)="isUpdating = false"
+                  (click)="isUpdating = false; setTextareaText()"
                   class="fa-solid fa-xmark fa-2x"
                 ></i>
               </div>

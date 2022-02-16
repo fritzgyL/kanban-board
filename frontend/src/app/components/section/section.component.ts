@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Card } from 'src/app/models/card/card';
 import { Section } from 'src/app/models/section/section';
+import { CardService } from 'src/app/services/card/card-service.service';
 import { SectionService } from 'src/app/services/section/section.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class SectionComponent implements OnInit {
 
   newCardTitle: string = '';
 
-  constructor(private sectionService: SectionService) { }
+  constructor(private sectionService: SectionService, private cardService: CardService) { }
 
   ngOnInit(): void {
     this.getSectionCard();
@@ -30,7 +31,7 @@ export class SectionComponent implements OnInit {
     if (this.newCardTitle != '') {
       const newCard = new Card();
       newCard.title = this.newCardTitle;
-      this.sectionService.addCard(newCard, this.section.id).subscribe(data => {
+      this.cardService.addCard(newCard, this.section.id).subscribe(data => {
         /** update the current state of the cards list of the section */
         this.section.cards.push(data);
         /**close the modal */

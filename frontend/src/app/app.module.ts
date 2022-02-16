@@ -25,6 +25,7 @@ import { CardLinkSectionComponent } from './components/card/card-link-section/ca
 import { CardSectionComponent } from './components/card/card-section/card-section.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TagButtonComponent } from './components/card/tag-button/tag-button.component';
+import { CacheInterceptor } from './cache-interceptor';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { TagButtonComponent } from './components/card/tag-button/tag-button.comp
     BoardService,
     CardService,
     SectionService,
-    LinkPreviewService
+    LinkPreviewService,
+    CacheInterceptor
 
   ],
   bootstrap: [AppComponent]
