@@ -4,6 +4,10 @@ public class Link {
 	private String link;
 	private String rel;
 
+	public Link() {
+		super();
+	}
+
 	public Link(String link, String rel) {
 		this.link = link;
 		this.rel = rel;

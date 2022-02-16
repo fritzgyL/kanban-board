@@ -36,6 +36,7 @@ public abstract class GenericDaoJpaImpl<T, PK extends Serializable> implements G
 		entityManager.getTransaction().begin();
 		T managed = this.entityManager.merge(t);
 		entityManager.getTransaction().commit();
+        entityManager.getEntityManagerFactory().getCache().evictAll();
 		return managed;
 	}
 
