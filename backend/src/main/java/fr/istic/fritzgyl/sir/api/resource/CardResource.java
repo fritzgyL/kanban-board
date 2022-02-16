@@ -106,7 +106,7 @@ public class CardResource {
 	@Path("/{cardId}/tags")
 	@Operation(summary = "Creates a tag resource", tags = { "Tags" }, responses = {
 			@ApiResponse(responseCode = "201", description = "Tag resource created", content = @Content(schema = @Schema(implementation = Tag.class))) })
-	public Response addTag(@Parameter(required = true) @PathParam("boardId") long cardId,
+	public Response addTag(@Parameter(required = true) @PathParam("cardId") long cardId,
 			@Parameter(description = "The new tag resource", schema = @Schema(implementation = Tag.class), required = true) Tag tag,
 			@Context UriInfo uriInfo) {
 		Tag createdtag = tagService.addTag(cardId, tag);
@@ -116,7 +116,6 @@ public class CardResource {
 
 	public static void initLinks(Card card, UriInfo uriInfo) {
 		card.addLink(getUriForSelf(uriInfo, card), "self");
-		card.addLink(getUriForSection(uriInfo, card), "section");
 		card.addLink(getUriForTags(uriInfo, card), "tags");
 
 	}
@@ -130,12 +129,6 @@ public class CardResource {
 	private static String getUriForSelf(UriInfo uriInfo, Card card) {
 		String uri = uriInfo.getBaseUriBuilder().path(CardResource.class).path(CardResource.class, "getCard")
 				.resolveTemplate("cardId", card.getId()).build().toString();
-		return uri;
-	}
-
-	private static String getUriForSection(UriInfo uriInfo, Card card) {
-		String uri = uriInfo.getBaseUriBuilder().path(SectionResource.class).path(SectionResource.class, "getSection")
-				.resolveTemplate("sectionId", card.getSection().getId()).build().toString();
 		return uri;
 	}
 

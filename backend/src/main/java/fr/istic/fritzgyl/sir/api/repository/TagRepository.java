@@ -6,8 +6,8 @@ public class TagRepository extends GenericDaoJpaImpl<Tag, Long> {
 
 	public Iterable<Tag> getTagsByCardId(long cardId) {
 		return EntityManagerHelper.getEntityManager()
-				.createQuery("select t from tag t where t.card.id=:cardId", Tag.class).setParameter("cardId", cardId)
-				.getResultList();
+				.createQuery("select t from tag t join t.cards c where c.id = :cardId", Tag.class)
+				.setParameter("cardId", cardId).getResultList();
 	}
 
 }

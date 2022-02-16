@@ -14,7 +14,7 @@ public class CardRepository extends GenericDaoJpaImpl<Card, Long> {
 	public Tag saveCardTag(long cardId, Tag tag) {
 		entityManager.getTransaction().begin();
 		Card card = read(cardId);
-		card.addTag(tag);
+		card.addTag(tag);;
 		entityManager.getTransaction().commit();
 		return tag;
 	}

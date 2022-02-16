@@ -60,7 +60,7 @@ public class TagResource {
 	@Path("/{tagId}")
 	@Operation(summary = "Retrieves a tag resource", tags = { "Tags" }, responses = {
 			@ApiResponse(responseCode = "200", description = "Tag resource response", content = @Content(schema = @Schema(implementation = Tag.class))) })
-	public Tag getCard(@Parameter(required = true) @PathParam("tagId") long tagId, @Context UriInfo uriInfo) {
+	public Tag getTag(@Parameter(required = true) @PathParam("tagId") long tagId, @Context UriInfo uriInfo) {
 		Tag tag = tagService.getTag(tagId);
 		initLinks(tag, uriInfo);
 		return tag;
@@ -68,19 +68,12 @@ public class TagResource {
 
 	public static void initLinks(Tag tag, UriInfo uriInfo) {
 		tag.addLink(getUriForSelf(uriInfo, tag), "self");
-		tag.addLink(getUriForCard(uriInfo, tag), "card");
 
 	}
 
 	private static String getUriForSelf(UriInfo uriInfo, Tag tag) {
 		String uri = uriInfo.getBaseUriBuilder().path(TagResource.class).path(TagResource.class, "getTag")
 				.resolveTemplate("tagId", tag.getId()).build().toString();
-		return uri;
-	}
-
-	private static String getUriForCard(UriInfo uriInfo, Tag tag) {
-		String uri = uriInfo.getBaseUriBuilder().path(CardResource.class).path(CardResource.class, "getCard")
-				.resolveTemplate("cardId", tag.getCard().getId()).build().toString();
 		return uri;
 	}
 

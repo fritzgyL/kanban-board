@@ -7,11 +7,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
@@ -25,17 +28,19 @@ public class Card {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String title;
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date deadline;
 	@Column(name = "estimated_time")
 	private int estimatedTime;
-	@OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "card_tag", joinColumns = @JoinColumn(name = "card_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
 	@XmlTransient
 	private List<Tag> tags = new ArrayList<Tag>();
 	private String location;
 	private String url;
 	private String description;
 	@ManyToOne
+	@JoinColumn(name = "section_id")
 	@XmlTransient
 	private Section section;
 
@@ -120,6 +125,12 @@ public class Card {
 
 	public void addTag(Tag tag) {
 		tags.add(tag);
+		tag.getCards().add(this);
+	}
+
+	public void removeTag(Tag tag) {
+		tags.remove(tag);
+		tag.getCards().remove(this);
 	}
 
 	public List<Link> getLinks() {

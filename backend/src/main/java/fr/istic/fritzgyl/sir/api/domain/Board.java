@@ -5,14 +5,19 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity(name = "board")
 @Table(name = "board")
@@ -22,11 +27,16 @@ public class Board {
 	private long id;
 	private String title;
 	@ManyToOne
+	@JoinColumn(name = "user_id")
 	@XmlTransient
 	private User user;
-	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@XmlTransient
 	private List<Section> sections = new ArrayList<Section>();
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@XmlTransient
+	private List<Tag> tags = new ArrayList<Tag>();
 	@Transient
 	private List<Link> links = new ArrayList<>();
 
@@ -64,6 +74,17 @@ public class Board {
 		section.setBoard(null);
 	}
 
+	public void addTag(Tag tag) {
+		tags.add(tag);
+		tag.setBoard(this);
+
+	}
+
+	public void removeTag(Tag tag) {
+		tags.remove(tag);
+		tag.setBoard(null);
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -80,9 +101,14 @@ public class Board {
 		links.add(new Link(url, rel));
 	}
 
+	public List<Tag> getTags() {
+		return tags;
+	}
+
 	@Override
 	public String toString() {
-		return "Board [id=" + id + ", title=" + title + ", user=" + user + ", sections=" + sections + "]";
+		return "Board [id=" + id + ", title=" + title + ", user=" + user + ", sections=" + sections + ", tags=" + tags
+				+ "]";
 	}
 
 }
