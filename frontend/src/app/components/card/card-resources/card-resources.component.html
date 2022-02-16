@@ -5,5 +5,12 @@
   <div class="col-12"><app-deadline-button></app-deadline-button></div>
 </div>
 <div *ngIf="card.tags.length > 0" class="row">
-  <div class="col-12">tags</div>
+  <div class="col-12">
+    <small>Tags</small>
+    <div class="row">
+      <div *ngFor="let tag of card.tags" class="col">
+        <app-tag-button [tag]="tag"></app-tag-button>
+      </div>
+    </div>
+  </div>
 </div>

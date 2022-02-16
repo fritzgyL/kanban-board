@@ -24,6 +24,7 @@ import { LinkPreviewService } from './services/link-preview.service';
 import { CardLinkSectionComponent } from './components/card/card-link-section/card-link-section.component';
 import { CardSectionComponent } from './components/card/card-section/card-section.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TagButtonComponent } from './components/card/tag-button/tag-button.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CardResourcesComponent,
     DeadlineButtonComponent,
     CardLinkSectionComponent,
-    CardSectionComponent
+    CardSectionComponent,
+    TagButtonComponent
   ],
   imports: [
     BrowserModule,

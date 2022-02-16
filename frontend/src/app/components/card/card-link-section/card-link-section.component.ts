@@ -20,7 +20,7 @@ export class CardLinkSectionComponent implements OnInit {
     this.cardService.getCard().subscribe((card) => {
       if (card != null) {
         this.card = card;
-        //this.getLinkPreview();
+        this.getLinkPreview();
       }
     })
   }

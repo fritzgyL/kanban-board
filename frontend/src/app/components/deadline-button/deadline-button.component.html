@@ -1,44 +1,48 @@
 <div>
   <small>Due date</small><br />
-  <button
-    class="btn btn-light"
-    placement="bottom"
-    [autoClose]="'outside'"
-    [ngbPopover]="popContent"
-    popoverTitle="Due date"
-    (hidden)="recordHidden()"
-    popoverClass="scrollable"
-  >
-    {{ card.deadline }} <span><i class="fa-solid fa-caret-down"></i></span>
-  </button>
-  <ng-template #popContent>
-    <div>
-      <ngb-datepicker #dp [(ngModel)]="selectedDate"></ngb-datepicker>
-      <div>
+  <div class="row">
+    <div class="col-12">
+      <button
+        class="btn btn-light"
+        placement="bottom"
+        [autoClose]="'outside'"
+        [ngbPopover]="popContent"
+        popoverTitle="Due date"
+        (hidden)="recordHidden()"
+        popoverClass="scrollable"
+      >
+        {{ card.deadline }} <span><i class="fa-solid fa-caret-down"></i></span>
+      </button>
+      <ng-template #popContent>
         <div>
-          <small>Due date</small>
+          <ngb-datepicker #dp [(ngModel)]="selectedDate"></ngb-datepicker>
+          <div>
+            <div>
+              <small>Due date</small>
+            </div>
+            <div class="input-group">
+              <input
+                class="form-control"
+                name="dp"
+                type="text"
+                [(ngModel)]="selectedDate"
+                ngbDatepicker
+                #d="ngbDatepicker"
+              />
+            </div>
+          </div>
         </div>
-        <div class="input-group">
-          <input
-            class="form-control"
-            name="dp"
-            type="text"
-            [(ngModel)]="selectedDate"
-            ngbDatepicker
-            #d="ngbDatepicker"
-          />
+        <div class="row">
+          <div class="col-12 text-center">
+            <button class="btn btn-primary">Save</button>
+          </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col-12 text-center">
+            <button class="btn btn-secondary">Remove</button>
+          </div>
+        </div>
+      </ng-template>
     </div>
-    <div class="row">
-      <div class="col-12">
-        <button class="btn btn-primary">Save</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <button class="btn btn-secondary">Remove</button>
-      </div>
-    </div>
-  </ng-template>
+  </div>
 </div>
