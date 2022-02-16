@@ -9,7 +9,7 @@ import { CardService } from 'src/app/services/card/card-service.service';
 })
 export class CardDescriptionComponent implements OnInit {
 
-  isWriting: boolean = false
+  isUpdating: boolean = false
   card: Card = new Card();
 
   constructor(private cardService: CardService) { }
@@ -21,7 +21,7 @@ export class CardDescriptionComponent implements OnInit {
   }
 
   onUpdateDescription() {
-    this.isWriting = true;
+    this.isUpdating = true;
   }
 
 }

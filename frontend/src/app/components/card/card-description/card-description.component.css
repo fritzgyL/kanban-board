@@ -8,6 +8,10 @@
   align-items: center;
 }
 
+.description-icon {
+  margin-right: 0.5rem;
+}
+
 .description {
-  margin-left: 1.5rem;
+  margin-left: 1.8rem;
 }
