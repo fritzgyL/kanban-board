@@ -20,6 +20,9 @@ import { CardDetailsButtonsComponent } from './components/card/card-details-butt
 import { CardDetailsComponent } from './components/card/card-details/card-details.component';
 import { CardResourcesComponent } from './components/card/card-resources/card-resources.component';
 import { DeadlineButtonComponent } from './components/deadline-button/deadline-button.component';
+import { LinkPreviewService } from './services/link-preview.service';
+import { CardLinkSectionComponent } from './components/card/card-link-section/card-link-section.component';
+import { CardSectionComponent } from './components/card/card-section/card-section.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import { DeadlineButtonComponent } from './components/deadline-button/deadline-b
     CardDetailsButtonsComponent,
     CardResourcesComponent,
     DeadlineButtonComponent,
+    CardLinkSectionComponent,
+    CardSectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +53,7 @@ import { DeadlineButtonComponent } from './components/deadline-button/deadline-b
     BoardService,
     CardService,
     SectionService,
+    LinkPreviewService
 
   ],
   bootstrap: [AppComponent]

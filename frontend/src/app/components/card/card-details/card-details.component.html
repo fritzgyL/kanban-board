@@ -1,17 +1,26 @@
 <div class="row">
   <div class="col-xs-12 col-md-8">
     <app-card-resources></app-card-resources>
-    <div class="row">
-      <div class="col-12">
-        <app-card-description></app-card-description>
-      </div>
-    </div>
+    <app-card-description></app-card-description>
+    <app-card-link-section *ngIf="card.url != null"></app-card-link-section>
   </div>
   <div class="col-xs-12 col-md-4">
     <div class="row">
       <div class="col-12">
         <small>Add to the card</small>
         <app-card-details-buttons></app-card-details-buttons>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <small>Actions</small>
+        <div class="row">
+          <div class="col-12">
+            <button (click)="onDelete()" class="btn btn-danger">
+              <i class="fa-solid fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
