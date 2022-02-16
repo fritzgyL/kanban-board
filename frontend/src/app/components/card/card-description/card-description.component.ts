@@ -9,19 +9,29 @@ import { CardService } from 'src/app/services/card/card-service.service';
 })
 export class CardDescriptionComponent implements OnInit {
 
-  isUpdating: boolean = false
+  isUpdating: boolean = false;
   card: Card = new Card();
-
+  textareaText: string = '';
   constructor(private cardService: CardService) { }
 
   ngOnInit(): void {
     this.cardService.getCard().subscribe((card) => {
       this.card = card;
+      this.setTextareaText();
     })
   }
 
   onUpdateDescription() {
     this.isUpdating = true;
+  }
+
+  private setTextareaText() {
+    if (this.card.description != null) {
+      this.textareaText = this.card.description;
+    }
+    else {
+      this.textareaText = 'Add a more detailed description...';
+    }
   }
 
 }
