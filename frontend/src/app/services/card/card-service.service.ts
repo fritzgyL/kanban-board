@@ -14,12 +14,16 @@ export class CardService {
   constructor(private httpClient: HttpClient) {
     this.selectedId$.subscribe((id) => {
       if (id != 0) {
-        this.loadCard(id);
+        this.readCard(id);
       }
     });
   }
 
-  loadCard(id: number) {
+  createCard(card: Card, sectionId: number) {
+    return this.httpClient.post<Card>(`${this.baseUrl}/sections/${sectionId}/cards`, card)
+  }
+
+  readCard(id: number) {
     this.httpClient.get<Card>(`${this.baseUrl}/cards/${id}`).subscribe((card) => {
       this.httpClient.get<Tag[]>(`${this.baseUrl}/cards/${card.id}/tags`).subscribe((tags) => {
         card.tags = tags;
@@ -28,12 +32,12 @@ export class CardService {
     })
   }
 
-  addCard(card: Card, sectionId: number) {
-    return this.httpClient.post<Card>(`${this.baseUrl}/sections/${sectionId}/cards`, card)
-  }
-
   updateCard(card: Card) {
     return this.httpClient.put<Card>(`${this.baseUrl}/cards/${card.id}`, card);
+  }
+
+  deleteCard(card: Card) {
+    return this.httpClient.delete(`${this.baseUrl}/cards/${card.id}`);
   }
 
   getCard() {
