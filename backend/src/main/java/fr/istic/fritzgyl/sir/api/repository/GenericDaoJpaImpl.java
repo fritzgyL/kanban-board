@@ -28,7 +28,9 @@ public abstract class GenericDaoJpaImpl<T, PK extends Serializable> implements G
 
 	@Override
 	public T read(PK id) {
+        entityManager.clear();
 		return this.entityManager.find(entityClass, id);
+
 	}
 
 	@Override
