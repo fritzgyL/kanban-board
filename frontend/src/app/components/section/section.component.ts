@@ -3,6 +3,7 @@ import { Card } from 'src/app/models/card/card';
 import { Section } from 'src/app/models/section/section';
 import { CardService } from 'src/app/services/card/card-service.service';
 import { SectionService } from 'src/app/services/section/section.service';
+import { closeModal } from 'src/app/utils/modal-closer';
 
 @Component({
   selector: 'app-section',
@@ -31,7 +32,7 @@ export class SectionComponent implements OnInit {
     if (this.newCardTitle != '') {
       const newCard = new Card();
       newCard.title = this.newCardTitle;
-      this.cardService.addCard(newCard, this.section.id).subscribe(data => {
+      this.cardService.createCard(newCard, this.section.id).subscribe(data => {
         /** update the current state of the cards list of the section */
         this.section.cards.push(data);
         /**close the modal */
@@ -41,10 +42,7 @@ export class SectionComponent implements OnInit {
   }
 
   closeModal() {
-    const element = window.document.getElementById(`closeModalBtn${this.section.id}`);
-    if (element !== null) {
-      element.click();
-    }
+    closeModal(`closeModalBtn${this.section.id}`);
   }
 
   onResetNewCardTitle() {

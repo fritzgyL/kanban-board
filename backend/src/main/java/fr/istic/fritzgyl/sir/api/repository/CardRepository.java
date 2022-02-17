@@ -18,5 +18,6 @@ public class CardRepository extends GenericDaoJpaImpl<Card, Long> {
 		entityManager.getTransaction().commit();
 		return tag;
 	}
+	
 
 }

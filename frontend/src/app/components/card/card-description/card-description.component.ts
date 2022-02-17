@@ -41,7 +41,7 @@ export class CardDescriptionComponent implements OnInit {
       this.card.description = this.textareaText;
       this.cardService.updateCard(this.card).subscribe((card) => {
         console.log(card);
-        this.cardService.loadCard(card.id);
+        this.cardService.readCard(card.id);
       });
       this.isUpdating = false;
       this.setTextareaText();

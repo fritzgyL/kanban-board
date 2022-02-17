@@ -22,7 +22,9 @@ public class CardService {
 	}
 
 	public void removeCard(long cardId) {
-		cardRepository.delete(getCard(cardId));
+		Card card = getCard(cardId);
+		card.getSection().removeCard(card);
+		cardRepository.delete(card);
 	}
 
 	public Card updateCard(Card card) {

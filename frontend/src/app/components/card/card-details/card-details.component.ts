@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from 'src/app/models/card/card';
+import { BoardService } from 'src/app/services/board/board-service.service';
 import { CardService } from 'src/app/services/card/card-service.service';
-
+import { closeModal } from 'src/app/utils/modal-closer';
 
 @Component({
   selector: 'app-card-details',
@@ -11,7 +12,7 @@ import { CardService } from 'src/app/services/card/card-service.service';
 export class CardDetailsComponent implements OnInit {
 
   card: Card = new Card();
-  constructor(private cardService: CardService) { }
+  constructor(private cardService: CardService, private boardService: BoardService) { }
 
   ngOnInit(): void {
     this.cardService.getCard().subscribe((card) => {
@@ -21,8 +22,15 @@ export class CardDetailsComponent implements OnInit {
 
   onDelete() {
     if (confirm('Delete this card?')) {
-      console.log('hey');
+      this.cardService.deleteCard(this.card).subscribe(response => {
+        this.closeModal();
+        this.boardService.loadBoard();
+      })
     }
+  }
+
+  closeModal() {
+    closeModal(`viewCardModal${this.card.id}`);
   }
 
 }
