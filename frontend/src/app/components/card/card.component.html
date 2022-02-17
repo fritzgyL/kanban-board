@@ -17,8 +17,28 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title font-weight-bold" id="exampleModalLabel">
-          {{ card.title }}
+        <h2
+          #cardLabelContainer
+          class="modal-title font-weight-bold"
+          id="exampleModalLabel"
+        >
+          <div
+            #cardLabel
+            (click)="onUpdateCardTitle()"
+            *ngIf="!isUpdating; else updateTitleTextareaContainer"
+            id="test"
+          >
+            {{ card.title }}
+          </div>
+          <ng-template #updateTitleTextareaContainer>
+            <textarea
+              #updateTextarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              [(ngModel)]="newCardTitle"
+            ></textarea>
+          </ng-template>
         </h2>
         <button
           type="button"

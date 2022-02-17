@@ -40,7 +40,6 @@ export class CardDescriptionComponent implements OnInit {
     if (this.textareaText != '' && this.textareaText != this.MY_CONSTANT) {
       this.card.description = this.textareaText;
       this.cardService.updateCard(this.card).subscribe((card) => {
-        console.log(card);
         this.cardService.readCard(card.id);
       });
       this.isUpdating = false;
