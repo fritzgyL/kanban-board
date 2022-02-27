@@ -17,12 +17,11 @@ export class BoardService {
 
 
   constructor(private httpClient: HttpClient) {
-    this.loadBoards();
     this.loadBoard();
   }
 
-  loadBoards() {
-    this.httpClient.get<Board[]>(`${this.baseUrl}/users/1/boards`).subscribe((boards) => {
+  loadBoards(userId: number) {
+    this.httpClient.get<Board[]>(`${this.baseUrl}/users/${userId}/boards`).subscribe((boards) => {
       this.boards$.next(boards);
     })
   }
