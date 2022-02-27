@@ -38,13 +38,16 @@ export class CardDescriptionComponent implements OnInit {
 
   onSaveNewDescription() {
     if (this.textareaText != '' && this.textareaText != this.MY_CONSTANT) {
-      this.card.description = this.textareaText;
-      this.cardService.updateCard(this.card).subscribe((card) => {
+      let newCard = this.card;
+      newCard.description = this.textareaText;
+      this.cardService.updateCard(newCard).subscribe((card) => {
         this.cardService.readCard(card.id);
       });
       this.isUpdating = false;
       this.setTextareaText();
     }
   }
+
+
 
 }

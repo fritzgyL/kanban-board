@@ -1,0 +1,9 @@
+<ng-template #modal>
+  <div class="modal-header">
+    <app-card-modal-title></app-card-modal-title>
+    <i (click)="close()" class="fas fa-times"></i>
+  </div>
+  <div class="modal-body">
+    <app-card-details (closeModal)="close()"></app-card-details>
+  </div>
+</ng-template>

@@ -23,8 +23,9 @@ export class SectionComponent implements OnInit {
   }
 
   private getSectionCard() {
-    this.sectionService.getSectionCards(this.section.id).subscribe(data => {
-      this.section.cards = data;
+    this.sectionService.setSelectedId(this.section.id);
+    this.sectionService.getSectionCards().subscribe((cards) => {
+      this.section.cards = cards;
     });
   }
 

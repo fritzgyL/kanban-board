@@ -26,6 +26,9 @@ import { CardSectionComponent } from './components/card/card-section/card-sectio
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TagButtonComponent } from './components/card/tag-button/tag-button.component';
 import { CacheInterceptor } from './cache-interceptor';
+import { ViewCardComponent } from './components/card/view-card/view-card.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { CardModalTitleComponent } from './components/card/card-modal-title/card-modal-title.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { CacheInterceptor } from './cache-interceptor';
     DeadlineButtonComponent,
     CardLinkSectionComponent,
     CardSectionComponent,
-    TagButtonComponent
+    TagButtonComponent,
+    ViewCardComponent,
+    ModalComponent,
+    CardModalTitleComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +66,6 @@ import { CacheInterceptor } from './cache-interceptor';
     SectionService,
     LinkPreviewService,
     CacheInterceptor
-
   ],
   bootstrap: [AppComponent]
 })
