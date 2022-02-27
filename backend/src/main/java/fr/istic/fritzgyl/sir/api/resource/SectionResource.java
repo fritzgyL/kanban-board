@@ -96,6 +96,7 @@ public class SectionResource {
 
 	public static void initLinks(Section section, UriInfo uriInfo) {
 		section.addLink(getUriForSelf(uriInfo, section), "self");
+		section.addLink(getUriForBoard(uriInfo, section), "board");
 		section.addLink(getUriForCards(uriInfo, section), "cards");
 
 	}
@@ -109,6 +110,12 @@ public class SectionResource {
 	private static String getUriForSelf(UriInfo uriInfo, Section section) {
 		String uri = uriInfo.getBaseUriBuilder().path(SectionResource.class).path(SectionResource.class, "getSection")
 				.resolveTemplate("sectionId", section.getId()).build().toString();
+		return uri;
+	}
+
+	private static String getUriForBoard(UriInfo uriInfo, Section section) {
+		String uri = uriInfo.getBaseUriBuilder().path(BoardResource.class).path(BoardResource.class, "getBoard")
+				.resolveTemplate("boardId", section.getBoard().getId()).build().toString();
 		return uri;
 	}
 

@@ -3,6 +3,7 @@ package fr.istic.fritzgyl.sir.api.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,6 +22,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity(name = "board")
 @Table(name = "board")
+@Cacheable(false)
+
 public class Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,8 +100,8 @@ public class Board {
 		return links;
 	}
 
-	public void addLink(String url, String rel) {
-		links.add(new Link(url, rel));
+	public void addLink(String href, String rel) {
+		links.add(new Link(href, rel));
 	}
 
 	public List<Tag> getTags() {

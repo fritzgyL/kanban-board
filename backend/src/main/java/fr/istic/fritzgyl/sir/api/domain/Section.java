@@ -3,6 +3,7 @@ package fr.istic.fritzgyl.sir.api.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity(name = "section")
 @Table(name = "section")
+@Cacheable(false)
+
 public class Section {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +30,7 @@ public class Section {
 	@JoinColumn(name = "board_id")
 	@XmlTransient
 	private Board board;
-	@OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "section", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER)
 	@XmlTransient
 	private List<Card> cards = new ArrayList<Card>();
 	@Transient
@@ -70,8 +73,8 @@ public class Section {
 	}
 
 	public void addCard(Card card) {
-		cards.add(card);
 		card.setSection(this);
+		cards.add(card);
 	}
 
 	public void removeCard(Card card) {
@@ -83,8 +86,8 @@ public class Section {
 		return links;
 	}
 
-	public void addLink(String url, String rel) {
-		links.add(new Link(url, rel));
+	public void addLink(String href, String rel) {
+		links.add(new Link(href, rel));
 	}
 
 	@Override

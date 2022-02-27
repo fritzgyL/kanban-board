@@ -12,7 +12,7 @@ public class EntityManagerHelper {
 	static {
 		emf = Persistence.createEntityManagerFactory("mysql");
 		threadLocal = new ThreadLocal<EntityManager>();
-	} 
+	}
 
 	public static EntityManager getEntityManager() {
 		EntityManager em = threadLocal.get();

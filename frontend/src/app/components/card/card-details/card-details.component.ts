@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { Card } from 'src/app/models/card/card';
 import { BoardService } from 'src/app/services/board/board-service.service';
 import { CardService } from 'src/app/services/card/card-service.service';
-import { closeModal } from 'src/app/utils/modal-closer';
 
 @Component({
   selector: 'app-card-details',
@@ -10,6 +9,7 @@ import { closeModal } from 'src/app/utils/modal-closer';
   styleUrls: ['./card-details.component.css']
 })
 export class CardDetailsComponent implements OnInit {
+  @Output() closeModal: EventEmitter<Boolean> = new EventEmitter<Boolean>()
 
   card: Card = new Card();
   constructor(private cardService: CardService, private boardService: BoardService) { }
@@ -23,14 +23,14 @@ export class CardDetailsComponent implements OnInit {
   onDelete() {
     if (confirm('Delete this card?')) {
       this.cardService.deleteCard(this.card).subscribe(response => {
-        this.closeModal();
         this.boardService.loadBoard();
+        this.closeParentModal();
       })
     }
   }
 
-  closeModal() {
-    closeModal(`viewCardModal${this.card.id}`);
+  private closeParentModal() {
+    this.closeModal.emit(true);
   }
 
 }

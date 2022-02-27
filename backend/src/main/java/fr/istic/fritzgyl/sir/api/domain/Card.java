@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity(name = "card")
 @Table(name = "card")
+@Cacheable(false)
+
 public class Card {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -137,8 +140,8 @@ public class Card {
 		return links;
 	}
 
-	public void addLink(String url, String rel) {
-		links.add(new Link(url, rel));
+	public void addLink(String href, String rel) {
+		links.add(new Link(href, rel));
 	}
 
 	@Override

@@ -12,10 +12,10 @@ public class UserRepository extends GenericDaoJpaImpl<User, Long> {
 	}
 
 	public Board saveUserBoard(long userId, Board board) {
-		entityManager.getTransaction().begin();
-		User user = read(userId);
-		user.addBoard(board);
-		entityManager.getTransaction().commit();
+//		entityManager.getTransaction().begin();
+//		User user = read(userId);
+//		user.addBoard(board);
+//		entityManager.getTransaction().commit();
 		return board;
 	}
 
