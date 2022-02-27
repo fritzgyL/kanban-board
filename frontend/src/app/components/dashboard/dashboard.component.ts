@@ -22,14 +22,14 @@ export class DashboardComponent implements OnInit {
   }
 
   private getBoards() {
-    this.authStore.user$.subscribe((user) => {
-      if (user != null) {
-        this.boardService.loadBoards(user.id)
-        this.boardService.getBoards().subscribe((boards) => {
-          this.boards = boards;
-        });
-      }
-    })
+    const user = JSON.parse(localStorage.getItem('CONNECTED_USER')!);
+    this.boardService.loadBoards(user.id);
+    this.boardService.getBoards().subscribe((boards) => {
+      this.boards = boards;
+    });
+
+
   }
+
 
 }

@@ -14,6 +14,7 @@ export class AuthStore {
     user$: Observable<User | null> = this.subject.asObservable();
     isLoggedIn$: Observable<boolean>;
     isLoggedOut$: Observable<boolean>;
+    userId: number | null = null
 
     constructor(private http: HttpClient) {
         this.isLoggedIn$ = this.user$.pipe(map(user => !!user))
@@ -22,7 +23,10 @@ export class AuthStore {
 
     login(user: User): Observable<User> {
         return this.http.post<User>(this.baseUrl, user).pipe(
-            tap(user => this.subject.next(user)),
+            tap(user => {
+                this.subject.next(user);
+                localStorage.setItem('CONNECTED_USER', JSON.stringify(user));
+            }),
         );
     }
 
@@ -35,6 +39,7 @@ export class AuthStore {
 
     logout() {
         this.subject.next(null);
+        localStorage.removeItem('CONNECTED_USER');
     }
 
 }
