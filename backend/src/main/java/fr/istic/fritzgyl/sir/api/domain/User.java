@@ -3,6 +3,7 @@ package fr.istic.fritzgyl.sir.api.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity(name = "user")
 @Table(name = "user")
+@Cacheable(false)
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ public class User {
 	private String firstName;
 	@Column(name = "last_name")
 	private String lastName;
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
 	@XmlTransient
 	private List<Board> boards = new ArrayList<Board>();
 	@Transient
@@ -77,8 +79,8 @@ public class User {
 		return links;
 	}
 
-	public void addLink(String url, String rel) {
-		links.add(new Link(url, rel));
+	public void addLink(String href, String rel) {
+		links.add(new Link(href, rel));
 	}
 
 	@Override

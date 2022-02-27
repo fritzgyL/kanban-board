@@ -17,11 +17,11 @@ public class BoardRepository extends GenericDaoJpaImpl<Board, Long> {
 	}
 
 	public Section saveBoardSection(long boardId, Section section) {
-		entityManager.getTransaction().begin();
-		System.out.println(section);
-		Board board = read(boardId);
-		board.addSection(section);
-		entityManager.getTransaction().commit();
+//		entityManager.getTransaction().begin();
+//		System.out.println(section);
+//		Board board = read(boardId);
+//		board.addSection(section);
+//		entityManager.getTransaction().commit();
 		return section;
 	}
 }
