@@ -23,7 +23,6 @@ public class LoginResource {
 	private UserService userService = new UserService();
 
 	@POST
-	@Path("/signin")
 	@Operation(summary = "Check user credentials for login", tags = { "Authentification" }, responses = {
 			@ApiResponse(responseCode = "200", description = "The user resource", content = @Content(schema = @Schema(implementation = User.class))) })
 	public Response signin(
