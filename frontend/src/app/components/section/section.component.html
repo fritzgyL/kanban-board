@@ -1,7 +1,9 @@
 <div class="card shadow">
   <div class="card-header">
     <h2>{{ section.title }}</h2>
-    <button class="btn btn-danger"><i class="fas fa-times"></i></button>
+    <button (click)="onDeleteSection()" class="btn btn-danger">
+      <i class="fas fa-times"></i>
+    </button>
   </div>
   <div class="card-body scroll-card">
     <div class="list-group">

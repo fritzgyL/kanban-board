@@ -25,9 +25,8 @@
 }
 
 .scroll-card {
-  max-height: 25rem;
+  max-height: 15rem;
   overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .scroll-popover {
@@ -43,4 +42,14 @@
 .modal {
   z-index: 9999;
   background-color: transparent !important;
+}
+
+.btns-section {
+  display: flex;
+  align-items: center;
+}
+
+.fa-xmark {
+  color: red;
+  cursor: pointer;
 }

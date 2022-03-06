@@ -34,6 +34,8 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { CardDateComponent } from './components/card-date/card-date.component';
 import { CustomDatePickerAdapter } from './services/date-formatter.service';
+import { ColorPickerModule } from 'ngx-color-picker';
+
 
 @NgModule({
   declarations: [
@@ -65,7 +67,8 @@ import { CustomDatePickerAdapter } from './services/date-formatter.service';
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ColorPickerModule
 
   ],
   providers: [

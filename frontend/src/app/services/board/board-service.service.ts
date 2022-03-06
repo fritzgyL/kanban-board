@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Board } from '../../models/board/board';
 import { Section } from 'src/app/models/section/section';
 @Injectable({
@@ -53,6 +53,16 @@ export class BoardService {
 
   setSelectedId(id: number) {
     this.selectedId$.next(id);
+  }
+
+  addSection(section: Section, boardId: number) {
+
+    return this.httpClient.post<Section>(`${this.baseUrl}/boards/${boardId}/sections`, section);
+
+  }
+
+  deleteSection(sectionId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/sections/${sectionId}`);
   }
 
 }
