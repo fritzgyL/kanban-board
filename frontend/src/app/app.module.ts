@@ -32,6 +32,8 @@ import { CardModalTitleComponent } from './components/card/card-modal-title/card
 import { AuthStore } from './stores/auth.store';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { CardDateComponent } from './components/card-date/card-date.component';
+import { CustomDatePickerAdapter } from './services/date-formatter.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { SignupComponent } from './components/signup/signup.component';
     ModalComponent,
     CardModalTitleComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    CardDateComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { SignupComponent } from './components/signup/signup.component';
     SectionService,
     LinkPreviewService,
     CacheInterceptor,
-    AuthStore
+    AuthStore,
+    CustomDatePickerAdapter
   ],
   bootstrap: [AppComponent]
 })

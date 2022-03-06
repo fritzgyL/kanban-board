@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
 
   boards: Board[] = [];
 
-  constructor(private boardService: BoardService, private authStore: AuthStore) {
+  constructor(private boardService: BoardService) {
 
   }
 
