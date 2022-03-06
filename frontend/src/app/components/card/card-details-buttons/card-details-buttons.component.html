@@ -12,7 +12,10 @@
 </div>
 <div *ngIf="card.deadline == null" class="row">
   <ng-template #datePicker>
-    <app-card-date (updateDate)="updateDueDate($event)"></app-card-date>
+    <app-card-date
+      operation="create"
+      (updateDate)="updateDueDate($event)"
+    ></app-card-date>
   </ng-template>
   <div class="col-12">
     <button

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CardService } from 'src/app/services/card/card-service.service';
 import { CustomDatePickerAdapter } from 'src/app/services/date-formatter.service';
-import { Output, EventEmitter } from '@angular/core';
+import { Output, Input, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-card-date',
   templateUrl: './card-date.component.html',
@@ -11,6 +11,10 @@ import { Output, EventEmitter } from '@angular/core';
 
 export class CardDateComponent implements OnInit {
   @Output() updateDate = new EventEmitter<string>();
+  @Input() operation = '';
+  @Input() cardDeadline = '';
+
+
   selectedDate1: NgbDateStruct | null = null;
   selectedDate2: string | null = null;
 
@@ -20,7 +24,17 @@ export class CardDateComponent implements OnInit {
   constructor(private calendar: NgbCalendar, private dateAdapter: CustomDatePickerAdapter, private cardService: CardService) { }
 
   ngOnInit(): void {
-    this.selectToday();
+    if (this.operation == 'create') {
+      this.selectToday();
+    }
+    else if (this.operation == 'update') {
+      this.setCalendarFromCardDeadline();
+    }
+  }
+
+  private setCalendarFromCardDeadline() {
+    this.selectedDate1 = this.dateAdapter.fromModel(this.cardDeadline);
+    this.selectedDate2 = this.cardDeadline;
   }
 
   private selectToday() {
