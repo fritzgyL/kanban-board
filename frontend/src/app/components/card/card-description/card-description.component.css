@@ -1,0 +1,17 @@
+.fa-xmark {
+  color: red;
+  cursor: pointer;
+}
+
+.btns-section {
+  display: flex;
+  align-items: center;
+}
+
+.section-icon {
+  margin-right: 0.5rem;
+}
+
+.section-content {
+  margin-left: 1.8rem;
+}

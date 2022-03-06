@@ -1,0 +1,33 @@
+<app-card-section>
+  <div class="section-header">
+    <h5 class="font-weight-bold">
+      <span class="section-icon"><i class="fa-solid fa-link"></i></span>Link
+    </h5>
+  </div>
+  <div class="section-body">
+    <button (click)="onNavigateToLink()" class="btn btn-light section-content">
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <img
+            class="img-fluid"
+            [src]="linkPreview.image"
+            alt="link-preview-image"
+          />
+        </div>
+        <div class="col-xs-12 col-md-8">
+          <div
+            class="font-weight-bold"
+            *ngIf="linkPreview.title; else elseBlock"
+          >
+            {{ linkPreview.title }}
+          </div>
+          <ng-template #elseBlock>{{ card.url }}</ng-template>
+          <div>
+            <p>{{ linkPreview.description }}</p>
+            <p><a href="" class="link-secondary">Retirer</a></p>
+          </div>
+        </div>
+      </div>
+    </button>
+  </div>
+</app-card-section>

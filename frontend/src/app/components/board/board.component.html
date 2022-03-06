@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <button class="btn btn-primary">
+        <i class="fas fa-plus"></i> Add section
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm" *ngFor="let section of board.sections">
+      <app-section [section]="section"></app-section>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a routerLink="/dashboard">
+        <button class="btn btn-secondary">
+          <i class="fas fa-arrow-left"></i> Back to dashboard
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

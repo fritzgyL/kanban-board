@@ -1,0 +1,26 @@
+<div>
+  <small>Due date</small><br />
+  <div class="row">
+    <div class="col-12">
+      <button
+        #popover="ngbPopover"
+        class="btn btn-light"
+        placement="bottom"
+        [autoClose]="'outside'"
+        [ngbPopover]="popContent"
+        popoverTitle="Due date"
+        popoverClass="scroll-popover"
+      >
+        {{ card.deadline }} <span><i class="fa-solid fa-caret-down"></i></span>
+      </button>
+      <ng-template #popContent>
+        <app-card-date
+          operation="update"
+          [cardDeadline]="card.deadline"
+          (updateDate)="updateDueDate($event, popover)"
+          (deleteDate)="updateDueDate(null, popover)"
+        ></app-card-date>
+      </ng-template>
+    </div>
+  </div>
+</div>

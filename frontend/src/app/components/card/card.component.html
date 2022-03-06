@@ -1,0 +1,9 @@
+<a
+  (click)="onSelectCard()"
+  href="#"
+  class="list-group-item-action"
+  data-toggle="modal"
+  [attr.data-target]="'#viewCardModal' + card.id"
+  ><app-card-title [title]="card.title"></app-card-title>
+</a>
+<app-modal #modal [modalConfig]="modalConfig"></app-modal>

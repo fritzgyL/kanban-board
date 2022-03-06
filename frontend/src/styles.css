@@ -2,11 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins',
-    sans-serif;
+  font-family: "Roboto", sans-serif;
 }
-
-
 
 .content {
   min-height: 100vh;
@@ -19,9 +16,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 }
 
 .row,
 .card {
   margin-top: 1rem;
+}
+
+.scroll-card {
+  max-height: 25rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.scroll-popover {
+  max-height: 20rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.modal-backdrop {
+  z-index: 1040;
+}
+
+.modal {
+  z-index: 9999;
+  background-color: transparent !important;
 }

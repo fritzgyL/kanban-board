@@ -1,15 +1,17 @@
 package fr.istic.fritzgyl.sir.api.repository;
 
+import javax.persistence.EntityManager;
+
 import fr.istic.fritzgyl.sir.api.domain.Card;
 import fr.istic.fritzgyl.sir.api.domain.Section;
 
 public class SectionRepository extends GenericDaoJpaImpl<Section, Long> {
 
 	public Card addCard(long id, Card card) {
-		entityManager.getTransaction().begin();
-		Section section = read(id);
-		section.addCard(card);
-		entityManager.getTransaction().commit();
+//		entityManager.getTransaction().begin();
+//		Section section = read(id);
+//		section.addCard(card);;
+//		entityManager.getTransaction().commit();
 		return card;
 	}
 
@@ -20,10 +22,12 @@ public class SectionRepository extends GenericDaoJpaImpl<Section, Long> {
 	}
 
 	public Card saveSectionCard(long sectionId, Card card) {
-		entityManager.getTransaction().begin();
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		em.getTransaction().begin();
 		Section section = read(sectionId);
 		section.addCard(card);
-		entityManager.getTransaction().commit();
+		em.getTransaction().commit();
+		EntityManagerHelper.closeEntityManager();
 		return card;
 	}
 

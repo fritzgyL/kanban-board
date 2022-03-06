@@ -43,21 +43,22 @@ public class UserResource {
 		return users;
 	}
 
-	@POST
-	@Operation(summary = "Creates a user resource", tags = { "Users" }, responses = {
-			@ApiResponse(responseCode = "201", description = "User resource created", content = @Content(schema = @Schema(implementation = User.class))) })
-	public Response addUser(
-			@Parameter(description = "The new user resource", schema = @Schema(implementation = User.class), required = true) User user,
-			@Context UriInfo uriInfo) {
-		User createdUser = userService.addUser(user);
-		initLinks(createdUser, uriInfo);
-		return Response.ok(createdUser).status(201).build();
-	}
+//	@POST
+//	@Operation(summary = "Creates a user resource", tags = { "Users" }, responses = {
+//			@ApiResponse(responseCode = "201", description = "User resource created", content = @Content(schema = @Schema(implementation = User.class))) })
+//	public Response addUser(
+//			@Parameter(description = "The new user resource", schema = @Schema(implementation = User.class), required = true) User user,
+//			@Context UriInfo uriInfo) {
+//		User createdUser = userService.addUser(user);
+//		initLinks(createdUser, uriInfo);
+//		return Response.ok(createdUser).status(201).build();
+//	}
 
 	@PUT
 	@Path("/{userId}")
 	@Operation(summary = "Replaces a user resource", tags = { "Users" }, responses = {
-			@ApiResponse(responseCode = "200", description = "User resource updated", content = @Content(schema = @Schema(implementation = User.class))) })
+			@ApiResponse(responseCode = "200", description = "User resource updated", content = @Content(schema = @Schema(implementation = User.class))),
+			@ApiResponse(responseCode = "404", description = "User not found") })
 	public User updateUser(@Parameter(required = true) @PathParam("userId") long userId,
 			@Parameter(description = "The updated user resource", schema = @Schema(implementation = User.class), required = true) User user) {
 		User currentUser = userService.getUser(userId);
@@ -79,7 +80,8 @@ public class UserResource {
 	@DELETE
 	@Path("/{userId}")
 	@Operation(summary = "Removes the user resource", tags = { "Users" }, responses = {
-			@ApiResponse(responseCode = "204", description = "User resource deleted") })
+			@ApiResponse(responseCode = "204", description = "User resource deleted"),
+			@ApiResponse(responseCode = "404", description = "User not found") })
 	public Response deleteUser(@Parameter(required = true) @PathParam("userId") long userId) {
 		userService.removeUser(userId);
 		return Response.status(204).build();
@@ -88,7 +90,8 @@ public class UserResource {
 	@GET
 	@Path("/{userId}")
 	@Operation(summary = "Retrieves a user resource", tags = { "Users" }, responses = {
-			@ApiResponse(responseCode = "200", description = "User resource response", content = @Content(schema = @Schema(implementation = User.class))) })
+			@ApiResponse(responseCode = "200", description = "User resource response", content = @Content(schema = @Schema(implementation = User.class))),
+			@ApiResponse(responseCode = "404", description = "User not found") })
 	public User getUser(@Parameter(required = true) @PathParam("userId") long userId, @Context UriInfo uriInfo) {
 		User user = userService.getUser(userId);
 		initLinks(user, uriInfo);
@@ -98,7 +101,8 @@ public class UserResource {
 	@GET
 	@Path("/{userId}/boards")
 	@Operation(summary = "Retrieves the collection of board resources", tags = { "Boards" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Board collection response", content = @Content(schema = @Schema(implementation = Board.class))) })
+			@ApiResponse(responseCode = "200", description = "Board collection response", content = @Content(schema = @Schema(implementation = Board.class))),
+			@ApiResponse(responseCode = "404", description = "User not found") })
 	public Iterable<Board> getBoards(@Parameter(required = true) @PathParam("userId") long userId,
 			@Context UriInfo uriInfo) {
 		Iterable<Board> boards = boardService.getAllBoards(userId);
@@ -118,18 +122,18 @@ public class UserResource {
 		return Response.ok(createdBoard).status(201).build();
 	}
 
-	public void initLinks(User user, UriInfo uriInfo) {
+	public static void initLinks(User user, UriInfo uriInfo) {
 		user.addLink(getUriForSelf(uriInfo, user), "self");
 		user.addLink(getUriForBoards(uriInfo, user), "boards");
 	}
 
-	private String getUriForBoards(UriInfo uriInfo, User user) {
+	private static String getUriForBoards(UriInfo uriInfo, User user) {
 		URI uri = uriInfo.getBaseUriBuilder().path(UserResource.class).path(UserResource.class, "getBoards")
 				.resolveTemplate("userId", user.getId()).build();
 		return uri.toString();
 	}
 
-	private String getUriForSelf(UriInfo uriInfo, User user) {
+	private static String getUriForSelf(UriInfo uriInfo, User user) {
 		String uri = uriInfo.getBaseUriBuilder().path(UserResource.class).path(Long.toString(user.getId())).build()
 				.toString();
 		return uri;

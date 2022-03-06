@@ -1,20 +1,24 @@
 package fr.istic.fritzgyl.sir.api.domain;
 
 public class Link {
-	private String link;
+	private String href;
 	private String rel;
 
+	public Link() {
+		super();
+	}
+
 	public Link(String link, String rel) {
-		this.link = link;
+		this.href = link;
 		this.rel = rel;
 	}
 
-	public String getLink() {
-		return link;
+	public String getHref() {
+		return href;
 	}
 
-	public void setLink(String link) {
-		this.link = link;
+	public void setHref(String href) {
+		this.href = href;
 	}
 
 	public String getRel() {

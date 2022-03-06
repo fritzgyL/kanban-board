@@ -1,0 +1,70 @@
+<div class="card shadow">
+  <div class="card-header">
+    <h2>{{ section.title }}</h2>
+    <button class="btn btn-danger"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="card-body scroll-card">
+    <div class="list-group">
+      <app-card *ngFor="let card of section.cards" [card]="card"></app-card>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button
+      class="btn btn-primary"
+      data-toggle="modal"
+      [attr.data-target]="'#addCardModal' + section.id"
+    >
+      <i class="fas fa-plus"></i> Add card
+    </button>
+  </div>
+</div>
+<!--add new card modal-->
+<div
+  class="modal fade"
+  id="addCardModal{{ section.id }}"
+  tabindex="-1"
+  role="dialog"
+  [attr.aria-labelledby]="'#addCardModal' + section.id"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Add a card to {{ section.title }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input
+          [(ngModel)]="newCardTitle"
+          type="text"
+          class="form-control"
+          id="newCardTitle"
+          placeholder="Card title"
+        />
+      </div>
+      <div class="modal-footer">
+        <button
+          (click)="onResetNewCardTitle()"
+          type="button"
+          id="closeModalBtn{{ section.id }}"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button (click)="onAddCard()" type="button" class="btn btn-primary">
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

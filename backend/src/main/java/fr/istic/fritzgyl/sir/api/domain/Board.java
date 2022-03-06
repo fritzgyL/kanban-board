@@ -3,31 +3,53 @@ package fr.istic.fritzgyl.sir.api.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+
 @Entity(name = "board")
 @Table(name = "board")
+@Cacheable(false)
 public class Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(accessMode = AccessMode.READ_ONLY)
 	private long id;
+	@Column(nullable = false)
 	private String title;
 	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
 	@XmlTransient
+	@Schema(hidden = true)
 	private User user;
-	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@XmlTransient
+	@Schema(hidden = true)
 	private List<Section> sections = new ArrayList<Section>();
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@XmlTransient
+	@Schema(hidden = true)
+	private List<Tag> tags = new ArrayList<Tag>();
 	@Transient
+	@Schema(accessMode = AccessMode.READ_ONLY)
 	private List<Link> links = new ArrayList<>();
 
 	public Board() {
@@ -64,6 +86,17 @@ public class Board {
 		section.setBoard(null);
 	}
 
+	public void addTag(Tag tag) {
+		tags.add(tag);
+		tag.setBoard(this);
+
+	}
+
+	public void removeTag(Tag tag) {
+		tags.remove(tag);
+		tag.setBoard(null);
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -76,13 +109,18 @@ public class Board {
 		return links;
 	}
 
-	public void addLink(String url, String rel) {
-		links.add(new Link(url, rel));
+	public void addLink(String href, String rel) {
+		links.add(new Link(href, rel));
+	}
+
+	public List<Tag> getTags() {
+		return tags;
 	}
 
 	@Override
 	public String toString() {
-		return "Board [id=" + id + ", title=" + title + ", user=" + user + ", sections=" + sections + "]";
+		return "Board [id=" + id + ", title=" + title + ", user=" + user + ", sections=" + sections + ", tags=" + tags
+				+ "]";
 	}
 
 }

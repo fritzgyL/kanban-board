@@ -1,6 +1,5 @@
 package fr.istic.fritzgyl.sir.api.domain;
 
-
 public class ErrorMessage {
 	private int status;
 	private String message;
