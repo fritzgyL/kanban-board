@@ -32,3 +32,9 @@
     <button (click)="onSaveDate()" class="btn btn-primary">Save</button>
   </div>
 </div>
+
+<div *ngIf="operation == 'update'" class="row text-center">
+  <div class="col-12">
+    <button (click)="onDeleteDate()" class="btn btn-secondary">Remove</button>
+  </div>
+</div>

@@ -4,6 +4,11 @@
       <span class="section-icon"
         ><i class="fa-solid fa-bars-staggered"></i></span
       >Description
+      <span *ngIf="!isUpdating && card.description != ''">
+        <button (click)="onUpdateDescription()" class="btn btn-light">
+          Update
+        </button>
+      </span>
     </h5>
   </div>
   <div class="section-body">

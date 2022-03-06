@@ -9,6 +9,7 @@
         [autoClose]="'outside'"
         [ngbPopover]="popContent"
         popoverTitle="Due date"
+        popoverClass="scroll-popover"
       >
         {{ card.deadline }} <span><i class="fa-solid fa-caret-down"></i></span>
       </button>
@@ -17,6 +18,7 @@
           operation="update"
           [cardDeadline]="card.deadline"
           (updateDate)="updateDueDate($event, popover)"
+          (deleteDate)="updateDueDate(null, popover)"
         ></app-card-date>
       </ng-template>
     </div>

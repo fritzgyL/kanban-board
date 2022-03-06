@@ -11,8 +11,10 @@ import { Output, Input, EventEmitter } from '@angular/core';
 
 export class CardDateComponent implements OnInit {
   @Output() updateDate = new EventEmitter<string>();
+  @Output() deleteDate = new EventEmitter<any>();
+
   @Input() operation = '';
-  @Input() cardDeadline = '';
+  @Input() cardDeadline: string | null = '';
 
 
   selectedDate1: NgbDateStruct | null = null;
@@ -54,6 +56,10 @@ export class CardDateComponent implements OnInit {
 
   onSaveDate() {
     this.updateDate.emit(this.selectedDate2!);
+  }
+
+  onDeleteDate() {
+    this.deleteDate.emit();
   }
 
 }
