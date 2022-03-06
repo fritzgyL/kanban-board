@@ -1,7 +1,9 @@
 package fr.istic.fritzgyl.sir.api.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
@@ -16,6 +18,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+
 import javax.xml.bind.annotation.XmlAccessType;
 
 @Entity(name = "user")
@@ -25,17 +33,30 @@ import javax.xml.bind.annotation.XmlAccessType;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(accessMode = AccessMode.READ_ONLY)
 	private long id;
-	@Column(name = "first_name")
+	@Column(name = "first_name", nullable = false)
 	private String firstName;
-	@Column(name = "last_name")
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Schema(accessMode = AccessMode.WRITE_ONLY)
+	@Column(nullable = false)
 	private String email;
+	@Schema(accessMode = AccessMode.WRITE_ONLY)
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Column(nullable = false)
 	private String password;
-	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@XmlTransient
+	@Schema(hidden = true)
 	private List<Board> boards = new ArrayList<Board>();
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@XmlTransient
+	@Schema(hidden = true)
+	private Set<Assignation> assignations = new HashSet<Assignation>();
 	@Transient
+	@Schema(accessMode = AccessMode.READ_ONLY)
 	private List<Link> links = new ArrayList<>();
 
 	public User() {
@@ -103,6 +124,10 @@ public class User {
 	public void addLink(String href, String rel) {
 		links.add(new Link(href, rel));
 	}
+
+//	public Set<Card> getAssignedCards() {
+//		return assignedCards;
+//	}
 
 	@Override
 	public String toString() {

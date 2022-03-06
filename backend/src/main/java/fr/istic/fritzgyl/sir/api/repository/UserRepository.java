@@ -2,6 +2,7 @@ package fr.istic.fritzgyl.sir.api.repository;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -15,10 +16,12 @@ public class UserRepository extends GenericDaoJpaImpl<User, Long> {
 	}
 
 	public Board saveUserBoard(long userId, Board board) {
-//		entityManager.getTransaction().begin();
-//		User user = read(userId);
-//		user.addBoard(board);
-//		entityManager.getTransaction().commit();
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		em.getTransaction().begin();
+		User user = read(userId);
+		user.addBoard(board);
+		em.getTransaction().commit();
+		EntityManagerHelper.closeEntityManager();
 		return board;
 	}
 

@@ -4,8 +4,10 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import fr.istic.fritzgyl.sir.api.domain.User;
 import fr.istic.fritzgyl.sir.api.service.UserService;
@@ -35,7 +37,10 @@ public class LoginResource {
 	@Operation(summary = "User signup", tags = { "Authentification" }, responses = {
 			@ApiResponse(responseCode = "201", description = "The signed up user resource", content = @Content(schema = @Schema(implementation = User.class))) })
 	public Response signup(
-			@Parameter(description = "The user resource", schema = @Schema(implementation = User.class), required = true) User user) {
-		return Response.ok(userService.signup(user)).status(201).build();
+			@Parameter(description = "The user resource", schema = @Schema(implementation = User.class), required = true) User user,
+			@Context UriInfo uriInfo) {
+		User mUser = userService.signup(user);
+		UserResource.initLinks(mUser, uriInfo);
+		return Response.ok(mUser).status(201).build();
 	}
 }

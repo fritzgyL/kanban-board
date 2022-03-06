@@ -56,7 +56,6 @@ public class UserService {
 				String encryptedPassword = passwordEncryptor.encryptPassword(user.getPassword());
 				mUser = user;
 				mUser.setPassword(encryptedPassword);
-				System.out.println(mUser.getPassword());
 				return userRepository.save(mUser);
 			}
 		}
