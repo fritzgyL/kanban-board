@@ -2,7 +2,7 @@
 # Kanban Board
 
 Kanban board web application made with Java backend + Angular.
-Users can signup and make use of all the basic functionalities of a agile kanban board.
+Users can signup and make use of all the basic functionalities of an agile kanban board.
 
 ## Features
 
