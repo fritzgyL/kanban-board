@@ -4,6 +4,7 @@ import { ElementRef } from '@angular/core';
 import { Card } from 'src/app/models/card/card';
 import { CardService } from 'src/app/services/card/card-service.service';
 import { Renderer2 } from '@angular/core';
+import { SectionService } from 'src/app/services/section/section.service';
 @Component({
   selector: 'app-card-modal-title',
   templateUrl: './card-modal-title.component.html',
@@ -19,7 +20,7 @@ export class CardModalTitleComponent implements OnInit {
   isUpdating: boolean = false;
   newCardTitle: string = '';
 
-  constructor(private cardService: CardService, private renderer: Renderer2) {
+  constructor(private cardService: CardService, private sectionService: SectionService, private renderer: Renderer2) {
     this.cardService.getCard().subscribe((card) => {
       this.card = card;
       this.newCardTitle = this.card.title;

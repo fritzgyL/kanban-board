@@ -1,14 +1,48 @@
 <div class="container">
   <div class="row">
-    <div class="col-12">
-      <button class="btn btn-primary">
-        <i class="fas fa-plus"></i> Add section
-      </button>
-    </div>
-  </div>
-  <div class="row">
     <div class="col-sm" *ngFor="let section of board.sections">
       <app-section [section]="section"></app-section>
+    </div>
+    <div class="col-sm">
+      <div *ngIf="addingSection" class="card shadow">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <input
+                #inputText
+                [(ngModel)]="newSectionTitle"
+                type="text"
+                class="form-control"
+                placeholder="New section title"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="row btns-section">
+                <div class="col-6">
+                  <button (click)="onCreateSection()" class="btn btn-primary">
+                    Add section
+                  </button>
+                </div>
+                <div class="col-6">
+                  <i
+                    (click)="addingSection = false; newSectionTitle = ''"
+                    class="fa-solid fa-xmark fa-2x"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        *ngIf="!addingSection"
+        (click)="addingSection = true"
+        class="btn btn-primary btn-top"
+      >
+        <i class="fas fa-plus"></i> Add section
+      </button>
     </div>
   </div>
   <div class="row">
