@@ -24,9 +24,16 @@
   margin-top: 1rem;
 }
 
-.scroll {
+.scroll-card {
   max-height: 25rem;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.scroll-popover {
+  max-height: 20rem;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .modal-backdrop {

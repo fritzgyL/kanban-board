@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Login</h4>
+  </div>
+  <div class="card-body">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input
+        [(ngModel)]="email"
+        type="text"
+        id="email"
+        class="form-control"
+        placeholder="john.doe@gmail.com"
+      />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        [(ngModel)]="password"
+        type="password"
+        id="password"
+        class="form-control"
+      />
+    </div>
+    <button (click)="onLogin()" class="btn btn-primary">Login</button>
+  </div>
+</div>

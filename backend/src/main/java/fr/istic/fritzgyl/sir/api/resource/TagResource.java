@@ -32,7 +32,8 @@ public class TagResource {
 	@PUT
 	@Path("/{id}")
 	@Operation(summary = "Replaces a tag resource", tags = { "Tags" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Tag resource updated", content = @Content(schema = @Schema(implementation = Tag.class))) })
+			@ApiResponse(responseCode = "200", description = "Tag resource updated", content = @Content(schema = @Schema(implementation = Tag.class))),
+			@ApiResponse(responseCode = "404", description = "Tag not found") })
 	public Tag updateTag(@Parameter(required = true) @PathParam("id") long tagId,
 			@Parameter(description = "The updated tag resource", schema = @Schema(implementation = Tag.class), required = true) Tag tag) {
 		Tag currentTag = tagService.getTag(tagId);
@@ -40,6 +41,10 @@ public class TagResource {
 			String title = tag.getTitle();
 			if (title != null) {
 				currentTag.setTitle(title);
+			}
+			String color = tag.getColor();
+			if (color != null) {
+				currentTag.setColor(color);
 			}
 			return tagService.updateTag(currentTag);
 		} else {
@@ -50,7 +55,8 @@ public class TagResource {
 	@DELETE
 	@Path("/{tagId}")
 	@Operation(summary = "Removes the tag resource", tags = { "Tags" }, responses = {
-			@ApiResponse(responseCode = "204", description = "Tag resource deleted") })
+			@ApiResponse(responseCode = "204", description = "Tag resource deleted"),
+			@ApiResponse(responseCode = "404", description = "Tag not found") })
 	public Response deleteTag(@Parameter(required = true) @PathParam("tagId") long tagId) {
 		tagService.removeTag(tagId);
 		return Response.status(204).build();
@@ -59,7 +65,8 @@ public class TagResource {
 	@GET
 	@Path("/{tagId}")
 	@Operation(summary = "Retrieves a tag resource", tags = { "Tags" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Tag resource response", content = @Content(schema = @Schema(implementation = Tag.class))) })
+			@ApiResponse(responseCode = "200", description = "Tag resource response", content = @Content(schema = @Schema(implementation = Tag.class))),
+			@ApiResponse(responseCode = "404", description = "Tag not found") })
 	public Tag getTag(@Parameter(required = true) @PathParam("tagId") long tagId, @Context UriInfo uriInfo) {
 		Tag tag = tagService.getTag(tagId);
 		initLinks(tag, uriInfo);

@@ -29,6 +29,11 @@ import { CacheInterceptor } from './cache-interceptor';
 import { ViewCardComponent } from './components/card/view-card/view-card.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { CardModalTitleComponent } from './components/card/card-modal-title/card-modal-title.component';
+import { AuthStore } from './stores/auth.store';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { CardDateComponent } from './components/card-date/card-date.component';
+import { CustomDatePickerAdapter } from './services/date-formatter.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +55,10 @@ import { CardModalTitleComponent } from './components/card/card-modal-title/card
     TagButtonComponent,
     ViewCardComponent,
     ModalComponent,
-    CardModalTitleComponent
+    CardModalTitleComponent,
+    LoginComponent,
+    SignupComponent,
+    CardDateComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +73,9 @@ import { CardModalTitleComponent } from './components/card/card-modal-title/card
     CardService,
     SectionService,
     LinkPreviewService,
-    CacheInterceptor
+    CacheInterceptor,
+    AuthStore,
+    CustomDatePickerAdapter
   ],
   bootstrap: [AppComponent]
 })

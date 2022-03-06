@@ -11,8 +11,21 @@
   </div>
 </div>
 <div *ngIf="card.deadline == null" class="row">
+  <ng-template #datePicker>
+    <app-card-date
+      operation="create"
+      (updateDate)="updateDueDate($event)"
+    ></app-card-date>
+  </ng-template>
   <div class="col-12">
-    <button class="btn btn-light">
+    <button
+      type="button"
+      class="btn btn-light"
+      placement="left"
+      [autoClose]="'outside'"
+      [ngbPopover]="datePicker"
+      popoverTitle="Add a due date"
+    >
       <i class="fa-solid fa-clock"></i> Due date
     </button>
   </div>

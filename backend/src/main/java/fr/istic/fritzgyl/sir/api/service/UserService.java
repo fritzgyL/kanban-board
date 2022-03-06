@@ -1,5 +1,7 @@
 package fr.istic.fritzgyl.sir.api.service;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 import fr.istic.fritzgyl.sir.api.domain.User;
 import fr.istic.fritzgyl.sir.api.exception.DataNotFoundException;
 import fr.istic.fritzgyl.sir.api.repository.UserRepository;
@@ -37,4 +39,26 @@ public class UserService {
 		return userRepository.update(currentUser);
 	}
 
+	public User signin(User user) {
+		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+		User mUser = userRepository.login(user.getEmail());
+		if (mUser != null) {
+			return passwordEncryptor.checkPassword(user.getPassword(),mUser.getPassword()) ? mUser : null;
+		}
+		return mUser;
+	}
+
+	public User signup(User user) {
+		User mUser = null;
+		if (user.getEmail() != "" && user.getPassword() != "") {
+			if (!userRepository.checkIfIsEmailTaken(user.getEmail())) {
+				StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+				String encryptedPassword = passwordEncryptor.encryptPassword(user.getPassword());
+				mUser = user;
+				mUser.setPassword(encryptedPassword);
+				return userRepository.save(mUser);
+			}
+		}
+		return mUser;
+	}
 }

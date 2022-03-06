@@ -32,7 +32,9 @@ public abstract class GenericDaoJpaImpl<T, PK extends Serializable> implements G
 	public T read(PK id) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		T t = em.find(entityClass, id);
-		em.refresh(t);
+		if (t != null) {
+			em.refresh(t);
+		}
 		EntityManagerHelper.closeEntityManager();
 		return t;
 	}

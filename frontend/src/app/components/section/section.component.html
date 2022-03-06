@@ -3,7 +3,7 @@
     <h2>{{ section.title }}</h2>
     <button class="btn btn-danger"><i class="fas fa-times"></i></button>
   </div>
-  <div class="card-body scroll">
+  <div class="card-body scroll-card">
     <div class="list-group">
       <app-card *ngFor="let card of section.cards" [card]="card"></app-card>
     </div>

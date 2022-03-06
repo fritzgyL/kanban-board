@@ -2,6 +2,8 @@ package fr.istic.fritzgyl.sir.api.repository;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import fr.istic.fritzgyl.sir.api.domain.Board;
 import fr.istic.fritzgyl.sir.api.domain.Section;
 
@@ -17,11 +19,12 @@ public class BoardRepository extends GenericDaoJpaImpl<Board, Long> {
 	}
 
 	public Section saveBoardSection(long boardId, Section section) {
-//		entityManager.getTransaction().begin();
-//		System.out.println(section);
-//		Board board = read(boardId);
-//		board.addSection(section);
-//		entityManager.getTransaction().commit();
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		em.getTransaction().begin();
+		Board board = read(boardId);
+		board.addSection(section);
+		em.getTransaction().commit();
+		EntityManagerHelper.closeEntityManager();
 		return section;
 	}
 }

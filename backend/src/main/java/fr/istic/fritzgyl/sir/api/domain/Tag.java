@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,23 +19,32 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+
 @Entity(name = "tag")
 @Table(name = "tag")
 @Cacheable(false)
 public class Tag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(accessMode = AccessMode.READ_ONLY)
 	private long id;
+	@Column(nullable = false)
 	private String title;
+	@Column(nullable = false)
 	private String color;
 	@ManyToOne
-	@JoinColumn(name = "board_id")
+	@JoinColumn(name = "board_id", nullable = false)
 	@XmlTransient
+	@Schema(hidden = true)
 	private Board board;
 	@ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
 	@XmlTransient
+	@Schema(hidden = true)
 	private Set<Card> cards = new HashSet<Card>();
 	@Transient
+	@Schema(accessMode = AccessMode.READ_ONLY)
 	private List<Link> links = new ArrayList<>();
 
 	public Tag() {

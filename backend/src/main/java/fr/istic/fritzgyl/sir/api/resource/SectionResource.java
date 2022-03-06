@@ -36,7 +36,8 @@ public class SectionResource {
 	@PUT
 	@Path("/{sectionId}")
 	@Operation(summary = "Replaces a section resource", tags = { "Sections" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Section resource updated", content = @Content(schema = @Schema(implementation = Section.class))) })
+			@ApiResponse(responseCode = "200", description = "Section resource updated", content = @Content(schema = @Schema(implementation = Section.class))),
+			@ApiResponse(responseCode = "404", description = "Section not found") })
 	public Section updateSection(@Parameter(required = true) @PathParam("sectionId") long sectionId,
 			@Parameter(description = "The updated section resource", schema = @Schema(implementation = Section.class), required = true) Section section) {
 		Section currentSection = sectionService.getSection(sectionId);
@@ -54,7 +55,8 @@ public class SectionResource {
 	@DELETE
 	@Path("/{sectionId}")
 	@Operation(summary = "Removes the section resource", tags = { "Sections" }, responses = {
-			@ApiResponse(responseCode = "204", description = "Section resource deleted") })
+			@ApiResponse(responseCode = "204", description = "Section resource deleted"),
+			@ApiResponse(responseCode = "404", description = "Section not found") })
 	public Response deleteSection(@Parameter(required = true) @PathParam("sectionId") long sectionId) {
 		sectionService.removeSection(sectionId);
 		return Response.status(204).build();
@@ -63,18 +65,22 @@ public class SectionResource {
 	@GET
 	@Path("/{sectionId}")
 	@Operation(summary = "Retrieves a section resource", tags = { "Sections" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Section resource response", content = @Content(schema = @Schema(implementation = Section.class))) })
+			@ApiResponse(responseCode = "200", description = "Section resource response", content = @Content(schema = @Schema(implementation = Section.class))),
+			@ApiResponse(responseCode = "404", description = "Section not found") })
 	public Section getSection(@Parameter(required = true) @PathParam("sectionId") long sectionId,
 			@Context UriInfo uriInfo) {
 		Section section = sectionService.getSection(sectionId);
-		initLinks(section, uriInfo);
+		if (section != null) {
+			initLinks(section, uriInfo);
+		}
 		return section;
 	}
 
 	@GET
 	@Path("/{sectionId}/cards")
 	@Operation(summary = "Retrieves the collection of card resources", tags = { "Cards" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Card collection response", content = @Content(schema = @Schema(implementation = Card.class))) })
+			@ApiResponse(responseCode = "200", description = "Card collection response", content = @Content(schema = @Schema(implementation = Card.class))),
+			@ApiResponse(responseCode = "404", description = "Section not found") })
 	public Iterable<Card> getCards(@Parameter(required = true) @PathParam("sectionId") long sectionId,
 			@Context UriInfo uriInfo) {
 		Iterable<Card> cards = cardService.getAllCards(sectionId);
@@ -85,7 +91,8 @@ public class SectionResource {
 	@POST
 	@Path("/{sectionId}/cards")
 	@Operation(summary = "Creates a card resource", tags = { "Cards" }, responses = {
-			@ApiResponse(responseCode = "201", description = "Card resource created", content = @Content(schema = @Schema(implementation = Card.class))) })
+			@ApiResponse(responseCode = "201", description = "Card resource created", content = @Content(schema = @Schema(implementation = Card.class))),
+			@ApiResponse(responseCode = "404", description = "Section not found") })
 	public Response addCard(@Parameter(required = true) @PathParam("sectionId") long sectionId,
 			@Parameter(description = "The new card resource", schema = @Schema(implementation = Card.class), required = true) Card card,
 			@Context UriInfo uriInfo) {

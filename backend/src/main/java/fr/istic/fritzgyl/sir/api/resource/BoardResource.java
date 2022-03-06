@@ -1,3 +1,4 @@
+
 package fr.istic.fritzgyl.sir.api.resource;
 
 import java.net.URI;
@@ -37,7 +38,8 @@ public class BoardResource {
 	@PUT
 	@Path("/{boardId}")
 	@Operation(summary = "Replaces a board resource", tags = { "Boards" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Board resource updated", content = @Content(schema = @Schema(implementation = Board.class))) })
+			@ApiResponse(responseCode = "200", description = "Board resource updated", content = @Content(schema = @Schema(implementation = Board.class))),
+			@ApiResponse(responseCode = "404", description = "Board not found") })
 	public Board updateBoard(@Parameter(required = true) @PathParam("boardId") long boardId,
 			@Parameter(description = "The updated user resource", schema = @Schema(implementation = User.class), required = true) Board board) {
 		Board currentBoard = boardService.getBoard(boardId);
@@ -55,7 +57,8 @@ public class BoardResource {
 	@DELETE
 	@Path("/{boardId}")
 	@Operation(summary = "Removes the board resource", tags = { "Boards" }, responses = {
-			@ApiResponse(responseCode = "204", description = "Board resource deleted") })
+			@ApiResponse(responseCode = "204", description = "Board resource deleted"),
+			@ApiResponse(responseCode = "404", description = "Board not found") })
 	public Response deleteBoard(@Parameter(required = true) @PathParam("boardId") long boardId) {
 		boardService.removeBoard(boardId);
 		return Response.status(204).build();
@@ -64,17 +67,21 @@ public class BoardResource {
 	@GET
 	@Path("/{boardId}")
 	@Operation(summary = "Retrieves a board resource", tags = { "Boards" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Board resource response", content = @Content(schema = @Schema(implementation = Board.class))) })
+			@ApiResponse(responseCode = "200", description = "Board resource response", content = @Content(schema = @Schema(implementation = Board.class))),
+			@ApiResponse(responseCode = "404", description = "Board not found") })
 	public Board getBoard(@Parameter(required = true) @PathParam("boardId") long boardId, @Context UriInfo uriInfo) {
 		Board board = boardService.getBoard(boardId);
-		initLinks(board, uriInfo);
+		if (board != null) {
+			initLinks(board, uriInfo);
+		}
 		return board;
 	}
 
 	@GET
 	@Path("/{boardId}/sections")
 	@Operation(summary = "Retrieves the collection of section resources", tags = { "Sections" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Section collection response", content = @Content(schema = @Schema(implementation = Section.class))) })
+			@ApiResponse(responseCode = "200", description = "Section collection response", content = @Content(schema = @Schema(implementation = Section.class))),
+			@ApiResponse(responseCode = "404", description = "Board not found") })
 	public Iterable<Section> getSections(@Parameter(required = true) @PathParam("boardId") long boardId,
 			@Context UriInfo uriInfo) {
 		Iterable<Section> sections = sectionService.getAllSections(boardId);
@@ -85,7 +92,8 @@ public class BoardResource {
 	@POST
 	@Path("/{boardId}/sections")
 	@Operation(summary = "Creates a section resource", tags = { "Sections" }, responses = {
-			@ApiResponse(responseCode = "201", description = "Section resource created", content = @Content(schema = @Schema(implementation = Section.class))) })
+			@ApiResponse(responseCode = "201", description = "Section resource created", content = @Content(schema = @Schema(implementation = Section.class))),
+			@ApiResponse(responseCode = "404", description = "Board not found") })
 	public Response addSection(@Parameter(required = true) @PathParam("boardId") long boardId,
 			@Parameter(description = "The new section resource", schema = @Schema(implementation = Section.class), required = true) Section section,
 			@Context UriInfo uriInfo) {

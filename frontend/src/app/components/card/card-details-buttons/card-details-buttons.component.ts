@@ -19,4 +19,12 @@ export class CardDetailsButtonsComponent implements OnInit {
     })
   }
 
+  updateDueDate(date: string) {
+    const updatedCard = this.card;
+    updatedCard.deadline = date;
+    this.cardService.updateCard(updatedCard).subscribe((card) => {
+      this.cardService.readCard(card.id);
+    });
+  }
+
 }
