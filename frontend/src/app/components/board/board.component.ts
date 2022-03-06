@@ -13,6 +13,8 @@ export class BoardComponent implements OnInit {
 
   board: Board = new Board;
   boardSections: Section[] = [];
+  newSectionTitle: string = '';
+  addingSection: boolean = false;
 
   constructor(private route: ActivatedRoute, private boardService: BoardService) {
   }
@@ -33,6 +35,22 @@ export class BoardComponent implements OnInit {
     this.boardService.getBoard().subscribe((board) => {
       this.board = board;
     })
+  }
+
+
+
+  onCreateSection() {
+    if (this.newSectionTitle != '') {
+      const section = new Section();
+      section.title = this.newSectionTitle;
+      this.boardService.addSection(section, this.board.id).subscribe(() => {
+        this.boardService.loadBoard();
+        this.addingSection = false;
+        this.newSectionTitle = '';
+      })
+
+    }
+
   }
 
 
