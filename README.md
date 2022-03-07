@@ -18,6 +18,9 @@ Users can signup and make use of all the basic functionalities of an agile kanba
 2. See each directory (backend, frontend) README.md for their respective installation guidelines.
 
 
+## Releases (Academic)
+- For the expected release on monday march 7th of the backend (practical work #1, #2 and #5), get the release v1.0.1 in the releases section of this GitHub repository.
+- Final release (backend + frontend), comming soon...
 
 
 
