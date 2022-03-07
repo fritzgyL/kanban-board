@@ -69,7 +69,10 @@ public class TagResource {
 			@ApiResponse(responseCode = "404", description = "Tag not found") })
 	public Tag getTag(@Parameter(required = true) @PathParam("tagId") long tagId, @Context UriInfo uriInfo) {
 		Tag tag = tagService.getTag(tagId);
-		initLinks(tag, uriInfo);
+		if (tag != null) {
+			initLinks(tag, uriInfo);
+
+		}
 		return tag;
 	}
 

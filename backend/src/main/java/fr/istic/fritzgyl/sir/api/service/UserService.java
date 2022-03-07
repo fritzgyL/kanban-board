@@ -27,12 +27,7 @@ public class UserService {
 	}
 
 	public void removeUser(long userId) {
-		User user = getUser(userId);
-		if (user == null) {
-			throw new DataNotFoundException("User with id " + userId + " not found");
-		} else {
-			userRepository.delete(user);
-		}
+		userRepository.delete(getUser(userId));
 	}
 
 	public User updateUser(User currentUser) {
@@ -43,7 +38,7 @@ public class UserService {
 		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 		User mUser = userRepository.login(user.getEmail());
 		if (mUser != null) {
-			return passwordEncryptor.checkPassword(user.getPassword(),mUser.getPassword()) ? mUser : null;
+			return passwordEncryptor.checkPassword(user.getPassword(), mUser.getPassword()) ? mUser : null;
 		}
 		return mUser;
 	}

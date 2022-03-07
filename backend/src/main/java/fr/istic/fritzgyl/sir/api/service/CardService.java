@@ -2,6 +2,7 @@ package fr.istic.fritzgyl.sir.api.service;
 
 import fr.istic.fritzgyl.sir.api.domain.Card;
 import fr.istic.fritzgyl.sir.api.domain.User;
+import fr.istic.fritzgyl.sir.api.exception.DataNotFoundException;
 import fr.istic.fritzgyl.sir.api.repository.CardRepository;
 import fr.istic.fritzgyl.sir.api.repository.SectionRepository;
 
@@ -15,7 +16,11 @@ public class CardService {
 	}
 
 	public Card getCard(long cardId) {
-		return cardRepository.read(cardId);
+		Card card = cardRepository.read(cardId);
+		if (card == null) {
+			throw new DataNotFoundException("Card with id " + cardId + " not found");
+		}
+		return card;
 	}
 
 	public Card addCard(long sectionId, Card card) {
