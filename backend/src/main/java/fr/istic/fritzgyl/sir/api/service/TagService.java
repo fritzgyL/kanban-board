@@ -1,6 +1,7 @@
 package fr.istic.fritzgyl.sir.api.service;
 
 import fr.istic.fritzgyl.sir.api.domain.Tag;
+import fr.istic.fritzgyl.sir.api.exception.DataNotFoundException;
 import fr.istic.fritzgyl.sir.api.repository.CardRepository;
 import fr.istic.fritzgyl.sir.api.repository.TagRepository;
 
@@ -14,7 +15,11 @@ public class TagService {
 	}
 
 	public Tag getTag(long tagId) {
-		return tagRepository.read(tagId);
+		Tag tag = tagRepository.read(tagId);
+		if (tag == null) {
+			throw new DataNotFoundException("Tag with id " + tagId + " not found");
+		}
+		return tag;
 	}
 
 	public Tag addTag(long cardId, Tag tag) {

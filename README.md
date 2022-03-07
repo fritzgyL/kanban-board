@@ -14,7 +14,9 @@ Users can signup and make use of all the basic functionalities of an agile kanba
 
 
 ## Installation
-See each directory (backend, frontend) README.md for their respective installation guidelines.
+1. Clone the repo
+2. See each directory (backend, frontend) README.md for their respective installation guidelines.
+
 
 
 
