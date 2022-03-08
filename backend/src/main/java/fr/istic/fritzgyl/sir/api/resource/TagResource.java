@@ -71,14 +71,20 @@ public class TagResource {
 		Tag tag = tagService.getTag(tagId);
 		if (tag != null) {
 			initLinks(tag, uriInfo);
-
 		}
 		return tag;
 	}
 
 	public static void initLinks(Tag tag, UriInfo uriInfo) {
 		tag.addLink(getUriForSelf(uriInfo, tag), "self");
+		tag.addLink(getUriForCard(uriInfo, tag), "card");
 
+	}
+
+	private static String getUriForCard(UriInfo uriInfo, Tag tag) {
+		String uri = uriInfo.getBaseUriBuilder().path(CardResource.class).path(CardResource.class, "getCard")
+				.resolveTemplate("cardId", tag.getCard().getId()).build().toString();
+		return uri;
 	}
 
 	private static String getUriForSelf(UriInfo uriInfo, Tag tag) {

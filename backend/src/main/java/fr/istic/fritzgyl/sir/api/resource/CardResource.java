@@ -17,7 +17,6 @@ import javax.ws.rs.core.UriInfo;
 
 import fr.istic.fritzgyl.sir.api.domain.Card;
 import fr.istic.fritzgyl.sir.api.domain.Tag;
-import fr.istic.fritzgyl.sir.api.domain.User;
 import fr.istic.fritzgyl.sir.api.service.CardService;
 import fr.istic.fritzgyl.sir.api.service.TagService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -112,24 +111,12 @@ public class CardResource {
 	@Operation(summary = "Creates a tag resource", tags = { "Tags" }, responses = {
 			@ApiResponse(responseCode = "201", description = "Tag resource created", content = @Content(schema = @Schema(implementation = Tag.class))),
 			@ApiResponse(responseCode = "404", description = "Card not found") })
-	public Response addTag(@Parameter(required = true) @PathParam("boardId") long cardId,
+	public Response addTag(@Parameter(required = true) @PathParam("cardId") long cardId,
 			@Parameter(description = "The new tag resource", schema = @Schema(implementation = Tag.class), required = true) Tag tag,
 			@Context UriInfo uriInfo) {
 		Tag createdtag = tagService.addTag(cardId, tag);
 		TagResource.initLinks(createdtag, uriInfo);
 		return Response.ok(createdtag).status(201).build();
-	}
-
-	@GET
-	@Path("/{cardId}/assignees")
-	@Operation(summary = "Retrieves the collection user assigned to the card", tags = { "Cards" }, responses = {
-			@ApiResponse(responseCode = "200", description = "Assignees collection response", content = @Content(schema = @Schema(implementation = User.class))),
-			@ApiResponse(responseCode = "404", description = "Card not found") })
-	public Iterable<User> getAssignees(@Parameter(required = true) @PathParam("cardId") long cardId,
-			@Context UriInfo uriInfo) {
-		Iterable<User> assignees = cardService.getCardAssignees(cardId);
-		assignees.forEach(user -> UserResource.initLinks(user, uriInfo));
-		return assignees;
 	}
 
 	public static void initLinks(Card card, UriInfo uriInfo) {

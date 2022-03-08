@@ -21,6 +21,7 @@ import fr.istic.fritzgyl.sir.api.domain.Section;
 import fr.istic.fritzgyl.sir.api.domain.User;
 import fr.istic.fritzgyl.sir.api.service.BoardService;
 import fr.istic.fritzgyl.sir.api.service.SectionService;
+import fr.istic.fritzgyl.sir.api.service.TagService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,6 +35,7 @@ public class BoardResource {
 
 	BoardService boardService = new BoardService();
 	SectionService sectionService = new SectionService();
+	TagService tagService = new TagService();
 
 	@PUT
 	@Path("/{boardId}")

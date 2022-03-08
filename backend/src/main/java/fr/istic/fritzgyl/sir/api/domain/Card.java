@@ -14,9 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,8 +40,7 @@ public class Card {
 	private Date deadline;
 	@Column(name = "estimated_time")
 	private int estimatedTime;
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "card_tag", joinColumns = @JoinColumn(name = "card_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
+	@OneToMany(mappedBy = "card", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@XmlTransient
 	@Schema(hidden = true)
 	private List<Tag> tags = new ArrayList<Tag>();
@@ -141,23 +138,27 @@ public class Card {
 
 	public void addTag(Tag tag) {
 		tags.add(tag);
-		tag.getCards().add(this);
+		tag.setCard(this);
 	}
 
 	public void removeTag(Tag tag) {
 		tags.remove(tag);
-		tag.getCards().remove(this);
+		tag.setCard(null);
 	}
 
-//	public void addAssignee(User user) {
-//		assignees.add(user);
-//		user.getAssignedCards().add(this);
-//	}
-//
-//	public void removeAssignee(User user) {
-//		assignees.remove(user);
-//		user.getAssignedCards().remove(this);
-//	}
+	public void addAssignation(Assignation assignation) {
+		assignations.add(assignation);
+		assignation.setCard(this);
+	}
+
+	public void removeAssignation(Assignation assignation) {
+		assignations.remove(assignation);
+		assignation.setCard(null);
+	}
+
+	public Set<Assignation> getAssignations() {
+		return assignations;
+	}
 
 	public List<Link> getLinks() {
 		return links;
@@ -166,10 +167,6 @@ public class Card {
 	public void addLink(String href, String rel) {
 		links.add(new Link(href, rel));
 	}
-
-//	public Set<User> getAssignees() {
-//		return assignees;
-//	}
 
 	@Override
 	public String toString() {

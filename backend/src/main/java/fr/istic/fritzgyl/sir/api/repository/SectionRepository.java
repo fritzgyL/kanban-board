@@ -31,4 +31,14 @@ public class SectionRepository extends GenericDaoJpaImpl<Section, Long> {
 		return card;
 	}
 
+	public void deleteAndRemoveFromBoard(long id) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		em.getTransaction().begin();
+		Section section = em.find(Section.class, id);
+		section.getBoard().removeSection(section);
+		em.remove(em.contains(section) ? section : em.merge(section));
+		em.getTransaction().commit();
+		EntityManagerHelper.closeEntityManager();
+	}
+
 }

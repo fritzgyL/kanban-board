@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
@@ -43,11 +41,6 @@ public class Board {
 	@XmlTransient
 	@Schema(hidden = true)
 	private List<Section> sections = new ArrayList<Section>();
-	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@XmlTransient
-	@Schema(hidden = true)
-	private List<Tag> tags = new ArrayList<Tag>();
 	@Transient
 	@Schema(accessMode = AccessMode.READ_ONLY)
 	private List<Link> links = new ArrayList<>();
@@ -86,17 +79,6 @@ public class Board {
 		section.setBoard(null);
 	}
 
-	public void addTag(Tag tag) {
-		tags.add(tag);
-		tag.setBoard(this);
-
-	}
-
-	public void removeTag(Tag tag) {
-		tags.remove(tag);
-		tag.setBoard(null);
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -113,14 +95,9 @@ public class Board {
 		links.add(new Link(href, rel));
 	}
 
-	public List<Tag> getTags() {
-		return tags;
-	}
-
 	@Override
 	public String toString() {
-		return "Board [id=" + id + ", title=" + title + ", user=" + user + ", sections=" + sections + ", tags=" + tags
-				+ "]";
+		return "Board [id=" + id + ", title=" + title + ", user=" + user + ", sections=" + sections + "]";
 	}
 
 }

@@ -18,6 +18,16 @@ public class BoardRepository extends GenericDaoJpaImpl<Board, Long> {
 				.setParameter("userId", userId).getResultList();
 	}
 
+	public void deleteAndRemoveFromUser(long id) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		em.getTransaction().begin();
+		Board board = em.find(Board.class, id);
+		board.getUser().removeBoard(board);
+		em.remove(em.contains(board) ? board : em.merge(board));
+		em.getTransaction().commit();
+		EntityManagerHelper.closeEntityManager();
+	}
+	
 	public Section saveBoardSection(long boardId, Section section) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		em.getTransaction().begin();
