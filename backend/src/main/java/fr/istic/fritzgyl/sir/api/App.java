@@ -23,6 +23,7 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 import fr.istic.fritzgyl.sir.api.exception.DataNotFoundExceptionMapper;
+import fr.istic.fritzgyl.sir.api.resource.AssignationResource;
 import fr.istic.fritzgyl.sir.api.resource.BoardResource;
 import fr.istic.fritzgyl.sir.api.resource.CardResource;
 import fr.istic.fritzgyl.sir.api.resource.LoginResource;
@@ -43,6 +44,7 @@ public class App extends Application {
 		clazzes.add(SectionResource.class);
 		clazzes.add(TagResource.class);
 		clazzes.add(LoginResource.class);
+		clazzes.add(AssignationResource.class);
 		clazzes.add(SwaggerResource.class);
 		clazzes.add(OpenApiResource.class);
 		singletons.add(new DataNotFoundExceptionMapper());

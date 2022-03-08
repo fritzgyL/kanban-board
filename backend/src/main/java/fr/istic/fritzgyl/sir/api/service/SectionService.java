@@ -32,7 +32,7 @@ public class SectionService {
 	}
 
 	public void removeSection(long sectionId) {
-		sectionRepository.delete(getSection(sectionId));
+		sectionRepository.deleteAndRemoveFromBoard(sectionId);
 	}
 
 	public Card addCard(long id, Card card) {

@@ -30,6 +30,15 @@ public class Assignation {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
+	public Assignation(User user, Card card) {
+		this.user = user;
+		this.card = card;
+	}
+
+	public Assignation() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Card getCard() {
 		return card;
 	}

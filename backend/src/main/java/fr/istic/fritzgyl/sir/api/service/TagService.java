@@ -27,10 +27,11 @@ public class TagService {
 	}
 
 	public void removeTag(long tagId) {
-		tagRepository.delete(getTag(tagId));
+		tagRepository.deleteAndRemoveFromCard(tagId);
 	}
 
 	public Tag updateTag(Tag tag) {
 		return tagRepository.update(tag);
 	}
+
 }

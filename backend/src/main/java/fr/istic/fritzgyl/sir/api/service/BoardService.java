@@ -31,7 +31,7 @@ public class BoardService {
 	}
 
 	public void removeBoard(long boardId) {
-		boardRepository.delete(getBoard(boardId));
+		boardRepository.deleteAndRemoveFromUser(boardId);
 	}
 
 }

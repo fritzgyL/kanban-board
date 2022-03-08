@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,12 +23,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 
-import javax.xml.bind.annotation.XmlAccessType;
-
 @Entity(name = "user")
 @Table(name = "user")
 @Cacheable(false)
-@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -117,6 +113,16 @@ public class User {
 		board.setUser(null);
 	}
 
+	public void addAssignation(Assignation assignation) {
+		assignations.add(assignation);
+		assignation.setUser(this);
+	}
+
+	public void removeAssignation(Assignation assignation) {
+		assignations.remove(assignation);
+		assignation.setUser(null);
+	}
+
 	public List<Link> getLinks() {
 		return links;
 	}
@@ -125,9 +131,9 @@ public class User {
 		links.add(new Link(href, rel));
 	}
 
-//	public Set<Card> getAssignedCards() {
-//		return assignedCards;
-//	}
+	public Set<Assignation> getAssignations() {
+		return assignations;
+	}
 
 	@Override
 	public String toString() {

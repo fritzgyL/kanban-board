@@ -1,7 +1,6 @@
 package fr.istic.fritzgyl.sir.api.service;
 
 import fr.istic.fritzgyl.sir.api.domain.Card;
-import fr.istic.fritzgyl.sir.api.domain.User;
 import fr.istic.fritzgyl.sir.api.exception.DataNotFoundException;
 import fr.istic.fritzgyl.sir.api.repository.CardRepository;
 import fr.istic.fritzgyl.sir.api.repository.SectionRepository;
@@ -28,17 +27,11 @@ public class CardService {
 	}
 
 	public void removeCard(long cardId) {
-		Card card = getCard(cardId);
-		card.getSection().removeCard(card);
-		cardRepository.delete(card);
+		cardRepository.deleteAndRemoveFromSection(cardId);
 	}
 
 	public Card updateCard(Card card) {
 		return cardRepository.update(card);
-	}
-
-	public Iterable<User> getCardAssignees(long cardId) {
-		return cardRepository.getCardAssignees(cardId);
 	}
 
 }

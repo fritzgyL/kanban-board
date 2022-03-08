@@ -1,19 +1,15 @@
 package fr.istic.fritzgyl.sir.api.domain;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -35,14 +31,10 @@ public class Tag {
 	@Column(nullable = false)
 	private String color;
 	@ManyToOne
-	@JoinColumn(name = "board_id", nullable = false)
+	@JoinColumn(name = "card_id", nullable = false)
 	@XmlTransient
 	@Schema(hidden = true)
-	private Board board;
-	@ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
-	@XmlTransient
-	@Schema(hidden = true)
-	private Set<Card> cards = new HashSet<Card>();
+	private Card card;
 	@Transient
 	@Schema(accessMode = AccessMode.READ_ONLY)
 	private List<Link> links = new ArrayList<>();
@@ -50,8 +42,9 @@ public class Tag {
 	public Tag() {
 	}
 
-	public Tag(String title) {
+	public Tag(String title, String color) {
 		this.title = title;
+		this.color = color;
 	}
 
 	public String getTitle() {
@@ -74,6 +67,10 @@ public class Tag {
 		this.color = color;
 	}
 
+	public Card getCard() {
+		return card;
+	}
+
 	public List<Link> getLinks() {
 		return links;
 	}
@@ -82,22 +79,13 @@ public class Tag {
 		links.add(new Link(href, rel));
 	}
 
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
-	}
-
-	public Set<Card> getCards() {
-		return cards;
-	}
-
 	@Override
 	public String toString() {
-		return "Tag [id=" + id + ", title=" + title + ", color=" + color + ", board=" + board + ", cards=" + cards
-				+ "]";
+		return "Tag [id=" + id + ", title=" + title + ", color=" + color + "]";
+	}
+
+	public void setCard(Card card) {
+		this.card = card;
 	}
 
 }
