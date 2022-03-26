@@ -64,7 +64,6 @@ export class DashboardComponent implements OnInit {
   onDeleteBoard(boardId: number) {
     if (confirm('Are you sure you want to delete this board?')) {
       this.boardService.deleteBoard(this.userId!!, boardId);
-
     }
   }
 
