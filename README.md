@@ -31,7 +31,7 @@ Users can signup and make use of all the basic functionalities of an agile kanba
     
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
 
 
 ## Authors
