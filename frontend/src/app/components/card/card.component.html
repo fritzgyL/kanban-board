@@ -6,4 +6,11 @@
   [attr.data-target]="'#viewCardModal' + card.id"
   ><app-card-title [title]="card.title"></app-card-title>
 </a>
-<app-modal #modal [modalConfig]="modalConfig"></app-modal>
+<app-modal #modal [modalConfig]="modalConfig">
+  <div class="title">
+    <app-card-modal-title></app-card-modal-title>
+  </div>
+  <div class="m-content">
+    <app-card-details (closeModal)="this.modal.close()"></app-card-details>
+  </div>
+</app-modal>

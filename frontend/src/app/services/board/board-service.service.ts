@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Board } from '../../models/board/board';
 import { Section } from 'src/app/models/section/section';
 @Injectable({
@@ -18,6 +18,13 @@ export class BoardService {
 
   constructor(private httpClient: HttpClient) {
     this.loadBoard();
+  }
+
+  addBoard(userId: number, board: Board): Observable<Board> {
+    return this.httpClient.post<Board>(`${this.baseUrl}/users/${userId}/boards`, board).pipe(
+      tap(() => {
+        this.loadBoards(userId);
+      }));
   }
 
   loadBoards(userId: number) {
