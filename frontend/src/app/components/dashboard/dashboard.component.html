@@ -1,7 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <button class="btn btn-primary">Create a new board</button>
+      <button (click)="this.modal.open()" class="btn btn-primary">
+        Create a new board
+      </button>
     </div>
   </div>
   <div class="row">
@@ -40,3 +42,28 @@
     </div>
   </div>
 </div>
+<app-modal #modal [modalConfig]="modalConfig">
+  <div class="title">Create a new board</div>
+  <div class="m-content">
+    <div class="form-group">
+      <label for="boardTitle">Board title</label>
+      <input
+        [(ngModel)]="boardTitle"
+        type="text"
+        class="form-control"
+        id="boardTitle"
+        placeholder="Enter board title"
+      />
+    </div>
+  </div>
+  <div class="footer">
+    <span>
+      <button class="btn btn-primary" (click)="onCreateBoard()">Create</button>
+    </span>
+    <span>
+      <button class="btn btn-secondary" (click)="this.modal.close()">
+        Cancel
+      </button>
+    </span>
+  </div>
+</app-modal>
