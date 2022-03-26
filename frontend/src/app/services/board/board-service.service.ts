@@ -10,6 +10,7 @@ export class BoardService {
 
 
 
+
   private baseUrl = '/api/v1';
   private boards$: BehaviorSubject<Board[]> = new BehaviorSubject<Board[]>([]);
   private selectedId$: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(null);
@@ -76,6 +77,12 @@ export class BoardService {
 
   deleteSection(sectionId: number) {
     return this.httpClient.delete(`${this.baseUrl}/sections/${sectionId}`);
+  }
+
+  updateBoard(board: Board) {
+    this.httpClient.put<Board>(`${this.baseUrl}/boards/${board.id}`, board).subscribe(() => {
+      this.loadBoard();
+    });
   }
 
 }

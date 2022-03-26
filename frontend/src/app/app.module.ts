@@ -35,6 +35,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { CardDateComponent } from './components/card-date/card-date.component';
 import { CustomDatePickerAdapter } from './services/date-formatter.service';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { HoverClassDirective } from './hover-class.directive';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
     CardModalTitleComponent,
     LoginComponent,
     SignupComponent,
-    CardDateComponent
+    CardDateComponent,
+    HoverClassDirective
   ],
   imports: [
     BrowserModule,

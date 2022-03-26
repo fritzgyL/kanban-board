@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Board } from '../../models/board/board';
 import { ActivatedRoute } from '@angular/router';
 import { Section } from 'src/app/models/section/section';
@@ -10,13 +10,25 @@ import { BoardService } from 'src/app/services/board/board-service.service';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
+  @ViewChild('updateInput') updateInput!: ElementRef;
+  @ViewChild('updateBtn') updateBtn!: ElementRef;
 
   board: Board = new Board;
   boardSections: Section[] = [];
   newSectionTitle: string = '';
   addingSection: boolean = false;
+  isUpdating: boolean = false;
+  newBoardTitle: string = '';
 
-  constructor(private route: ActivatedRoute, private boardService: BoardService) {
+  constructor(private route: ActivatedRoute, private boardService: BoardService, private renderer: Renderer2) {
+    this.renderer.listen('window', 'click', (e: Event) => {
+      const eventTarget = e.target as HTMLTextAreaElement;
+      if (eventTarget.id !== 'updateBtn') {
+        if (this.updateInput.nativeElement != e.target) {
+          this.updateBoardTitle();
+        }
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -34,10 +46,9 @@ export class BoardComponent implements OnInit {
   private getBoard() {
     this.boardService.getBoard().subscribe((board) => {
       this.board = board;
+      this.newBoardTitle = this.board.title;
     })
   }
-
-
 
   onCreateSection() {
     if (this.newSectionTitle != '') {
@@ -48,10 +59,18 @@ export class BoardComponent implements OnInit {
         this.addingSection = false;
         this.newSectionTitle = '';
       })
-
     }
+  }
+
+  updateBoardTitle() {
+    if (this.newBoardTitle !== this.board.title) {
+      this.board.title = this.newBoardTitle;
+      this.boardService.updateBoard(this.board);
+    }
+    this.isUpdating = false;
 
   }
+
 
 
 

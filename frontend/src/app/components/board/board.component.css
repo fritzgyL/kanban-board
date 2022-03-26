@@ -7,3 +7,7 @@
 .btn-top {
   margin-top: 1rem;
 }
+
+.board-title {
+  cursor: pointer;
+}
