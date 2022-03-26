@@ -19,6 +19,10 @@ export class AuthStore {
     constructor(private http: HttpClient) {
         this.isLoggedIn$ = this.user$.pipe(map(user => !!user))
         this.isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
+        const user = localStorage.getItem('CONNECTED_USER');
+        if (user) {
+            this.subject.next(JSON.parse(user));
+        }
     }
 
     login(user: User): Observable<User> {
@@ -27,6 +31,7 @@ export class AuthStore {
                 this.subject.next(user);
                 localStorage.setItem('CONNECTED_USER', JSON.stringify(user));
             }),
+            shareReplay()
         );
     }
 

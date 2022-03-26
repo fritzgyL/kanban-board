@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Board } from '../../models/board/board';
 import { Section } from 'src/app/models/section/section';
 @Injectable({
@@ -9,15 +9,23 @@ import { Section } from 'src/app/models/section/section';
 export class BoardService {
 
 
+
+
   private baseUrl = '/api/v1';
   private boards$: BehaviorSubject<Board[]> = new BehaviorSubject<Board[]>([]);
-  //private selectedBoardSections$: BehaviorSubject<Section[]> = new BehaviorSubject<Section[]>([]);
   private selectedId$: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(null);
   private selectedBoard$: BehaviorSubject<Board> = new BehaviorSubject<Board>(new Board());
 
 
   constructor(private httpClient: HttpClient) {
     this.loadBoard();
+  }
+
+  addBoard(userId: number, board: Board): Observable<Board> {
+    return this.httpClient.post<Board>(`${this.baseUrl}/users/${userId}/boards`, board).pipe(
+      tap(() => {
+        this.loadBoards(userId);
+      }));
   }
 
   loadBoards(userId: number) {
@@ -42,6 +50,12 @@ export class BoardService {
     })
   }
 
+  deleteBoard(userId: number, boardId: number) {
+    this.httpClient.delete(`${this.baseUrl}/boards/${boardId}`).subscribe(() => {
+      this.loadBoards(userId);
+    })
+  }
+
   getBoards() {
     return this.boards$;
   }
@@ -63,6 +77,12 @@ export class BoardService {
 
   deleteSection(sectionId: number) {
     return this.httpClient.delete(`${this.baseUrl}/sections/${sectionId}`);
+  }
+
+  updateBoard(board: Board) {
+    this.httpClient.put<Board>(`${this.baseUrl}/boards/${board.id}`, board).subscribe(() => {
+      this.loadBoard();
+    });
   }
 
 }
