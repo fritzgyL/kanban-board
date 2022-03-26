@@ -1,5 +1,28 @@
 <div class="container">
   <div class="row">
+    <div class="col-12">
+      <p
+        (click)="this.isUpdating = true"
+        *ngIf="!isUpdating; else elseBlock"
+        class="board-title font-weight-bold"
+        hover-class="btn btn-light"
+        id="updateBtn"
+      >
+        {{ board.title }}
+      </p>
+      <ng-template #elseBlock>
+        <div class="form-group">
+          <input
+            #updateInput
+            type="text"
+            class="form-control"
+            [(ngModel)]="newBoardTitle"
+          />
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-sm" *ngFor="let section of board.sections">
       <app-section [section]="section"></app-section>
     </div>
