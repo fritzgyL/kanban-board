@@ -41,7 +41,6 @@ export class DashboardComponent implements OnInit {
   }
 
   private getBoards() {
-    //const user = JSON.parse(localStorage.getItem('CONNECTED_USER')!);
     this.boardService.loadBoards(this.userId!!);
     this.boardService.getBoards().subscribe((boards) => {
       this.boards = boards;
@@ -59,6 +58,12 @@ export class DashboardComponent implements OnInit {
     }
     else {
       alert('The board title should not be empty');
+    }
+  }
+
+  onDeleteBoard(boardId: number) {
+    if (confirm('Are you sure you want to delete this board?')) {
+      this.boardService.deleteBoard(this.userId!!, boardId);
     }
   }
 

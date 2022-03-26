@@ -9,9 +9,9 @@ import { Section } from 'src/app/models/section/section';
 export class BoardService {
 
 
+
   private baseUrl = '/api/v1';
   private boards$: BehaviorSubject<Board[]> = new BehaviorSubject<Board[]>([]);
-  //private selectedBoardSections$: BehaviorSubject<Section[]> = new BehaviorSubject<Section[]>([]);
   private selectedId$: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(null);
   private selectedBoard$: BehaviorSubject<Board> = new BehaviorSubject<Board>(new Board());
 
@@ -46,6 +46,12 @@ export class BoardService {
           });
         })
       }
+    })
+  }
+
+  deleteBoard(userId: number, boardId: number) {
+    this.httpClient.delete(`${this.baseUrl}/boards/${boardId}`).subscribe(() => {
+      this.loadBoards(userId);
     })
   }
 
