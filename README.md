@@ -19,7 +19,7 @@ Users can signup and make use of all the basic functionalities of an agile kanba
 
 
 ## Releases (Academic)
-- For the expected release on monday march 7th of the backend (practical work #1, #2 and #5), get the release v1.0.1 in the releases section of this GitHub repository.
+- For the expected release on tuesay march 8th of the backend (practical work #1, #2 and #5), get the release v1.2.0 in the releases section of this GitHub repository.
 - Final release (backend + frontend), comming soon...
 
 
@@ -31,7 +31,7 @@ Users can signup and make use of all the basic functionalities of an agile kanba
     
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
 
 
 ## Authors
