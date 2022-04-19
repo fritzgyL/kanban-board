@@ -59,7 +59,7 @@ public class Card {
 	@Transient
 	@Schema(accessMode = AccessMode.READ_ONLY)
 	private List<Link> links = new ArrayList<>();
-	
+	@Column(unique = true)
 	private int position;
 
 	public Card() {
@@ -121,14 +121,6 @@ public class Card {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public int getPosition() {
-		return position;
-	}
-
-	public void setPosition(int position) {
-		this.position = position;
-	}
 
 	public long getId() {
 		return id;
@@ -178,13 +170,19 @@ public class Card {
 		links.add(new Link(href, rel));
 	}
 
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
 	@Override
 	public String toString() {
 		return "Card [id=" + id + ", title=" + title + ", deadline=" + deadline + ", estimatedTime=" + estimatedTime
 				+ ", tags=" + tags + ", location=" + location + ", url=" + url + ", description=" + description
 				+ ", section=" + section + ", position=" + position + "]";
 	}
-
-
 
 }
