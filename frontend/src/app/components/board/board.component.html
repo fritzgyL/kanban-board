@@ -22,7 +22,7 @@
       </ng-template>
     </div>
   </div>
-  <div class="row">
+  <div class="row" cdkDropListGroup>
     <div class="col-sm" *ngFor="let section of board.sections">
       <app-section [section]="section"></app-section>
     </div>

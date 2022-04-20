@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -36,7 +36,8 @@ import { CardDateComponent } from './components/card-date/card-date.component';
 import { CustomDatePickerAdapter } from './services/date-formatter.service';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { HoverClassDirective } from './hover-class.directive';
-
+import { ErrorContainerComponent } from './components/error-container/error-container.component';
+import { MoveButtonComponent } from './components/move-button/move-button/move-button.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,9 @@ import { HoverClassDirective } from './hover-class.directive';
     LoginComponent,
     SignupComponent,
     CardDateComponent,
-    HoverClassDirective
+    HoverClassDirective,
+    ErrorContainerComponent,
+    MoveButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -70,8 +73,8 @@ import { HoverClassDirective } from './hover-class.directive';
     AppRoutingModule,
     FormsModule,
     NgbModule,
-    ColorPickerModule
-
+    ColorPickerModule,
+    DragDropModule
   ],
   providers: [
     BoardService,

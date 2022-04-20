@@ -8,5 +8,6 @@ export class Card {
     location: string = ""
     url: string = ""
     description: string = ""
+    position: number = 0
     tags: Tag[] = []
 }

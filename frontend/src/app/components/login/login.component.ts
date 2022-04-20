@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   email: string = ''
   password: string = ''
+  isAuthenticationFailed: boolean = false;
 
   constructor(private authStore: AuthStore, private router: Router) { }
 
@@ -19,13 +20,16 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    if (this.email != '' && this.password != '') {
+    if (this.email !== '' && this.password !== '') {
       const user = new User();
       user.email = this.email;
       user.password = this.password;
       this.authStore.login(user).subscribe((user) => {
-        if (user != null) {
+        if (user !== null) {
           this.router.navigate(['/dashboard']);
+        }
+        else {
+          this.isAuthenticationFailed = true;
         }
       });
     }

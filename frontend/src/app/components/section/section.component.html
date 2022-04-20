@@ -5,9 +5,23 @@
       <i class="fas fa-times"></i>
     </button>
   </div>
-  <div class="card-body scroll-card">
-    <div class="list-group">
-      <app-card *ngFor="let card of section.cards" [card]="card"></app-card>
+  <div class="card-body scroll-card" cdkScrollable>
+    <div
+      class="list-group"
+      [ngClass]="{
+        'bigger-empty-body': section.cards && section.cards.length === 0
+      }"
+      cdkDropList
+      [cdkDropListData]="section.cards"
+      (cdkDropListDropped)="drop($event)"
+      [attr.data-id]="section.id"
+    >
+      <app-card
+        *ngFor="let card of section.cards"
+        [card]="card"
+        cdkDrag
+        [cdkDragData]="card"
+      ></app-card>
     </div>
   </div>
   <div class="card-footer">

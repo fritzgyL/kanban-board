@@ -3,7 +3,7 @@ import { Board } from '../../models/board/board';
 import { ActivatedRoute } from '@angular/router';
 import { Section } from 'src/app/models/section/section';
 import { BoardService } from 'src/app/services/board/board-service.service';
-
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',

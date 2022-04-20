@@ -24,7 +24,7 @@ export class CardService {
   }
 
   readCard(id: number) {
-    this.httpClient.get<Card>(`${this.baseUrl}/cards/${id}`).subscribe((card) => {
+    return this.httpClient.get<Card>(`${this.baseUrl}/cards/${id}`).subscribe((card) => {
       this.httpClient.get<Tag[]>(`${this.baseUrl}/cards/${card.id}/tags`).subscribe((tags) => {
         card.tags = tags;
         this.selectedCard$.next(card);
