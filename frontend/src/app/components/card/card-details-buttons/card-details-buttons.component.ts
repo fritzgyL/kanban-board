@@ -9,6 +9,7 @@ import { CardService } from 'src/app/services/card/card-service.service';
 export class CardDetailsButtonsComponent implements OnInit {
 
   card: Card = new Card();
+  cardLink: string = '';
   constructor(private cardService: CardService) {
 
   }
@@ -25,6 +26,17 @@ export class CardDetailsButtonsComponent implements OnInit {
     this.cardService.updateCard(updatedCard).subscribe((card) => {
       this.cardService.readCard(card.id);
     });
+  }
+
+  onAddLink() {
+    if (this.cardLink !== '') {
+      const updatedCard = this.card;
+      updatedCard.url = this.cardLink;
+      this.cardService.updateCard(updatedCard).subscribe((card) => {
+        this.cardLink = '';
+        this.cardService.readCard(card.id);
+      });
+    }
   }
 
 }

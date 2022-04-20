@@ -21,7 +21,6 @@ export class DeadlineButtonComponent implements OnInit {
   updateDueDate(date: string | null, popover: NgbPopover) {
     const updatedCard = this.card;
     updatedCard.deadline = date;
-    console.log(updatedCard);
     this.cardService.updateCard(updatedCard).subscribe((card) => {
       this.cardService.readCard(card.id);
       popover.close();

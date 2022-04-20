@@ -21,7 +21,7 @@
     <button
       type="button"
       class="btn btn-light"
-      placement="left"
+      placement="auto"
       [autoClose]="'outside'"
       [ngbPopover]="datePicker"
       popoverTitle="Add a due date"
@@ -31,7 +31,28 @@
   </div>
 </div>
 <div *ngIf="card.url == ''" class="row">
+  <ng-template #addLinkForm>
+    <div class="form-group">
+      <label for="cardLink">Link</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cardLink"
+        [(ngModel)]="cardLink"
+        placeholder="Paste a link here..."
+      />
+    </div>
+    <button class="btn btn-primary" (click)="onAddLink()">Add link</button>
+  </ng-template>
   <div class="col-12">
-    <button class="btn btn-light"><i class="fa-solid fa-link"></i> Link</button>
+    <button
+      placement="auto"
+      [autoClose]="'outside'"
+      [ngbPopover]="addLinkForm"
+      popoverTitle="Add link"
+      class="btn btn-light"
+    >
+      <i class="fa-solid fa-link"></i> Link
+    </button>
   </div>
 </div>

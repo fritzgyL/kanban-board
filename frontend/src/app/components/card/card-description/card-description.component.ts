@@ -28,11 +28,8 @@ export class CardDescriptionComponent implements OnInit {
   }
 
   setTextareaText() {
-    if (this.card.description != '') {
+    if (this.card.description !== '') {
       this.textareaText = this.card.description;
-    }
-    else {
-      this.textareaText = this.MY_CONSTANT;
     }
   }
 

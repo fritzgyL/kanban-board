@@ -37,7 +37,6 @@ import { CustomDatePickerAdapter } from './services/date-formatter.service';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { HoverClassDirective } from './hover-class.directive';
 import { ErrorContainerComponent } from './components/error-container/error-container.component';
-import { MoveButtonComponent } from './components/move-button/move-button/move-button.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +64,6 @@ import { MoveButtonComponent } from './components/move-button/move-button/move-b
     CardDateComponent,
     HoverClassDirective,
     ErrorContainerComponent,
-    MoveButtonComponent
   ],
   imports: [
     BrowserModule,
