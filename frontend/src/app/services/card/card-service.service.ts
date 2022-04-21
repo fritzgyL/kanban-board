@@ -40,6 +40,10 @@ export class CardService {
     return this.httpClient.delete(`${this.baseUrl}/cards/${card.id}`);
   }
 
+  addTag(cardId: number, payload: object) {
+    return this.httpClient.post(`${this.baseUrl}/cards/${cardId}/tags`, payload);
+  }
+
   getCard() {
     return this.selectedCard$;
   }
