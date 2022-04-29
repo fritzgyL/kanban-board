@@ -13,9 +13,11 @@
     >
       ></ngx-avatar
     >
+    <ng-template #assignationDetail>
+      <p>{{ selectedAssigneeFullName }}</p>
+      <button class="btn btn-danger" (click)="onUnassignUser(assignation.id!)">
+        Remove from card
+      </button>
+    </ng-template>
   </div>
-  <ng-template #assignationDetail>
-    <p>{{ selectedAssigneeFullName }}</p>
-    <button class="btn btn-danger">Remove from card</button>
-  </ng-template>
 </div>

@@ -21,6 +21,9 @@ export class CardAddMembersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUsers();
+    this.cardService.getCard().subscribe((card) => {
+      this.selectedCard = card;
+    })
   }
 
   private getAllUsers() {
@@ -28,22 +31,24 @@ export class CardAddMembersComponent implements OnInit {
     this.userService.users().subscribe((users) => {
       this.allMembers = users;
     })
-    this.cardService.getCard().subscribe((card) => {
-      this.selectedCard = card;
-    })
+
   }
 
   onKeyUp() {
     if (this.searchedMember !== '') {
-      this.filteredMembers = this.allMembers.filter((member) =>
-        (!this.selectedCard.assignations
-          .some(assignation => assignation.assigneeFirstName === member.firstName && assignation.assigneeLastName === member.lastName)) &&
-        (member.firstName.toLocaleLowerCase().startsWith(this.searchedMember.toLocaleLowerCase()) ||
-          member.lastName.toLocaleLowerCase().startsWith(this.searchedMember.toLocaleLowerCase())));
+      this.filterMembers();
     }
     else {
       this.filteredMembers = [];
     }
+  }
+
+  private filterMembers() {
+    this.filteredMembers = this.allMembers.filter((member) =>
+      (!this.selectedCard.assignations
+        .some(assignation => assignation.assigneeFirstName === member.firstName && assignation.assigneeLastName === member.lastName)) &&
+      (member.firstName.toLocaleLowerCase().startsWith(this.searchedMember.toLocaleLowerCase()) ||
+        member.lastName.toLocaleLowerCase().startsWith(this.searchedMember.toLocaleLowerCase())));
   }
 
   async onAssignMember(member: User) {
@@ -54,6 +59,7 @@ export class CardAddMembersComponent implements OnInit {
     await lastValueFrom(this.cardService.assignUserToCard(assignation)).then(() => {
       this.cardService.readCard(this.selectedCard.id);
       this.searchedMember = '';
+      this.filteredMembers = [];
     });
   }
 
