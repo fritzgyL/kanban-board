@@ -1,13 +1,22 @@
 <div class="row">
+  <ng-template #addMembers>
+    <app-card-add-members></app-card-add-members>
+  </ng-template>
   <div class="col-12">
-    <button class="btn btn-light">
+    <button
+      class="btn btn-light"
+      placement="auto"
+      [autoClose]="'outside'"
+      [ngbPopover]="addMembers"
+      popoverTitle="Members"
+    >
       <i class="fa-solid fa-user"></i> Members
     </button>
   </div>
 </div>
 <div class="row">
   <ng-template #addLabels>
-    <app-card-tag></app-card-tag>
+    <app-card-tag operation="create"></app-card-tag>
   </ng-template>
   <div class="col-12">
     <button

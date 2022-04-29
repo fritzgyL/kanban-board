@@ -1,3 +1,4 @@
+import { Assignation } from "../assignation/assignation";
 import { Tag } from "../tag/tag";
 
 export class Card {
@@ -10,4 +11,5 @@ export class Card {
     description: string = ""
     position: number = 0
     tags: Tag[] = []
+    assignations: Assignation[] = [];
 }

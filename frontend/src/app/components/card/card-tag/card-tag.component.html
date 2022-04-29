@@ -16,4 +16,9 @@
     id="labelColor"
   />
 </div>
-<button class="btn btn-primary" (click)="onAddTag()">Add</button>
+<div *ngIf="operation === 'create'; else elseBlock">
+  <button class="btn btn-primary" (click)="onAddTag()">Add</button>
+</div>
+<ng-template #elseBlock>
+  <button class="btn btn-primary" (click)="onUpdateTag()">Update</button>
+</ng-template>

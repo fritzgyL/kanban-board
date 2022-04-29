@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
@@ -38,6 +38,11 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { HoverClassDirective } from './hover-class.directive';
 import { ErrorContainerComponent } from './components/error-container/error-container.component';
 import { CardTagComponent } from './components/card/card-tag/card-tag.component';
+import { UserService } from './services/user.service';
+import { CardAssignationsComponent } from './components/card/card-assignations/card-assignations.component';
+import { AvatarModule } from 'ngx-avatar';
+import { AvatarComponent } from './components/avatar/avatar.component';
+import { CardAddMembersComponent } from './components/card/card-add-members/card-add-members.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +71,9 @@ import { CardTagComponent } from './components/card/card-tag/card-tag.component'
     HoverClassDirective,
     ErrorContainerComponent,
     CardTagComponent,
+    CardAssignationsComponent,
+    AvatarComponent,
+    CardAddMembersComponent,
 
   ],
   imports: [
@@ -75,7 +83,8 @@ import { CardTagComponent } from './components/card/card-tag/card-tag.component'
     FormsModule,
     NgbModule,
     ColorPickerModule,
-    DragDropModule
+    DragDropModule,
+    AvatarModule
   ],
   providers: [
     BoardService,
@@ -84,8 +93,10 @@ import { CardTagComponent } from './components/card/card-tag/card-tag.component'
     LinkPreviewService,
     CacheInterceptor,
     AuthStore,
-    CustomDatePickerAdapter
+    CustomDatePickerAdapter,
+    UserService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
