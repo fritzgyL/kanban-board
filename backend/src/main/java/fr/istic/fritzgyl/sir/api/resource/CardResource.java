@@ -40,7 +40,6 @@ public class CardResource {
 			@ApiResponse(responseCode = "404", description = "Card not found") })
 	public Card updateCard(@Parameter(required = true) @PathParam("cardId") long cardId,
 			@Parameter(description = "The updated card resource", schema = @Schema(implementation = Card.class), required = true) Card card) {
-		System.out.println(card);
 		Card currentCard = cardService.getCard(cardId);
 		if (currentCard != null) {
 			String title = card.getTitle();
