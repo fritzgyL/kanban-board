@@ -1,7 +1,7 @@
 package fr.istic.fritzgyl.sir.api.service;
 
 import fr.istic.fritzgyl.sir.api.domain.Assignation;
-import fr.istic.fritzgyl.sir.api.dto.AssignationDTO;
+import fr.istic.fritzgyl.sir.api.dto.AssignationPostDTO;
 import fr.istic.fritzgyl.sir.api.repository.AssignationRepository;
 
 public class AssignationService {
@@ -24,7 +24,8 @@ public class AssignationService {
 		return this.assignationRepository.findAllByCardIdAndUserId(cardId, userId);
 	}
 
-	public Assignation addAssignation(AssignationDTO assignation) {
+	public Assignation addAssignation(AssignationPostDTO assignation) {
+		System.out.println(assignation);
 		return this.assignationRepository.addAssignation(assignation.getCardId(), assignation.getUserId());
 	}
 

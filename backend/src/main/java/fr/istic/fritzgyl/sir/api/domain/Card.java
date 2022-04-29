@@ -10,7 +10,6 @@ import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,11 +39,11 @@ public class Card {
 	private Date deadline;
 	@Column(name = "estimated_time")
 	private int estimatedTime;
-	@OneToMany(mappedBy = "card", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "card", cascade = { CascadeType.ALL })
 	@XmlTransient
 	@Schema(hidden = true)
 	private List<Tag> tags = new ArrayList<Tag>();
-	@OneToMany(mappedBy = "card", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "card", cascade = { CascadeType.ALL })
 	@XmlTransient
 	@Schema(hidden = true)
 	private Set<Assignation> assignations = new HashSet<Assignation>();

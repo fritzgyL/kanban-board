@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Assignation } from 'src/app/models/assignation/assignation';
 import { Card } from 'src/app/models/card/card';
 import { Tag } from 'src/app/models/tag/tag';
 @Injectable({
@@ -27,6 +28,9 @@ export class CardService {
     return this.httpClient.get<Card>(`${this.baseUrl}/cards/${id}`).subscribe((card) => {
       this.httpClient.get<Tag[]>(`${this.baseUrl}/cards/${card.id}/tags`).subscribe((tags) => {
         card.tags = tags;
+        this.getAssignationsForCard(card.id).subscribe((assignations) => {
+          card.assignations = assignations;
+        })
         this.selectedCard$.next(card);
       });
     })
@@ -38,6 +42,22 @@ export class CardService {
 
   deleteCard(card: Card) {
     return this.httpClient.delete(`${this.baseUrl}/cards/${card.id}`);
+  }
+
+  addTag(cardId: number, payload: object) {
+    return this.httpClient.post(`${this.baseUrl}/cards/${cardId}/tags`, payload);
+  }
+
+  getAssignationsForCard(cardId: number) {
+    return this.httpClient.get<Assignation[]>(`${this.baseUrl}/assignations?cardId=${cardId}`);
+  }
+
+  assignUserToCard(assignation: any) {
+    return this.httpClient.post(`${this.baseUrl}/assignations`, assignation)
+  }
+
+  deleteAssignation(assignationId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/assignations/${assignationId}`)
   }
 
   getCard() {

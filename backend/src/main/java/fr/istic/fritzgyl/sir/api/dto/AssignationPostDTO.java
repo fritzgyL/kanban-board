@@ -1,6 +1,6 @@
 package fr.istic.fritzgyl.sir.api.dto;
 
-public class AssignationDTO {
+public class AssignationPostDTO {
 
 	private long userId;
 	private long cardId;

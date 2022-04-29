@@ -7,7 +7,6 @@ import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +35,7 @@ public class Section {
 	@XmlTransient
 	@Schema(hidden = true)
 	private Board board;
-	@OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
 	@XmlTransient
 	@Schema(hidden = true)
 	private List<Card> cards = new ArrayList<Card>();
@@ -86,8 +85,8 @@ public class Section {
 	}
 
 	public void removeCard(Card card) {
-		cards.remove(card);
 		card.setSection(null);
+		cards.remove(card);
 	}
 
 	public List<Link> getLinks() {

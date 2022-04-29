@@ -78,6 +78,7 @@ public class BoardResource {
 		}
 		return board;
 	}
+	
 
 	@GET
 	@Path("/{boardId}/sections")

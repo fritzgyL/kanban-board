@@ -1,7 +1,14 @@
 <button
+  placement="auto"
+  [autoClose]="'outside'"
+  [ngbPopover]="updateTag"
+  popoverTitle="Tags"
   class="btn btn-primary"
   [style.background-color]="tag.color + '!important'"
   [style.border-color]="tag.color + '!important'"
 >
   {{ tag.title }}
 </button>
+<ng-template #updateTag>
+  <app-card-tag operation="update" [tag]="tag"></app-card-tag>
+</ng-template>
