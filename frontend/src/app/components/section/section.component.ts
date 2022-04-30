@@ -98,13 +98,15 @@ export class SectionComponent implements OnInit {
     if (cards.length > 0) {
       await Promise.all(
         cards.map(async (card) => {
-          card.position++;
+          const payload = Object.assign({}, card);
+          delete payload.id;
+          payload.position++;
           await lastValueFrom(this.cardService.updateCard(card.id!, card));
         })
       );
     }
-
   }
+
   async updateCardsPositionsByArrayIndex(cards: Card[]) {
     if (cards.length > 0) {
       await Promise.all(
@@ -128,10 +130,27 @@ export class SectionComponent implements OnInit {
     const card = event.item.data;
     const oldSectionId = parseInt(event.previousContainer.element.nativeElement.dataset['id']!, 10);
     const newSectionId = parseInt(event.container.element.nativeElement.dataset['id']!, 10);
-    const newSectionData = event.container.data;
+    const newSectionData = JSON.parse(JSON.stringify(event.container.data));
     const oldSectionData = event.previousContainer.data;
-    const itemsToUpdate = newSectionData.slice(event.currentIndex + 1);
-    await this.updateCardsPositionsByPosition(itemsToUpdate).then(() => {
+    const itemsToUpdate = newSectionData.splice(event.currentIndex + 1);
+    const promise1 = await this.deleteCard(card);
+    const promise2 = await this.updateOldSection(oldSectionData);
+    const promise3 = await this.updateNewSection(itemsToUpdate);
+    await Promise.all([promise1, promise2, promise3]).then(async () => {
+      this.cardService.readCard(card.id!)
+      delete card.id;
+      card.position = event.currentIndex;
+      console.log(card);
+      await lastValueFrom(this.cardService.createCard(card, newSectionId)).then(async () => {
+        await Promise.all(
+          [await lastValueFrom(this.sectionService.readSectionCards(oldSectionId)),
+          await lastValueFrom(this.sectionService.readSectionCards(newSectionId))]
+        )
+      })
+    })
+
+    /**
+     *     await this.updateCardsPositionsByPosition(itemsToUpdate).then(() => {
       this.cardService.deleteCard(card).subscribe(async () => {
         await this.updateCardsPositionsByArrayIndex(oldSectionData).then(() => {
           card.position = event.currentIndex;
@@ -145,6 +164,27 @@ export class SectionComponent implements OnInit {
         })
       })
     })
+     */
+
   }
 
+
+  private async deleteCard(card: Card) {
+    await lastValueFrom(this.cardService.deleteCard(card));
+  }
+
+  private async updateOldSection(cards: Card[]) {
+    await this.updateCardsPositionsByArrayIndex(cards);
+  }
+
+  private async updateNewSection(cards: Card[]) {
+    await this.updateCardsPositionsByPosition(cards);
+  }
+
+
+
 }
+function structuredClone(data: Card[]) {
+  throw new Error('Function not implemented.');
+}
+

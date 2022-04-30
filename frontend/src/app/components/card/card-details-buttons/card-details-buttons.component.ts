@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from 'src/app/models/card/card';
+import { BoardService } from 'src/app/services/board/board-service.service';
 import { CardService } from 'src/app/services/card/card-service.service';
 @Component({
   selector: 'app-card-details-buttons',
@@ -10,7 +11,7 @@ export class CardDetailsButtonsComponent implements OnInit {
 
   card: Card = new Card();
   cardLink: string = '';
-  constructor(private cardService: CardService) {
+  constructor(private cardService: CardService, private boardService: BoardService) {
 
   }
 
@@ -25,6 +26,7 @@ export class CardDetailsButtonsComponent implements OnInit {
     updatedCard.deadline = date;
     this.cardService.updateCard(updatedCard.id!, updatedCard).subscribe((card) => {
       this.cardService.readCard(card.id!);
+      this.boardService.loadBoard();
     });
   }
 
@@ -35,6 +37,7 @@ export class CardDetailsButtonsComponent implements OnInit {
       this.cardService.updateCard(updatedCard.id!, updatedCard).subscribe((card) => {
         this.cardLink = '';
         this.cardService.readCard(card.id!);
+        this.boardService.loadBoard();
       });
     }
   }
