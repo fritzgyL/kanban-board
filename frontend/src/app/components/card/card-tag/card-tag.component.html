@@ -20,5 +20,12 @@
   <button class="btn btn-primary" (click)="onAddTag()">Add</button>
 </div>
 <ng-template #elseBlock>
-  <button class="btn btn-primary" (click)="onUpdateTag()">Update</button>
+  <button class="btn btn-primary" (click)="onUpdateTag()">Update</button> <br />
+  <button
+    class="btn btn-danger"
+    (click)="onDeleteTag()"
+    style="margin-top: 0.5rem"
+  >
+    Delete
+  </button>
 </ng-template>
