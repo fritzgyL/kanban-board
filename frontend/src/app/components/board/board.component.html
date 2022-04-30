@@ -3,23 +3,22 @@
     <div class="col-12">
       <p
         (click)="this.isUpdating = true"
-        *ngIf="!isUpdating; else elseBlock"
         class="board-title font-weight-bold"
+        [hidden]="isUpdating"
         hover-class="btn btn-light"
         id="updateBtn"
       >
         {{ board.title }}
       </p>
-      <ng-template #elseBlock>
-        <div class="form-group">
-          <input
-            #updateInput
-            type="text"
-            class="form-control"
-            [(ngModel)]="newBoardTitle"
-          />
-        </div>
-      </ng-template>
+      <div class="form-group">
+        <input
+          #updateInput
+          type="text"
+          class="form-control"
+          [hidden]="!isUpdating"
+          [(ngModel)]="newBoardTitle"
+        />
+      </div>
     </div>
   </div>
   <div class="row" cdkDropListGroup>
