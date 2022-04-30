@@ -19,8 +19,8 @@ Users can signup and make use of all the basic functionalities of an agile kanba
 
 
 ## Releases (Academic)
-- For the expected release on tuesay march 8th of the backend (practical work #1, #2 and #5), get the release v1.2.0 in the releases section of this GitHub repository.
-- Final release (backend + frontend) on april 30th, get the release v1.4.0.
+- For the expected release on tuesay march 8th of the backend(practical work #1, #2 and #5), get the release v1.2.0 in the releases section of this GitHub repository.
+- Final release (backend + frontend) on april 30th, get the latest stable release(v1.4.0).
 
     
 ## License
