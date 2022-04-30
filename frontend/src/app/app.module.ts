@@ -43,6 +43,7 @@ import { CardAssignationsComponent } from './components/card/card-assignations/c
 import { AvatarModule } from 'ngx-avatar';
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { CardAddMembersComponent } from './components/card/card-add-members/card-add-members.component';
+import { SuccessContainerComponent } from './components/success-container/success-container.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { CardAddMembersComponent } from './components/card/card-add-members/card
     CardAssignationsComponent,
     AvatarComponent,
     CardAddMembersComponent,
+    SuccessContainerComponent,
 
   ],
   imports: [
