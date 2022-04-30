@@ -29,9 +29,11 @@ export class BoardService {
   }
 
   loadBoards(userId: number) {
-    this.httpClient.get<Board[]>(`${this.baseUrl}/users/${userId}/boards`).subscribe((boards) => {
-      this.boards$.next(boards);
-    })
+    if (userId !== undefined) {
+      this.httpClient.get<Board[]>(`${this.baseUrl}/users/${userId}/boards`).subscribe((boards) => {
+        this.boards$.next(boards);
+      })
+    }
   }
 
   loadBoard() {
