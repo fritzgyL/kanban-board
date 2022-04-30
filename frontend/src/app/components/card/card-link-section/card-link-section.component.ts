@@ -38,8 +38,8 @@ export class CardLinkSectionComponent implements OnInit {
   onRemoveCardLink() {
     const updatedCard = this.card;
     updatedCard.url = '';
-    this.cardService.updateCard(updatedCard).subscribe(() => {
-      this.cardService.readCard(updatedCard.id);
+    this.cardService.updateCard(updatedCard.id!, updatedCard).subscribe(() => {
+      this.cardService.readCard(updatedCard.id!);
     })
   }
 

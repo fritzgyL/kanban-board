@@ -23,15 +23,15 @@
             </thead>
             <tbody>
               <tr *ngFor="let board of boards">
-                <th scope="row">{{ board.id }}</th>
+                <th scope="row">{{ board.id! }}</th>
                 <td>{{ board.title }}</td>
                 <td>
-                  <a routerLink="/board/{{ board.id }}"
+                  <a routerLink="/board/{{ board.id! }}"
                     ><button class="btn btn-primary">
                       <i class="fas fa-eye"></i></button
                   ></a>
                   <button
-                    (click)="onDeleteBoard(board.id)"
+                    (click)="onDeleteBoard(board.id!)"
                     class="btn btn-danger"
                   >
                     <i class="fas fa-trash"></i>

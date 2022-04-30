@@ -33,16 +33,16 @@ export class CardTagComponent implements OnInit {
 
   onAddTag() {
     if (this.pickedColor !== '' && this.labelTitle !== '') {
-      this.cardService.addTag(this.selectedCard!.id, { title: this.labelTitle, color: this.pickedColor }).subscribe(() => {
-        this.cardService.readCard(this.selectedCard!.id);
+      this.cardService.addTag(this.selectedCard!.id!, { title: this.labelTitle, color: this.pickedColor }).subscribe(() => {
+        this.cardService.readCard(this.selectedCard!.id!);
       });
     }
   }
 
   onUpdateTag() {
     if (this.pickedColor !== '' && this.labelTitle !== '') {
-      this.cardService.updateTag(this.selectedCard!.id, { title: this.labelTitle, color: this.pickedColor }).subscribe(() => {
-        this.cardService.readCard(this.selectedCard!.id);
+      this.cardService.updateTag(this.selectedCard!.id!, { title: this.labelTitle, color: this.pickedColor }).subscribe(() => {
+        this.cardService.readCard(this.selectedCard!.id!);
       });
     }
   }
@@ -50,7 +50,7 @@ export class CardTagComponent implements OnInit {
   onDeleteTag() {
     if (confirm("Are you sure you want to delete this tag?")) {
       this.cardService.deleteTag(this.tag!.id).subscribe(() => {
-        this.cardService.readCard(this.selectedCard!.id);
+        this.cardService.readCard(this.selectedCard!.id!);
       });
     }
   }

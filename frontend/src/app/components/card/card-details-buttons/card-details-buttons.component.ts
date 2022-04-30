@@ -23,8 +23,8 @@ export class CardDetailsButtonsComponent implements OnInit {
   updateDueDate(date: string) {
     const updatedCard = this.card;
     updatedCard.deadline = date;
-    this.cardService.updateCard(updatedCard).subscribe((card) => {
-      this.cardService.readCard(card.id);
+    this.cardService.updateCard(updatedCard.id!, updatedCard).subscribe((card) => {
+      this.cardService.readCard(card.id!);
     });
   }
 
@@ -32,9 +32,9 @@ export class CardDetailsButtonsComponent implements OnInit {
     if (this.cardLink !== '') {
       const updatedCard = this.card;
       updatedCard.url = this.cardLink;
-      this.cardService.updateCard(updatedCard).subscribe((card) => {
+      this.cardService.updateCard(updatedCard.id!, updatedCard).subscribe((card) => {
         this.cardLink = '';
-        this.cardService.readCard(card.id);
+        this.cardService.readCard(card.id!);
       });
     }
   }

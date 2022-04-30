@@ -26,9 +26,9 @@ export class CardService {
 
   readCard(id: number) {
     return this.httpClient.get<Card>(`${this.baseUrl}/cards/${id}`).subscribe((card) => {
-      this.httpClient.get<Tag[]>(`${this.baseUrl}/cards/${card.id}/tags`).subscribe((tags) => {
+      this.httpClient.get<Tag[]>(`${this.baseUrl}/cards/${card.id!}/tags`).subscribe((tags) => {
         card.tags = tags;
-        this.getAssignationsForCard(card.id).subscribe((assignations) => {
+        this.getAssignationsForCard(card.id!).subscribe((assignations) => {
           card.assignations = assignations;
         })
         this.selectedCard$.next(card);
@@ -36,12 +36,12 @@ export class CardService {
     })
   }
 
-  updateCard(card: Card) {
-    return this.httpClient.put<Card>(`${this.baseUrl}/cards/${card.id}`, card);
+  updateCard(cardId: number, card: Card) {
+    return this.httpClient.put<Card>(`${this.baseUrl}/cards/${cardId}`, card);
   }
 
   deleteCard(card: Card) {
-    return this.httpClient.delete(`${this.baseUrl}/cards/${card.id}`);
+    return this.httpClient.delete(`${this.baseUrl}/cards/${card.id!}`);
   }
 
   addTag(cardId: number, payload: object) {

@@ -54,10 +54,10 @@ export class CardAddMembersComponent implements OnInit {
   async onAssignMember(member: User) {
     const assignation = {
       "userId": member.id,
-      "cardId": this.selectedCard.id
+      "cardId": this.selectedCard.id!
     }
     await lastValueFrom(this.cardService.assignUserToCard(assignation)).then(() => {
-      this.cardService.readCard(this.selectedCard.id);
+      this.cardService.readCard(this.selectedCard.id!);
       this.searchedMember = '';
       this.filteredMembers = [];
     });

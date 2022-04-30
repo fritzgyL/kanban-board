@@ -37,7 +37,7 @@ export class AuthStore {
 
     signup(user: User): Observable<User> {
         return this.http.post<User>(`${this.baseUrl}/signup`, user).pipe(
-            tap(user => this.subject.next(user)),
+            //tap(user => this.subject.next(user)),
             shareReplay()
         );
     }

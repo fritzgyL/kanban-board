@@ -54,7 +54,7 @@ export class BoardComponent implements OnInit {
     if (this.newSectionTitle != '') {
       const section = new Section();
       section.title = this.newSectionTitle;
-      this.boardService.addSection(section, this.board.id).subscribe(() => {
+      this.boardService.addSection(section, this.board.id!).subscribe(() => {
         this.boardService.loadBoard();
         this.addingSection = false;
         this.newSectionTitle = '';

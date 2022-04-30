@@ -29,7 +29,7 @@ export class CardAssignationsComponent implements OnInit {
 
   async onUnassignUser(assignationId: number) {
     await lastValueFrom(this.cardService.deleteAssignation(assignationId)).then(() => {
-      this.cardService.readCard(this.selectedCard.id);
+      this.cardService.readCard(this.selectedCard.id!);
     });
   }
 

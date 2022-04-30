@@ -34,7 +34,7 @@ export class CardComponent implements OnInit {
   }
 
   onSelectCard() {
-    this.cardService.setSelectedId(this.card.id);
+    this.cardService.setSelectedId(this.card.id!);
     this.openModal();
   }
 

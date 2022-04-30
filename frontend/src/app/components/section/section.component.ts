@@ -82,7 +82,7 @@ export class SectionComponent implements OnInit {
     const mCard = card;
     mCard.position = position;
     if (this.section.id === sectionId) {
-      this.cardService.updateCard(mCard).subscribe(() => {
+      this.cardService.updateCard(mCard.id!, mCard).subscribe(() => {
         this.getSectionCards();
       });
     } else {
@@ -99,7 +99,7 @@ export class SectionComponent implements OnInit {
       await Promise.all(
         cards.map(async (card) => {
           card.position++;
-          await lastValueFrom(this.cardService.updateCard(card));
+          await lastValueFrom(this.cardService.updateCard(card.id!, card));
         })
       );
     }
@@ -109,8 +109,10 @@ export class SectionComponent implements OnInit {
     if (cards.length > 0) {
       await Promise.all(
         cards.map(async (card, index) => {
-          card.position = index;
-          await lastValueFrom(this.cardService.updateCard(card));
+          const payload = Object.assign({}, card);
+          delete payload.id;
+          payload.position = index;
+          await lastValueFrom(this.cardService.updateCard(card.id!, payload));
         })
       );
     }
