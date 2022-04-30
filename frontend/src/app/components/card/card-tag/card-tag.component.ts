@@ -40,7 +40,19 @@ export class CardTagComponent implements OnInit {
   }
 
   onUpdateTag() {
-    console.log('hey');
+    if (this.pickedColor !== '' && this.labelTitle !== '') {
+      this.cardService.updateTag(this.selectedCard!.id, { title: this.labelTitle, color: this.pickedColor }).subscribe(() => {
+        this.cardService.readCard(this.selectedCard!.id);
+      });
+    }
+  }
+
+  onDeleteTag() {
+    if (confirm("Are you sure you want to delete this tag?")) {
+      this.cardService.deleteTag(this.tag!.id).subscribe(() => {
+        this.cardService.readCard(this.selectedCard!.id);
+      });
+    }
   }
 
 }

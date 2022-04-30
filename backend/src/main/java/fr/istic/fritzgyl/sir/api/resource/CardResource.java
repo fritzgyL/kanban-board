@@ -46,14 +46,9 @@ public class CardResource {
 			if (title != null) {
 				currentCard.setTitle(title);
 			}
-
 			String description = card.getDescription();
 			if (description != null) {
 				currentCard.setDescription(description);
-			}
-			int estimatedTime = card.getEstimatedTime();
-			if (estimatedTime != 0) {
-				currentCard.setEstimatedTime(estimatedTime);
 			}
 			String location = card.getLocation();
 			if (location != null) {
@@ -64,7 +59,7 @@ public class CardResource {
 				currentCard.setUrl(url);
 			}
 			currentCard.setDeadline(card.getDeadline());
-			
+
 			currentCard.setPosition(card.getPosition());
 
 			return cardService.updateCard(currentCard);

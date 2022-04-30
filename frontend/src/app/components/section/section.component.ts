@@ -55,7 +55,7 @@ export class SectionComponent implements OnInit {
   }
 
   onDeleteSection() {
-    if (confirm("Are you sure?")) {
+    if (confirm("Are you sure you want to delete this section?")) {
       this.boardService.deleteSection(this.section.id).subscribe(() => {
         this.boardService.loadBoard();
       })
