@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h4>Login</h4>
+    <h4>Log in</h4>
   </div>
   <div class="card-body">
     <app-error-container
@@ -15,6 +15,7 @@
         id="email"
         class="form-control"
         placeholder="john.doe@gmail.com"
+        required
       />
     </div>
     <div class="form-group">
@@ -24,8 +25,14 @@
         type="password"
         id="password"
         class="form-control"
+        required
       />
     </div>
     <button (click)="onLogin()" class="btn btn-primary">Login</button>
+
+    <div style="margin-top: 1rem">
+      <span class="text-muted"> Don't have an account? </span>
+      <span class="btn btn-link" (click)="onClickToSignUp()">Sign up</span>
+    </div>
   </div>
 </div>
