@@ -37,8 +37,6 @@ public class Card {
 	private String title;
 	@JsonFormat(pattern = "yyyy-M-dd", timezone = "Europe/Zagreb")
 	private Date deadline;
-	@Column(name = "estimated_time")
-	private int estimatedTime;
 	@OneToMany(mappedBy = "card", cascade = { CascadeType.ALL })
 	@XmlTransient
 	@Schema(hidden = true)
@@ -87,14 +85,6 @@ public class Card {
 
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
-	}
-
-	public int getEstimatedTime() {
-		return estimatedTime;
-	}
-
-	public void setEstimatedTime(int estimatedTime) {
-		this.estimatedTime = estimatedTime;
 	}
 
 	public String getLocation() {
@@ -179,9 +169,9 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", title=" + title + ", deadline=" + deadline + ", estimatedTime=" + estimatedTime
-				+ ", tags=" + tags + ", location=" + location + ", url=" + url + ", description=" + description
-				+ ", section=" + section + ", position=" + position + "]";
+		return "Card [id=" + id + ", title=" + title + ", deadline=" + deadline + ", tags=" + tags + ", location="
+				+ location + ", url=" + url + ", description=" + description + ", section=" + section + ", position="
+				+ position + "]";
 	}
 
 }

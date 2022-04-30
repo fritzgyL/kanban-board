@@ -48,16 +48,24 @@ export class CardService {
     return this.httpClient.post(`${this.baseUrl}/cards/${cardId}/tags`, payload);
   }
 
+  updateTag(tagId: number, payload: object) {
+    return this.httpClient.put(`${this.baseUrl}/tags/${tagId}`, payload);
+  }
+
+  deleteTag(tagId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/tags/${tagId}`);
+  }
+
   getAssignationsForCard(cardId: number) {
     return this.httpClient.get<Assignation[]>(`${this.baseUrl}/assignations?cardId=${cardId}`);
   }
 
   assignUserToCard(assignation: any) {
-    return this.httpClient.post(`${this.baseUrl}/assignations`, assignation)
+    return this.httpClient.post(`${this.baseUrl} / assignations`, assignation)
   }
 
   deleteAssignation(assignationId: number) {
-    return this.httpClient.delete(`${this.baseUrl}/assignations/${assignationId}`)
+    return this.httpClient.delete(`${this.baseUrl} / assignations / ${assignationId}`)
   }
 
   getCard() {
