@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user/user';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -19,8 +20,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onLogin() {
-    if (this.email !== '' && this.password !== '') {
+  onLogin(f: NgForm) {
+    if (f.valid) {
       const user = new User();
       user.email = this.email;
       user.password = this.password;
