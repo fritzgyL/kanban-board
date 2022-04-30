@@ -59,9 +59,7 @@ public class CardResource {
 				currentCard.setUrl(url);
 			}
 			currentCard.setDeadline(card.getDeadline());
-
 			currentCard.setPosition(card.getPosition());
-
 			return cardService.updateCard(currentCard);
 		} else {
 			return null;

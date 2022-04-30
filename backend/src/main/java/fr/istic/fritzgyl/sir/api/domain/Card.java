@@ -20,6 +20,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -48,6 +51,7 @@ public class Card {
 	private String location;
 	private String url;
 	private String description;
+	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne
 	@JoinColumn(name = "section_id", nullable = false)
 	@XmlTransient
@@ -56,7 +60,6 @@ public class Card {
 	@Transient
 	@Schema(accessMode = AccessMode.READ_ONLY)
 	private List<Link> links = new ArrayList<>();
-	@Column(unique = true)
 	private int position;
 
 	public Card() {
