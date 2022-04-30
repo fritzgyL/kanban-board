@@ -16,7 +16,7 @@ create database kanban_board
 5. Server is running by default on port 8080
 
 ## Documentation
-When server is running, API OpenAPI documentation can be seen at the following URL: http://localhost:8080/api/#/
+When server is running, API OpenAPI documentation can be found at the following URL: http://localhost:8080/api/#/
 
 
 
