@@ -48,8 +48,8 @@ export class ViewCardComponent implements OnInit {
     if (this.newCardTitle != '' && this.newCardTitle != this.card.title) {
       let newCard = this.card;
       newCard.title = this.newCardTitle;
-      this.cardService.updateCard(newCard).subscribe((card) => {
-        this.cardService.readCard(card.id);
+      this.cardService.updateCard(newCard.id!, newCard).subscribe((card) => {
+        this.cardService.readCard(card.id!);
         this.boardService.loadBoard();
         this.isUpdating = false;
         this.newCardTitle = this.card.title;

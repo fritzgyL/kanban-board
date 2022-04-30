@@ -5,6 +5,7 @@ import { Card } from 'src/app/models/card/card';
 import { CardService } from 'src/app/services/card/card-service.service';
 import { Renderer2 } from '@angular/core';
 import { SectionService } from 'src/app/services/section/section.service';
+import { BoardService } from 'src/app/services/board/board-service.service';
 @Component({
   selector: 'app-card-modal-title',
   templateUrl: './card-modal-title.component.html',
@@ -20,7 +21,7 @@ export class CardModalTitleComponent implements OnInit {
   isUpdating: boolean = false;
   newCardTitle: string = '';
 
-  constructor(private cardService: CardService, private sectionService: SectionService, private renderer: Renderer2) {
+  constructor(private cardService: CardService, private sectionService: SectionService, private boardService: BoardService, private renderer: Renderer2) {
     this.cardService.getCard().subscribe((card) => {
       this.card = card;
       this.newCardTitle = this.card.title;
@@ -49,8 +50,9 @@ export class CardModalTitleComponent implements OnInit {
     if (this.newCardTitle != '' && this.newCardTitle != this.card.title) {
       let newCard = this.card;
       newCard.title = this.newCardTitle;
-      this.cardService.updateCard(newCard).subscribe((card) => {
-        this.cardService.readCard(card.id);
+      this.cardService.updateCard(newCard.id!, newCard).subscribe((card) => {
+        this.cardService.readCard(card.id!);
+        this.boardService.loadBoard();
         this.isUpdating = false;
         this.newCardTitle = this.card.title;
       })

@@ -1,0 +1,23 @@
+<div class="row">
+  <div *ngFor="let assignation of assignations" class="col-md-3 col-xs-12">
+    <ngx-avatar
+      (clickOnAvatar)="onClickOnAvatar({$event})"
+      class="my-avatar"
+      [name]="
+        assignation.assigneeFirstName + ' ' + assignation.assigneeLastName
+      "
+      [ngbPopover]="assignationDetail"
+      triggers="click"
+      [autoClose]="'outside'"
+      placement="auto"
+    >
+      ></ngx-avatar
+    >
+    <ng-template #assignationDetail>
+      <p>{{ selectedAssigneeFullName }}</p>
+      <button class="btn btn-danger" (click)="onUnassignUser(assignation.id!)">
+        Remove from card
+      </button>
+    </ng-template>
+  </div>
+</div>

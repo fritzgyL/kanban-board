@@ -21,7 +21,7 @@ export class CardDetailsComponent implements OnInit {
   }
 
   onDelete() {
-    if (confirm('Delete this card?')) {
+    if (confirm('Are you sure you want to delete this card?')) {
       this.cardService.deleteCard(this.card).subscribe(response => {
         this.boardService.loadBoard();
         this.closeParentModal();

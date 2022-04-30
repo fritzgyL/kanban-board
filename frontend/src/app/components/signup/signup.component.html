@@ -1,1 +1,141 @@
-<p>signup works!</p>
+<div class="card">
+  <div class="card-header">
+    <h4>Sign up</h4>
+  </div>
+  <div class="card-body">
+    <app-error-container
+      *ngIf="isSignUpFailed"
+      message="Authentication failed"
+    ></app-error-container>
+    <app-success-container
+      *ngIf="isSignUpSuccessful"
+      message="Your account has been successfully created. Please log in."
+    >
+    </app-success-container>
+    <form #signupForm="ngForm" (ngSubmit)="onSignUp(signupForm)">
+      <div class="form-group">
+        <label
+          for="email"
+          [class.text-danger]="
+            firstNameControl.invalid && firstNameControl.touched
+          "
+          >First name</label
+        >
+        <input
+          [(ngModel)]="firstName"
+          type="text"
+          id="firstName"
+          name="firstName"
+          class="form-control"
+          [class.is-invalid]="
+            firstNameControl.invalid && firstNameControl.touched
+          "
+          placeholder="John"
+          required
+          #firstNameControl="ngModel"
+        />
+        <span
+          class="text-danger"
+          *ngIf="firstNameControl.invalid && firstNameControl.touched"
+          >First name is required</span
+        >
+      </div>
+      <div class="form-group">
+        <label
+          for="email"
+          [class.text-danger]="
+            lastNameControl.invalid && lastNameControl.touched
+          "
+          >Last name</label
+        >
+        <input
+          [(ngModel)]="lastName"
+          type="text"
+          id="lastName"
+          name="lastName"
+          class="form-control"
+          [class.is-invalid]="
+            lastNameControl.invalid && lastNameControl.touched
+          "
+          placeholder="Doe"
+          required
+          #lastNameControl="ngModel"
+        />
+        <span
+          class="text-danger"
+          *ngIf="lastNameControl.invalid && lastNameControl.touched"
+          >Last name is required</span
+        >
+      </div>
+      <div class="form-group">
+        <label
+          for="email"
+          [class.text-danger]="emailControl.invalid && emailControl.touched"
+          >Email address</label
+        >
+        <input
+          [(ngModel)]="email"
+          type="text"
+          id="email"
+          name="email"
+          class="form-control"
+          [class.is-invalid]="emailControl.invalid && emailControl.touched"
+          placeholder="john.doe@gmail.com"
+          required
+          email
+          #emailControl="ngModel"
+        />
+        <span
+          class="text-danger"
+          *ngIf="emailControl.invalid && emailControl.touched"
+          >Email is required</span
+        >
+      </div>
+      <div class="form-group">
+        <label
+          for="password"
+          [class.text-danger]="
+            passwordControl.invalid && passwordControl.touched
+          "
+          >Password</label
+        >
+        <input
+          [(ngModel)]="password"
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          [class.is-invalid]="
+            passwordControl.invalid && passwordControl.touched
+          "
+          placeholder="At least 8 characters"
+          required
+          minlength="8"
+          #passwordControl="ngModel"
+        />
+        <div *ngIf="passwordControl.invalid && passwordControl.touched">
+          <div *ngIf="passwordControl.errors?.['required']" class="text-danger">
+            Password is required
+          </div>
+          <div
+            *ngIf="passwordControl.errors?.['minlength']"
+            class="text-danger"
+          >
+            Password must be at least 4 characters long.
+          </div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="signupForm.invalid"
+      >
+        Sign up
+      </button>
+      <div style="margin-top: 1rem">
+        <span class="text-muted"> Already have an account? </span>
+        <span class="btn btn-link" (click)="onClickToLogin()">Log in</span>
+      </div>
+    </form>
+  </div>
+</div>

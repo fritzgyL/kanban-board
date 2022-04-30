@@ -1,5 +1,10 @@
-<div *ngIf="false" class="row">
-  <div class="col-12">members</div>
+<div *ngIf="card.assignations && card.assignations.length > 0" class="row">
+  <div class="col-12">
+    <small>Members</small>
+    <app-card-assignations
+      [assignations]="card.assignations"
+    ></app-card-assignations>
+  </div>
 </div>
 <div *ngIf="card.deadline != null" class="row">
   <div class="col-12"><app-deadline-button></app-deadline-button></div>

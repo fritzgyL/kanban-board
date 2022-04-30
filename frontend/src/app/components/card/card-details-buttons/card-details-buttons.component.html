@@ -1,13 +1,35 @@
 <div class="row">
+  <ng-template #addMembers>
+    <app-card-add-members></app-card-add-members>
+  </ng-template>
   <div class="col-12">
-    <button class="btn btn-light">
+    <button
+      class="btn btn-light"
+      placement="auto"
+      [autoClose]="'outside'"
+      [ngbPopover]="addMembers"
+      popoverTitle="Members"
+    >
       <i class="fa-solid fa-user"></i> Members
     </button>
   </div>
 </div>
 <div class="row">
+  <ng-template #addLabels>
+    <app-card-tag operation="create"></app-card-tag>
+  </ng-template>
   <div class="col-12">
-    <button class="btn btn-light"><i class="fa-solid fa-tag"></i> Tags</button>
+    <button
+      class="btn btn-light"
+      type="button"
+      class="btn btn-light"
+      placement="auto"
+      [autoClose]="'outside'"
+      [ngbPopover]="addLabels"
+      popoverTitle="Labels"
+    >
+      <i class="fa-solid fa-tag"></i> Labels
+    </button>
   </div>
 </div>
 <div *ngIf="card.deadline == null" class="row">
@@ -21,17 +43,38 @@
     <button
       type="button"
       class="btn btn-light"
-      placement="left"
+      placement="auto"
       [autoClose]="'outside'"
       [ngbPopover]="datePicker"
-      popoverTitle="Add a due date"
+      popoverTitle="Dates"
     >
-      <i class="fa-solid fa-clock"></i> Due date
+      <i class="fa-solid fa-clock"></i> Dates
     </button>
   </div>
 </div>
 <div *ngIf="card.url == ''" class="row">
+  <ng-template #addLinkForm>
+    <div class="form-group">
+      <label for="cardLink">Attach a link</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cardLink"
+        [(ngModel)]="cardLink"
+        placeholder="Paste any link here..."
+      />
+    </div>
+    <button class="btn btn-primary" (click)="onAddLink()">Add link</button>
+  </ng-template>
   <div class="col-12">
-    <button class="btn btn-light"><i class="fa-solid fa-link"></i> Link</button>
+    <button
+      placement="auto"
+      [autoClose]="'outside'"
+      [ngbPopover]="addLinkForm"
+      popoverTitle="Attach from..."
+      class="btn btn-light"
+    >
+      <i class="fa-solid fa-link"></i> Attachment
+    </button>
   </div>
 </div>

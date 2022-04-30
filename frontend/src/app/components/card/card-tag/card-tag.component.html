@@ -1,0 +1,31 @@
+<div class="form-group">
+  <label for="labelTitle">Name</label>
+  <input
+    type="text"
+    class="form-control"
+    id="labelTitle"
+    [(ngModel)]="labelTitle"
+  />
+</div>
+<div class="form-group">
+  <label for="labelColor">Select a color</label>
+  <input
+    [(colorPicker)]="pickedColor"
+    [style.background]="pickedColor"
+    class="form-control"
+    id="labelColor"
+  />
+</div>
+<div *ngIf="operation === 'create'; else elseBlock">
+  <button class="btn btn-primary" (click)="onAddTag()">Add</button>
+</div>
+<ng-template #elseBlock>
+  <button class="btn btn-primary" (click)="onUpdateTag()">Update</button> <br />
+  <button
+    class="btn btn-danger"
+    (click)="onDeleteTag()"
+    style="margin-top: 0.5rem"
+  >
+    Delete
+  </button>
+</ng-template>

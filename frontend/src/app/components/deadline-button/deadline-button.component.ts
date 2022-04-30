@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbDate, NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { Card } from 'src/app/models/card/card';
+import { BoardService } from 'src/app/services/board/board-service.service';
 import { CardService } from 'src/app/services/card/card-service.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { CardService } from 'src/app/services/card/card-service.service';
 })
 export class DeadlineButtonComponent implements OnInit {
   card: Card = new Card();
-  constructor(private cardService: CardService) { }
+  constructor(private cardService: CardService, private boardService: BoardService) { }
 
   ngOnInit(): void {
     this.cardService.getCard().subscribe((card) => {
@@ -21,9 +22,9 @@ export class DeadlineButtonComponent implements OnInit {
   updateDueDate(date: string | null, popover: NgbPopover) {
     const updatedCard = this.card;
     updatedCard.deadline = date;
-    console.log(updatedCard);
-    this.cardService.updateCard(updatedCard).subscribe((card) => {
-      this.cardService.readCard(card.id);
+    this.cardService.updateCard(updatedCard.id!, updatedCard).subscribe((card) => {
+      this.cardService.readCard(card.id!);
+      this.boardService.loadBoard();
       popover.close();
     });
   }

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -36,7 +36,14 @@ import { CardDateComponent } from './components/card-date/card-date.component';
 import { CustomDatePickerAdapter } from './services/date-formatter.service';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { HoverClassDirective } from './hover-class.directive';
-
+import { ErrorContainerComponent } from './components/error-container/error-container.component';
+import { CardTagComponent } from './components/card/card-tag/card-tag.component';
+import { UserService } from './services/user.service';
+import { CardAssignationsComponent } from './components/card/card-assignations/card-assignations.component';
+import { AvatarModule } from 'ngx-avatar';
+import { AvatarComponent } from './components/avatar/avatar.component';
+import { CardAddMembersComponent } from './components/card/card-add-members/card-add-members.component';
+import { SuccessContainerComponent } from './components/success-container/success-container.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +69,14 @@ import { HoverClassDirective } from './hover-class.directive';
     LoginComponent,
     SignupComponent,
     CardDateComponent,
-    HoverClassDirective
+    HoverClassDirective,
+    ErrorContainerComponent,
+    CardTagComponent,
+    CardAssignationsComponent,
+    AvatarComponent,
+    CardAddMembersComponent,
+    SuccessContainerComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -70,8 +84,9 @@ import { HoverClassDirective } from './hover-class.directive';
     AppRoutingModule,
     FormsModule,
     NgbModule,
-    ColorPickerModule
-
+    ColorPickerModule,
+    DragDropModule,
+    AvatarModule
   ],
   providers: [
     BoardService,
@@ -80,8 +95,10 @@ import { HoverClassDirective } from './hover-class.directive';
     LinkPreviewService,
     CacheInterceptor,
     AuthStore,
-    CustomDatePickerAdapter
+    CustomDatePickerAdapter,
+    UserService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

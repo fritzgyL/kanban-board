@@ -38,10 +38,10 @@ export class BoardService {
     this.selectedId$.subscribe((id) => {
       if (id != null) {
         this.httpClient.get<Board>(`${this.baseUrl}/boards/${id}`).subscribe((board) => {
-          this.httpClient.get<Section[]>(`${this.baseUrl}/boards/${board.id}/sections`).subscribe((sections) => {
+          this.httpClient.get<Section[]>(`${this.baseUrl}/boards/${board.id!}/sections`).subscribe((sections) => {
             const mBoard = new Board();
             mBoard.title = board.title;
-            mBoard.id = board.id;
+            mBoard.id! = board.id!;
             mBoard.sections = sections;
             this.selectedBoard$.next(mBoard);
           });
@@ -80,7 +80,7 @@ export class BoardService {
   }
 
   updateBoard(board: Board) {
-    this.httpClient.put<Board>(`${this.baseUrl}/boards/${board.id}`, board).subscribe(() => {
+    this.httpClient.put<Board>(`${this.baseUrl}/boards/${board.id!}`, board).subscribe(() => {
       this.loadBoard();
     });
   }

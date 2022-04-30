@@ -10,7 +10,6 @@ import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +19,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -38,19 +40,18 @@ public class Card {
 	private String title;
 	@JsonFormat(pattern = "yyyy-M-dd", timezone = "Europe/Zagreb")
 	private Date deadline;
-	@Column(name = "estimated_time")
-	private int estimatedTime;
-	@OneToMany(mappedBy = "card", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "card", cascade = { CascadeType.ALL })
 	@XmlTransient
 	@Schema(hidden = true)
 	private List<Tag> tags = new ArrayList<Tag>();
-	@OneToMany(mappedBy = "card", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "card", cascade = { CascadeType.ALL })
 	@XmlTransient
 	@Schema(hidden = true)
 	private Set<Assignation> assignations = new HashSet<Assignation>();
 	private String location;
 	private String url;
 	private String description;
+	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne
 	@JoinColumn(name = "section_id", nullable = false)
 	@XmlTransient
@@ -59,6 +60,7 @@ public class Card {
 	@Transient
 	@Schema(accessMode = AccessMode.READ_ONLY)
 	private List<Link> links = new ArrayList<>();
+	private int position;
 
 	public Card() {
 	}
@@ -86,14 +88,6 @@ public class Card {
 
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
-	}
-
-	public int getEstimatedTime() {
-		return estimatedTime;
-	}
-
-	public void setEstimatedTime(int estimatedTime) {
-		this.estimatedTime = estimatedTime;
 	}
 
 	public String getLocation() {
@@ -168,11 +162,19 @@ public class Card {
 		links.add(new Link(href, rel));
 	}
 
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", title=" + title + ", deadline=" + deadline + ", estimatedTime=" + estimatedTime
-				+ ", tags=" + tags + ", location=" + location + ", url=" + url + ", description=" + description
-				+ ", section=" + section + "]";
+		return "Card [id=" + id + ", title=" + title + ", deadline=" + deadline + ", tags=" + tags + ", location="
+				+ location + ", url=" + url + ", description=" + description + ", section=" + section + ", position="
+				+ position + "]";
 	}
 
 }

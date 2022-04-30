@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-12">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search members..."
+      [(ngModel)]="searchedMember"
+      (keyup)="onKeyUp()"
+    />
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="filteredMembers.length > 0; else elseBlock">
+      <ul class="list-group">
+        <li
+          (click)="onAssignMember(member)"
+          *ngFor="let member of filteredMembers"
+          class="list-group-item list-group-item-action"
+        >
+          {{ member.firstName }} {{ member.lastName }}
+        </li>
+      </ul>
+    </div>
+    <ng-template #elseBlock>
+      <div *ngIf="searchedMember !== ''" class="border-0">
+        <p>
+          Looks like that person isn't a member yet. He should sign up first.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</div>

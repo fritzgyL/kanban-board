@@ -3,7 +3,7 @@ import { Board } from '../../models/board/board';
 import { ActivatedRoute } from '@angular/router';
 import { Section } from 'src/app/models/section/section';
 import { BoardService } from 'src/app/services/board/board-service.service';
-
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -54,7 +54,7 @@ export class BoardComponent implements OnInit {
     if (this.newSectionTitle != '') {
       const section = new Section();
       section.title = this.newSectionTitle;
-      this.boardService.addSection(section, this.board.id).subscribe(() => {
+      this.boardService.addSection(section, this.board.id!).subscribe(() => {
         this.boardService.loadBoard();
         this.addingSection = false;
         this.newSectionTitle = '';

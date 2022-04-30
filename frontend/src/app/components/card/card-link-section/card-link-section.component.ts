@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Card } from 'src/app/models/card/card';
 import { LinkPreview } from 'src/app/models/link-preview/link-preview';
+import { BoardService } from 'src/app/services/board/board-service.service';
 import { CardService } from 'src/app/services/card/card-service.service';
 import { LinkPreviewService } from 'src/app/services/link-preview.service';
 
@@ -14,13 +15,13 @@ export class CardLinkSectionComponent implements OnInit {
   card: Card = new Card;
   linkPreview: LinkPreview = new LinkPreview();
 
-  constructor(private cardService: CardService, private linkPreviewService: LinkPreviewService) { }
+  constructor(private cardService: CardService, private linkPreviewService: LinkPreviewService, private boardService: BoardService) { }
 
   ngOnInit(): void {
     this.cardService.getCard().subscribe((card) => {
       if (card != null) {
         this.card = card;
-        //this.getLinkPreview();
+        this.getLinkPreview();
       }
     })
   }
@@ -33,6 +34,15 @@ export class CardLinkSectionComponent implements OnInit {
 
   onNavigateToLink() {
     location.href = this.linkPreview.url;
+  }
+
+  onRemoveCardLink() {
+    const updatedCard = this.card;
+    updatedCard.url = '';
+    this.cardService.updateCard(updatedCard.id!, updatedCard).subscribe(() => {
+      this.cardService.readCard(updatedCard.id!);
+      this.boardService.loadBoard();
+    })
   }
 
 }

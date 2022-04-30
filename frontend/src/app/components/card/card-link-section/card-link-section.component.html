@@ -24,7 +24,11 @@
           <ng-template #elseBlock>{{ card.url }}</ng-template>
           <div>
             <p>{{ linkPreview.description }}</p>
-            <p><a href="" class="link-secondary">Retirer</a></p>
+            <p>
+              <button href="" class="btn btn-link" (click)="onRemoveCardLink()">
+                Remove
+              </button>
+            </p>
           </div>
         </div>
       </div>

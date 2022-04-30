@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from 'src/app/models/card/card';
+import { BoardService } from 'src/app/services/board/board-service.service';
 import { CardService } from 'src/app/services/card/card-service.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class CardDescriptionComponent implements OnInit {
   isUpdating: boolean = false;
   card: Card = new Card();
   textareaText: string = '';
-  constructor(private cardService: CardService) { }
+  constructor(private cardService: CardService, private boardService: BoardService) { }
 
   ngOnInit(): void {
     this.cardService.getCard().subscribe((card) => {
@@ -28,11 +29,8 @@ export class CardDescriptionComponent implements OnInit {
   }
 
   setTextareaText() {
-    if (this.card.description != '') {
+    if (this.card.description !== '') {
       this.textareaText = this.card.description;
-    }
-    else {
-      this.textareaText = this.MY_CONSTANT;
     }
   }
 
@@ -40,8 +38,9 @@ export class CardDescriptionComponent implements OnInit {
     if (this.textareaText != this.MY_CONSTANT) {
       let newCard = this.card;
       newCard.description = this.textareaText;
-      this.cardService.updateCard(newCard).subscribe((card) => {
-        this.cardService.readCard(card.id);
+      this.cardService.updateCard(newCard.id!, newCard).subscribe((card) => {
+        this.cardService.readCard(card.id!);
+        this.boardService.loadBoard();
       });
       this.isUpdating = false;
       this.setTextareaText();
